@@ -1,0 +1,46 @@
+img {
+	position: absolute;
+	display: inline-block;
+	width: 35%;
+	margin: auto;
+}
+
+.wrapper {
+	position: relative;
+	display: block;
+	height: 400px;
+}
+
+#music-d {
+	left: 0;
+	right: 0;
+	width: 40%;
+	top: -50px;
+}
+
+#home-d {
+	left: 50px;
+}
+
+#tour-d {
+	right: 50px;
+}
+
+#music-m {
+	left: 0px;
+	width: 40%;
+}
+
+#tour-m {
+	left: 200px;
+	top: 50px;
+}
+
+p {
+	font-family: helvetica;
+	font-weight: lighter;
+	position: absolute;
+	width: 600px;
+	left: 700px;
+	top: 550px;
+}
