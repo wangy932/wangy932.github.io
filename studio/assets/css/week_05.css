@@ -1,0 +1,12 @@
+body {
+	margin: 0;
+}
+
+.layout {
+	width: 33%;
+	display: inline-block;
+}
+
+#codepen {
+	width: 100%;
+}
