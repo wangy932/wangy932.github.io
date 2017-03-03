@@ -1,0 +1,48 @@
+body {
+	background-color: black;
+}
+
+h1 {
+	position: absolute;
+	top: 15px;
+	left: 54%;
+	font-size: 24px;
+	font-family: 'Crimson Text', serif;
+	color: white;
+	z-index: 2;
+}
+
+h2 {
+	position: absolute;
+	top: 60px;
+	left: 54%;
+	font-size: 16px;
+	font-family: 'Crimson Text', serif;
+	font-weight: lighter;
+	color: white;
+	opacity: 0.7;
+}
+
+img {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+}
+
+#bodytext {
+	position: absolute;
+	top: 115px;
+	width: 40%;
+	height: calc(100% - 150px);
+	left: 54%;
+	overflow: scroll;
+}
+
+p {
+	font-family: 'Crimson Text', serif;
+	line-height: 122%;
+	color: white;
+	opacity: 0.9;
+}
+
