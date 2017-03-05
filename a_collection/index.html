@@ -41,14 +41,20 @@
 				<!--<div id="infobox_bg"></div>-->
 			</div> <!--infobox-->
 
-			<div id="pause_button"></div>
+			<div id="player_button">
+				<div id="button_play" class="current"></div>
+				<div id="button_pause">
+					<div id="b_p_bar1" class="bar"></div>
+					<div id="b_p_bar2" class="bar"></div>
+				</div>
+			</div>
 
 			<div id="nav_bg" class="col col-6of6"></div>
 		</nav>
 		<div id="nav_back" class="col col-6of6"></div>
 
 		<!--home-->
-		<main id="home">
+		<div id="home">
 			<section id="home_bg">
 				<img src="assets/media/img/home/home_bg.jpg" />
 			</section>
@@ -56,7 +62,7 @@
 			<section id="mtvlogo">
 				<img src="assets/media/img/logo/mtv.png" id="mtv" />
 			</section>
-		</main>
+		</div>
 
 		<!--tour-->
 		<main id="tour">
@@ -84,7 +90,7 @@
 			</section>
 
 			<section id="lyricalinfo">
-				<p class="lyrics">
+				<p class="lyrics" data-lyrics="Erinnerung">
 					[Sample]<br>
 					<br>
 					[Verse 1]<br>
@@ -154,9 +160,9 @@
 					Also scheiß auf den Rest, irgendwann kommt der Tag, let's go<br>
 					<br>
 					[Hook]
-				</p><!--Erinnerung-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Chillin">
 					[Part 1: Cro]<br>
 					Yeah (3x)<br>
 					Baby bitte komm und lass uns chillen<br>
@@ -198,9 +204,9 @@
 					Jeder von uns beiden weiß, das Leben ist so schnell vorbei und deshalb lass uns doch so tun als<br>hätten wir für immer Zeit doch irgendwann alles wieder so…<br>
 					<br>
 					[2x Hook: Cro]
-				</p><!--Chillin-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Hi Kids">
 					[Hook]<br>
 					Hi Kids ich bin Carlo<br>
 					Werft den Arm hoch und gebt mir ein "Hallo"<br>
@@ -252,9 +258,9 @@
 					Chill ich einfach weiter, Jogginghose, weiße Zwangsjacke<br>
 					<br>
 					[Hook]
-				</p><!--Hi Kids-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Allein">
 					[Intro]<br>
 					Okay, Baby hör mir zu<br>
 					Ich wache auf und du bist nicht hier<br>
@@ -315,9 +321,9 @@
 					Ganz egal, wo du bist<br>
 					Wenn du mich hörst<br>
 					Meld dich!
-				</p><!--Allein-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Bad Chick">
 					[Intro]<br>
 					Ich sag ja, ja, ja du bist die schönste Frau der Welt<br>
 					Und nein, ist schon okay wenn du das auch bestellst<br>
@@ -391,9 +397,9 @@
 					- "Ey ganz ehrlich..."<br>
 					"Da kann ich doch nix dafür wenn die meinen Wecker einfach umstell von 9... auf 10... oder auf 11"<br>
 					- "Boah bitte, werd' endlich mal erwachsen."
-				</p><!--Bad Chick-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Lange her (feat. Max Herre und Teesy)">
 					[Hook]<br>
 					Wir haben uns lange nicht gesehen<br>
 					Ich wollte nur fragen wie’s dir geht<br>
@@ -441,9 +447,9 @@
 					Und jeder lebt sein Leben weiter wie bisher<br>
 					<br>
 					[Hook] 2x
-				</p><!--Lange her (feat. Max Herre und Teesy)-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Wir waren hier">
 					[Refrain:]<br>
 					Wenn sich morgen uns're Welt nicht mehr dreht<br>
 					Die Sonne nicht mehr scheint<br>
@@ -502,9 +508,9 @@
 					Denn: Wir waren hier! Wir waren hier!<br>
 					<br>
 					Wir waren hier! Wir waren hier!
-				</p><!--Wir waren hier-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Hey Girl">
 					[Verse 1]<br>
 					Ey wärst du Kellnerin dann wär ich nur in Bars<br>
 					Und wärst du ein Dealer hätt' ich jede Menge Gras<br>
@@ -550,9 +556,9 @@
 					[Hook] (2x)<br>
 					<br>
 					Egal... egal...
-				</p><!--Hey Girl-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Millionär (feat. Die Prinzen)">
 					Refrain:<br>
 					Ich wär' so gerne Millionär<br>
 					Dann war mein Konto niemals leer<br>
@@ -599,9 +605,9 @@
 					Und schwimm' in meinem Geld!<br>
 					<br>
 					Geld,Geld,Geld...
-				</p><!--Millionär (feat. Die Prinzen)-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Einmal um die Welt (feat. Die Prinzen)">
 					[Hook :]<br>
 					Baby bitte mach dir nie mehr Sorgen um Geld<br>
 					Gib mir nur deine Hand ich kauf dir Morgen die Welt<br>
@@ -644,9 +650,9 @@
 					Gib mir nur deine Hand ich kauf dir Morgen die Welt<br>
 					Egal wohin du willst wir fliegen um die Welt<br>
 					Haun' sofort wieder ab, wenn es dir hier nicht gefällt
-				</p><!--Einmal um die Welt (feat. Die Prinzen)-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Melodie">
 					[Verse 1]<br>
 					Ey yo, ich hab' so das Gefühl dieser Tag heut wird dope<br>
 					Reiß alle Fenster raus und dann dreh die Mucke auf<br>
@@ -685,9 +691,9 @@
 					[Bridge]<br>
 					<br>
 					[Hook] (11x)
-				</p><!--Melodie-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Rennen">
 					[Verse 1]<br>
 					Ich komme nach Haus und werf' mich auf mein Bett<br>
 					Mal wieder mal'n hektischer Tag<br>
@@ -736,9 +742,9 @@
 					Ist unter diesem Lied bestimmt schon ganz genau das Gleiche<br>
 					<br>
 					[Hook] (2x)
-				</p><!--Rennen-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Ein Teil">
 					[Part 1]<br>
 					Jeder Anfang endet irgendwann<br>
 					Doch irgendwann kam viel zu schnell<br>
@@ -780,9 +786,9 @@
 					Doch ich will nur dass du weißt:<br>
 					<br>
 					[Hook]
-				</p><!--Ein Teil-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Jeder Tag">
 					[1. Strophe]<br>
 					Es is' Sommer, irgendwo am Meer<br>
 					Alles cool, denn die Sorgen liegen fern<br>
@@ -826,9 +832,9 @@
 					Will ich, dass du weißt und immer daran denkst:<br>
 					<br>
 					[Hook]
-				</p><!--Jeder Tag-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Meine Gang (feat. Dajuan)">
 					[Hook] (2x)<br>
 					Alles was ich brauch ist meine Gang, meine Gang<br>
 					Denn keiner kennt mich so wie meine Crew, Crew, Crew<br>
@@ -882,9 +888,9 @@
 					[Hook] (2x)<br>
 					<br>
 					[Bridge] (2x)
-				</p><!--Meine Gang (feat. Dajuan)-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Wir waren hier 2">
 					[Part 1]<br>
 					Ich werd' alle Sorgen heute liegen lassen<br>
 					Und höre nur noch Lieder die mich fliegen lassen<br>
@@ -914,9 +920,9 @@
 					Denn:<br>
 					<br>
 					[2x Hook]
-				</p><!--Wir waren hier 2-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Whatever">
 					[Intro]<br>
 					Das war mit Abstand die schlimmste Woche<br>
 					Die ich in meinem Leben je hatte<br>
@@ -994,9 +1000,9 @@
 					Ich will nicht mehr heim<br>
 					Denn mir ist scheißegal, was morgen kommt<br>
 					Ich heb' mein Glas und schrei' …
-				</p><!--Whatever-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Easy">
 					Easy, ea ea, mh mh<br>
 					Easy, ea ea, mh mh<br>
 					<br>
@@ -1060,9 +1066,9 @@
 					<br>
 					Easy, ea ea, mh mh<br>
 					Easy, ea ea, mh mh
-				</p><!--Easy-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Bye Bye">
 					[Part 1: "Er"]<br>
 					Es ist ein unglaublich schöner Tag<br>
 					Und draußen ist es warm<br>
@@ -1156,9 +1162,9 @@
 					Und ja, wir beide werden uns nie wieder sehen<br>
 					Kann schon sein, dass man sich im Leben zweimal begegnet<br>
 					Doch es beim zweiten Mal dann einfach zu spät ist
-				</p><!--Bye Bye-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Du">
 					[Part 1]<br>
 					Sie sagt, sie würde gern ans Meer, mal wieder weg von hier<br>
 					Ist egal wohin, einfach weit weit weg und der Stress bleibt hier<br>
@@ -1238,9 +1244,9 @@
 					[Outro]<br>
 					Baby, glaub mir, das Beste, du<br>
 					Baby, glaub mir, das Beste, du
-				</p><!--Du-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Traum">
 					[Verse 1]<br>
 					Yeah, Baby nimm' meine Hand, ich hab alles schon gepackt<br>
 					Komm wir beide gehen weg von hier<br>
@@ -1318,9 +1324,9 @@
 					Und egal wie laut ich schrei sie hört mich nicht<br>
 					Doch sie ist grade irgendwo und denkt vielleicht an mich<br>
 					Hey Baby bitte schreib wenn es dich gibt
-				</p><!--Traum-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Vielleicht">
 					Haaa ooh oohh<br>
 					Hey yeaah mm<br>
 					Yeaah heyeah<br>
@@ -1381,9 +1387,9 @@
 					Yeah<br>
 					(ooohh pap-para)<br>
 					(ooohh)
-				</p><!--Vielleicht-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Never Cro Up">
 					[Sample]<br>
 					"If growing up means<br>
 					It would be beneath my dignity to climb a tree<br>
@@ -1450,9 +1456,9 @@
 					Cause I...<br>
 					<br>
 					[Hook/Sample]<br>
-				</p><!--Never Cro Up-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="Cop Love">
 					[Verse 1]<br>
 					Es ist wieder mal 'ne Samstag-Nacht doch ich cruise durch die City<br>
 					Hab nur ne Schrottkarre, denn der Bruce hat den Caddy<br>
@@ -1497,9 +1503,9 @@
 					Hat die Bluse nicht an, sie schmusen und dann<br>
 					Verdammt diese Wut macht mich krank<br>
 					Du hast doch ihre Nummer, ey ich glaub ich ruf sie mal an
-				</p><!--Cop Love-->
-				<!--
-				<p class="lyrics">
+				</p>
+
+				<p class="lyrics" data-lyrics="8 km／h (feat. Haftbefehl)">
 					[Part 1: Cro]<br>
 					Ich bin wieder irgendwo, aber nicht daheim<br>
 					(Jap) Egal, wo ich bin, werd ich nicht lange sein<br>
@@ -1551,152 +1557,99 @@
 					H-A-F-T im AMG-Paket<br>
 					<br>
 					[Hook: Cro]
-				</p><!--8 km／h (feat. Haftbefehl)-->
-			</section>
-<!--
-			<section id="audio">
-			<!--
-				<audio src="assets/media/audio/music/Cro - Erinnerung.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Chillin.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Hi Kids.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Allein.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Bad Chick.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Lange her (feat. Max Herre und Teesy).mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Wir waren hier.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Hey Girl.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Millionär (feat. Die Prinzen).mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Einmal um die Welt (feat. Die Prinzen).mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Melodie.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Rennen.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Ein Teil.mp3"></audio>				
-				<audio src="assets/media/audio/music/Cro - Jeder Tag.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Meine Gang (feat. Dajuan).mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Wir waren hier 2.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Whatever.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Easy.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Bye Bye.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Du.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Traum.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Vielleicht.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Never Cro Up.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - Cop Love.mp3"></audio>
-				<audio src="assets/media/audio/music/Cro - 8 km／h (feat. Haftbefehl).mp3"></audio>
-			</section> <!--audio-->
+				</p>
+			</section><!--lyricalinfo-->
 
-			<section id="m_playlist">
+			<section id="m_playlist" class="col col-1of6">
 				<div id="songlist">
-					<div class="sn_bg sn_current">
-						<h2 class="songname">Erinnerung</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Chillin</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Hi Kids</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Allein</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Bad Chick</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Lange her (feat. Max Herre und Teesy)</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Wir waren hier</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Hey Girl</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Millionär (feat. Die Prinzen)</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Einmal um die Welt (feat. Die Prinzen)</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Melodie</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Rennen</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Ein Teil</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Jeder Tag</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Meine Gang (feat. Dajuan)</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Wir waren hier 2</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Whatever</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Easy</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Bye Bye</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Du</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Traum</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Vielleicht</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Never Cro Up</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">Cop Love</h2>
-					</div>
-					<div class="sn_bg">
-						<h2 class="songname">8 km／h (feat. Haftbefehl)</h2>
-					</div>
+					<h2 class="songname">Erinnerung</h2>
+					<h2 class="songname">Chillin</h2>
+					<h2 class="songname">Hi Kids</h2>
+					<h2 class="songname">Allein</h2>
+					<h2 class="songname">Bad Chick</h2>
+					<h2 class="songname">Lange her (feat. Max Herre und Teesy)</h2>
+					<h2 class="songname">Wir waren hier</h2>
+					<h2 class="songname">Hey Girl</h2>
+					<h2 class="songname">Millionär (feat. Die Prinzen)</h2>
+					<h2 class="songname">Einmal um die Welt (feat. Die Prinzen)</h2>
+					<h2 class="songname">Melodie</h2>
+					<h2 class="songname">Rennen</h2>
+					<h2 class="songname">Ein Teil</h2>
+					<h2 class="songname">Jeder Tag</h2>
+					<h2 class="songname">Meine Gang (feat. Dajuan)</h2>
+					<h2 class="songname">Wir waren hier 2</h2>
+					<h2 class="songname">Whatever</h2>
+					<h2 class="songname">Easy</h2>
+					<h2 class="songname">Bye Bye</h2>
+					<h2 class="songname">Du</h2>
+					<h2 class="songname">Traum</h2>
+					<h2 class="songname">Vielleicht</h2>
+					<h2 class="songname">Never Cro Up</h2>
+					<h2 class="songname">Cop Love</h2>
+					<h2 class="songname">8 km／h (feat. Haftbefehl)</h2>
 				</div>
-				<div id="m_playlist_bg"></div>
+
+				<audio src="#" id="song"></audio>
+
+				<div id="m_control"></div>
 			</section><!--m_playlist-->
 		</main>
 
 		<!--video-->
 		<main id="video">
 			<section id=“v_player”>
-				<iframe src="http://www.youtube.com/embed/8WQMBv2deYQ" class="video"></iframe><!--Traum-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/PySC3RGhZJU" class="video"></iframe><!--Bad Chick-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/u2pySXCmwpc" class="video"></iframe><!--Einmal um die Welt-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/4wOoLLDXbDY class="video"></iframe><!--Easy-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/SAXAYhqfXIc" class="video"></iframe><!--Meine Gang-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/huBNgxolXFo" class="video"></iframe><!--Bye Bye-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/vGrfFzagzHs" class="video"></iframe><!--Whatever-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/TKEA_oMD0PM" class="video"></iframe><!--Hey Girl-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/ZV4fONSDFUQ" class="video"></iframe><!--Du-->
-				<!--
-				<iframe src="http://www.youtube.com/embed/xkHzvhzwDGM" class="video"></iframe><!--Melodie-->
+				<iframe src="http://www.youtube.com/embed/PySC3RGhZJU" class="video" data-video="Bad Chick"></iframe>
+				<iframe src="http://www.youtube.com/embed/TKEA_oMD0PM" class="video" data-video="Hey Girl"></iframe>
+				<iframe src="http://www.youtube.com/embed/u2pySXCmwpc" class="video" data-video="Einmal um die Welt"></iframe>
+				<iframe src="http://www.youtube.com/embed/xkHzvhzwDGM" class="video" data-video="Melodie"></iframe>
+				<iframe src="http://www.youtube.com/embed/SAXAYhqfXIc" class="video" data-video="Meine Gang"></iframe>
+				<iframe src="http://www.youtube.com/embed/vGrfFzagzHs" class="video" data-video="Whatever"></iframe>
+				<iframe src="http://www.youtube.com/embed/4wOoLLDXbDY" class="video" data-video="Easy"></iframe>
+				<iframe src="http://www.youtube.com/embed/huBNgxolXFo" class="video" data-video="Bye Bye"></iframe>
+				<iframe src="http://www.youtube.com/embed/ZV4fONSDFUQ" class="video" data-video="Du"></iframe>
+				<iframe src="http://www.youtube.com/embed/8WQMBv2deYQ" class="video" data-video="Traum"></iframe>
 			</section>
 
-			<section id="v_playlist" class="col col-6of6">
-				<div id="v_playlist_current" class="col col-1of6">
-					<div class="v_preview v_current"></div>
+			<section id="v_playlist" class="col col-2of6">
+				<div id="v_playlist_current" class="col col-3of6">
+					<div id="v_playing" class="v_preview"></div>
+					<div id="v_control"></div>
 				</div>
-				<div id="v_playlist_inline" class="col col-1of6">
-					<div class="v_preview v_inline"></div>
+				<div id="v_playlist_inline" class="col col-3of6">
+					<div id="v_line">
+						<div class="v_preview">
+							<img src="assets/media/img/video/Bad Chick.jpg" class="preview_pic" data-preview="Bad Chick" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Hey Girl.jpg" class="preview_pic" data-preview="Hey Girl" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Einmal um die Welt.jpg" class="preview_pic" data-preview="Einmal um die Welt" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Melodie.jpg" class="preview_pic" data-preview="Melodie" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Meine Gang.jpg" class="preview_pic" data-preview="Meine Gang" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Whatever.jpg" class="preview_pic" data-preview="Whatever" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Easy.jpg" class="preview_pic" data-preview="Easy" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Bye Bye.jpg" class="preview_pic" data-preview="Bye Bye" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Du.jpg" class="preview_pic" data-preview="Du" />
+						</div>
+						<div class="v_preview">
+							<img src="assets/media/img/video/Traum.jpg" class="preview_pic" data-preview="Traum" />
+						</div>
+					</div>
+					<div id="v_line_bg"></div>
 				</div>
-				<div id="v_playlist_bg"></div>
 			</section> <!--v_playlist-->
 		</main>
 
