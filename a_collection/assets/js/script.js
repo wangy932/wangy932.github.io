@@ -52,6 +52,33 @@ navBack.addEventListener("click", function() {
 	}
 });
 
+//section_indicate
+jacks.addEventListener("mouseover", function(e) {
+	if (!section[e.target.dataset.section].classList.contains("current")) {
+		for (var i=0; i<section.length; i++) {
+			if (section[i].classList.contains("current")) {
+				names[i].classList.remove("current");
+			}
+		}
+		names[e.target.dataset.section].classList.add("current");
+	}
+	jack[e.target.dataset.section].style.animation = "indicate linear 2s infinite";
+	names[e.target.dataset.section].style.animation = "hint linear 2s infinite";
+});
+
+jacks.addEventListener("mouseout", function(e) {
+	if (!section[e.target.dataset.section].classList.contains("current")) {
+		for (var i=0; i<section.length; i++) {
+			if (section[i].classList.contains("current")) {
+				names[i].classList.add("current");
+			}
+		}
+		names[e.target.dataset.section].classList.remove("current");
+	}
+	jack[e.target.dataset.section].style.animation = "";
+	names[e.target.dataset.section].style.animation = "";
+});
+
 //section_switch
 jacks.addEventListener("click", function(e) {
 	if (section[e.target.dataset.section].classList.contains("current")) {

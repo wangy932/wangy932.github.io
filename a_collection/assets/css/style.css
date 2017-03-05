@@ -70,6 +70,18 @@ body {
 	}
 }
 
+@keyframes indicate {
+	0% {
+		background-color: #757575;
+	}
+	50% {
+		background-color: lightgrey;
+	}
+	100% {
+		background-color: #757575;
+	}
+}
+
 @keyframes rtt {
 	0% {
 		transform: rotate(0deg);
@@ -267,7 +279,7 @@ main.current, #home.current {
 	margin: 0;
 	color: #3395AF;
 	z-index: 4;
-	transition: opacity 0.5s;
+	transition: opacity 1s;
 }
 
 /*general section setting*/
