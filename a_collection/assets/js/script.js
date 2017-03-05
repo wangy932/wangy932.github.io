@@ -5,12 +5,15 @@ var nav = document.getElementById("nav");
 	buttonPlay = document.getElementById("button_play");
 	buttonPause = document.getElementById("button_pause");
 	bar = document.getElementsByClassName("bar");
+	mtvMini = document.getElementById("mtv_mini");
+	mtv = document.getElementById("mtv");
 
 //section
 var section = document.getElementsByTagName("main");
 	jacks = document.getElementById("jacks");
 	jack = document.getElementsByClassName("jack");
-	name = document.getElementsByClassName("name");
+	names = document.getElementsByClassName("name");
+	home = document.getElementById("home");
 
 //music
 var mControl = document.getElementById("m_control");
@@ -37,6 +40,7 @@ navBack.addEventListener("click", function() {
 		for (var i=0; i<section.length; i++) {
 			section[i].style.height = "calc(100% - 60px)";
 		}
+		home.style.height = "calc(100% - 60px)";
 	} else {
 		nav.style.transform = "";
 		navBack.style.transform = "";
@@ -44,6 +48,7 @@ navBack.addEventListener("click", function() {
 		for (var i=0; i<section.length; i++) {
 			section[i].style.height = "calc(100% - 105px)";
 		}
+		home.style.height = "calc(100% - 105px)";
 	}
 });
 
@@ -52,18 +57,22 @@ jacks.addEventListener("click", function(e) {
 	if (section[e.target.dataset.section].classList.contains("current")) {
 		section[e.target.dataset.section].classList.remove("current");
 		jack[e.target.dataset.section].classList.remove("current");
-		//name[e.target.dataset.section].classList.remove("current");
+		names[e.target.dataset.section].classList.remove("current");
+		mtvMini.classList.remove("current");
+		home.classList.add("current");
 	} else {
 		for (var i=0; i<section.length; i++) {
 			if (section[i].classList.contains("current")) {
 				section[i].classList.remove("current");
 				jack[i].classList.remove("current");
-				//name[i].classList.remove("current");
+				names[i].classList.remove("current");
 			}
 		}
 		section[e.target.dataset.section].classList.add("current");
 		jack[e.target.dataset.section].classList.add("current");
-		//name[e.target.dataset.section].classList.add("current");
+		names[e.target.dataset.section].classList.add("current");
+		mtvMini.classList.add("current");
+		home.classList.remove("current");
 	}
 
 	if (section[1].classList.contains("current")) {
@@ -103,7 +112,6 @@ vControl.addEventListener("click", function() {
 //play, pause or loop
 playerButton.addEventListener("click", function() {
 	if (lyricalinfo.style.borderLeft) {
-		console.log("hint");
 		if (song.paused) {
 			song.play();
 			buttonPlay.classList.remove("current");
@@ -192,8 +200,6 @@ vLine.addEventListener("click", function(e) {
 			if (video[i].dataset.video == e.target.dataset.preview) {
 				video[i].classList.add("current");
 				vLine.removeChild(e.target.parentNode);
-				//console.log(e.target);
-				//console.log(vPlaying);
 				e.target.classList.add("current");
 				e.target.classList.remove("pic_inline");
 				vPlaying.appendChild(e.target);
@@ -203,11 +209,10 @@ vLine.addEventListener("click", function(e) {
 				vLine.appendChild(vBack);
 				vBack.classList.add("v_preview");
 				var vPre = vPlaying.firstChild;
-				console.log(vPre);
 				vPre.classList.remove("current");
 				vPre.classList.add("pic_inline");
-				vBack.appendChild(vPre);
 				vPlaying.removeChild(vPre);
+				vBack.appendChild(vPre);
 				var j = video[i].src;
 				video[i].src = "#";
 				video[i].src = j;

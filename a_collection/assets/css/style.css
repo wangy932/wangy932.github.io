@@ -36,13 +36,74 @@ body {
 	width: 100%;
 }
 
+/*animation*/
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes breathe {
+	0% {
+		box-shadow: none;
+	}
+	50% {
+		box-shadow: 0 0 6px 2px #3395AF;
+	}
+	100% {
+		box-shadow: none;
+	}
+}
+
+@keyframes hint {
+	0% {
+		opacity: 0.5;
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.5;
+	}
+}
+
+@keyframes rtt {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes video_slidein {
+	0% {
+		transform: translateX(150px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes mtv_mini_slidein {
+	0% {
+		transform: translateX(-250px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
 /*current setting*/
-.current, #songlist.current, #v_playing.current, .video.current {
+.current, .name.current, #songlist.current, #v_playing.current, .video.current {
 	visibility: visible;
 	opacity: 1;
 }
 
-main.current {
+main.current, #home.current {
 	display: block;
 	opacity: 1;
 }
@@ -68,16 +129,13 @@ main.current {
 }
 
 .preview_pic.current {
-	animation: slide ease-in-out 1s;
+	animation: video_slidein ease-in-out 1s;
 }
 
-@keyframes fade {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+#mtv_mini.current {
+	visibility: visible;
+	opacity: 1;
+	animation: mtv_mini_slidein ease-in-out 1s;
 }
 
 /*navigation*/
@@ -148,18 +206,6 @@ main.current {
 	animation: breathe linear 3s infinite;
 }
 
-@keyframes breathe {
-	0% {
-		box-shadow: none;
-	}
-	50% {
-		box-shadow: 0 0 6px 2px #3395AF;
-	}
-	100% {
-		box-shadow: none;
-	}
-}
-
 #button_play {
 	position: relative;
 	visibility: visible;
@@ -199,17 +245,14 @@ main.current {
 	right: 13px;
 }
 
-/*#infobox_bg {
-	width: 100%;
-	height: 100%;
-	background-color: lightgrey;
-}*/
-
-.mini {
+#mtv_mini {
 	position: absolute;
+	visibility: hidden;
+	opacity: 0;
 	left: 50px;
 	top: 10px;
 	width: 50%;
+	transition: opacity 1.5s;
 }
 
 .name {
@@ -228,20 +271,23 @@ main.current {
 }
 
 /*general section setting*/
-#home {
-	display: none;
-}
-
-main {
+main, #home {
 	position: absolute;
 	display: none;
 	opacity: 0;
 	top: 0;
 	width: 100%;
 	height: calc(100% - 105px);
-	overflow: auto;
 	transition: height 1s;
 	animation: fade ease-in-out 0.5s;
+}
+
+main {
+	overflow: auto;
+}
+
+#home {
+	overflow: hidden;
 }
 
 #m_playlist, #v_playlist {
@@ -263,16 +309,34 @@ main {
 	z-index: 4;
 }
 
-@keyframes hint {
-	0% {
-		opacity: 0.5;
-	}
-	50% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0.5;
-	}
+/*home*/
+#home_photo {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+#home_bg {
+	position: absolute;
+	top: -23%;
+	left: -20%;
+	width: 130%;
+}
+
+#mtvlogo {
+	position: absolute;
+	top: 6%;
+	left: 2%;
+}
+
+#mtv {
+	width: 25%;
+	opacity: 0.8;
+	transition: opacity 0.5s;
+}
+
+#mtv:hover {
+	opacity: 1;
 }
 
 /*tour*/
@@ -285,9 +349,17 @@ main {
 }
 
 .tour_bg {
+	cursor: nesw-resize;
 	display: inline-block; 
 	margin: 0 20px;
 	height: 100%;
+	transition: height 0.5s, transform 0.5s;
+}
+
+.tour_bg:active {
+	cursor: default;
+	height: 110%;
+	transform: translateY(-5%);
 }
 
 /*music*/
@@ -300,15 +372,6 @@ main {
 	margin: auto;
 	animation-delay: 2s;
 	z-index: 2;
-}
-
-@keyframes rtt {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
 }
 
 #lyricalinfo {
@@ -399,7 +462,6 @@ main {
 	opacity: 0;
 	left: 40px;
 	transition: opacity 1.5s;
-	transition-delay: 0.5s;
 }
 
 #v_playlist_inline {
@@ -441,25 +503,18 @@ main {
 	overflow: hidden;
 }
 
-@keyframes slide {
-	0% {
-		transform: translateX(150px);
-	}
-	100% {
-		transform: translateX(0);
-	}
-}
-
 .preview_pic {
 	width: 100%;
 }
 
 .pic_inline {
-	transition: width 0.5s;
+	cursor: pointer;
+	transition: width 0.5s, transform 0.5s;
 }
 
 .pic_inline:hover {
 	width: 110%;
+	transform: translate(-5%, -5%);
 }
 
 /*merch*/
