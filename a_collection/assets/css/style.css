@@ -110,7 +110,7 @@ body {
 }
 
 /*current setting*/
-.current, .name.current, #songlist.current, #v_playing.current, .video.current {
+.current, .name.current, #songlist.current, #v_playing.current, .video.current, #mcsite_list.current {
 	visibility: visible;
 	opacity: 1;
 }
@@ -130,7 +130,7 @@ main.current, #home.current {
 	background-color: lightgrey;
 }
 
-.songname.current {
+.songname.current, .mc_site.current {
 	background-color: #3395AF;
 }
 
@@ -182,15 +182,72 @@ main.current, #home.current {
 }
 
 .jack {
-	position: relative;
+	position: absolute;
 	display: inline-block;
 	top: 0;
 	width: 15px;
 	height: 50px;
-	margin: 0 20px 0 0;
-	float: left;
 	background-color: #757575;
 	transition: top 1s, background-color 1s;
+	z-index: 3;
+}
+
+#jack_music {
+	left: 20%;
+}
+
+#jack_video {
+	left: 40%;
+}
+
+#jack_merch {
+	left: 60%;
+}
+
+.plug {
+	position: absolute;
+	display: inline-block;
+	top: 0;
+	left: 4px;
+	width: 7px;
+	height: 45px;
+	background-color: darkgrey;
+	z-index: 2;
+}
+
+#plug_music {
+	left: calc(20% + 4px);
+}
+
+#plug_video {
+	left: calc(40% + 4px);
+}
+
+#plug_merch {
+	left: calc(60% + 4px);
+}
+
+.wire {
+	position: absolute;
+	display: inline-block;
+	top: 45px;
+	left: 6px;
+	width: 3px;
+	height: 60px;
+	background-color: #757575;
+	z-index: 2;
+}
+
+#wire_music {
+	left: calc(20% + 6px);
+}
+
+#wire_video {
+	left: calc(40% + 6px);
+}
+
+#wire_merch {
+	left: calc(60% + 6px);
 }
 
 #infobox {
@@ -302,13 +359,13 @@ main {
 	overflow: hidden;
 }
 
-#m_playlist, #v_playlist {
+#m_playlist, #v_playlist, #mc_list {
 	position: absolute;
 	top: 40%;
 	z-index: 1;
 }
 
-#m_control, #v_control {
+#m_control, #v_control, #mc_control {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -418,7 +475,7 @@ main {
 	cursor: default;
 }
 
-#songlist {
+#songlist, #mcsite_list {
 	position: absolute;
 	visibility: hidden;
 	opacity: 0;
@@ -432,11 +489,11 @@ main {
 	cursor: default;
 }
 
-.songname {
+.songname, .mc_site {
 	position: relative;
 	top: 3px;
 	left: 5px;
-	width: 140px;
+	width: 70%;
 	margin: 0 0 5px;
 	padding: 5px;
 	font-family: futura;
@@ -471,8 +528,8 @@ main {
 
 #v_playing {
 	visibility: hidden;
-	opacity: 0;
 	left: 40px;
+	opacity: 0;
 	transition: opacity 1.5s;
 }
 
@@ -531,50 +588,35 @@ main {
 
 /*merch*/
 #albumseries {
+	position: absolute;
+	top: 10%;
+	left: 20%;
+	width: 60%;
+	height: 80%;
+	z-index: 0;
+	overflow: hidden;
+	transition: box-shadow 1s;
+}
 
+#merch_display {
+	position: absolute;
+	top: 5%;
+	width: 100%;
+	height: 90%;
+	overflow: scroll;
 }
 
 .album_merch {
-	width: 25%;
+	position: relative;
+	opacity: 1;
+	width: calc(100% / 3);
+	transition: opacity 0.5s;
 }
 
-/*home*/
-/*main {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	min-width: 700px;
-	max-width: 1400px;
+.album_merch:hover {
+	opacity: 0.7;
 }
 
-#mtv {
-	position: fixed;
-	top: 20px;
-	left: 10px;
-	z-index: 1;
-	width: 50%;
-}
-
-
-
-/*#jackdock {
-	position: absolute;
-	left: 83.333%;
-	width: 16.666%;
-	height: 100px;
-	z-index: 2;
-}
-
-#jackdock_bg {
-	width: 100%;
-	height: 100%;
-	background-color: grey;
-}
-
-#jack {
-	position: absolute;
-	width: 20px;
-	z-index: 3;
+.mc_link {
+	cursor: default;
 }

@@ -31,6 +31,39 @@ var vControl = document.getElementById("v_control");
 	vPlaylistInline = document.getElementById("v_playlist_inline");
 	video = document.getElementsByClassName("video");
 
+//merch
+var mcControl = document.getElementById("mc_control");
+	mcsiteList = document.getElementById("mcsite_list");
+	mcSite = document.getElementsByClassName("mc_site");
+	mcLink = document.getElementsByClassName("mc_link");
+	albumSeries = document.getElementById("albumseries");
+	amazonLinks = [
+	"https://www.amazon.de/gp/product/B00WVN2700/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN2700&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/gp/product/B00WVN1Y5O/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN1Y5O&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/gp/product/B00WVN297Q/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN297Q&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/gp/product/B00WVN21TC/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN21TC&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/gp/product/B00WVN278C/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN278C&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/gp/product/B00WVN22QO/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1638&creative=6742&creativeASIN=B00WVN22QO&linkCode=as2&tag=wwwchimpera00-21",
+	"https://www.amazon.de/Bye-2-Track-Cro/dp/B00YJKOFTE/"
+	];
+	mediamarktLinks = [
+	"http://www.mediamarkt.de/de/product/_mtv-unplugged-hiphop-blu-ray-1997147.html",
+	"http://www.mediamarkt.de/de/product/_cro-mtv-unplugged-limitiertes-boxset-hiphop-cd-blu-ray-disc-1997144.html",
+	"http://www.mediamarkt.de/de/product/_mtv-unplugged-hiphop-dvd-1997146.html",
+	"http://www.mediamarkt.de/de/product/_cro-mtv-unplugged-limitierte-3-lp-inkl-2-cd-hiphop-lp-bonus-cd-1996407.html",
+	"http://www.mediamarkt.de/de/product/_cro-mtv-unplugged-hiphop-cd-1996406.html",
+	"http://www.mediamarkt.de/de/product/_cro-mtv-unplugged-deluxe-edition-hiphop-cd-1996408.html"
+	];
+	saturnLinks = [
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-hiphop-blu-ray-1997147.html",
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-limitiertes-boxset-hiphop-cd-blu-ray-disc-1997144.html",
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-hiphop-dvd-1997146.html",
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-limitierte-3-lp-inkl-2-cd-hiphop-lp-bonus-cd-1996407.html",
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-hiphop-cd-1996406.html",
+	"http://www.saturn.de/de/product/_cro-mtv-unplugged-deluxe-edition-hiphop-cd-1996408.html"
+	];
+	merchLinks = [amazonLinks, mediamarktLinks, saturnLinks];
+
 //nav_adjust
 navBack.addEventListener("click", function() {
 	if (navBack.style.transform == "") {
@@ -133,6 +166,17 @@ vControl.addEventListener("click", function() {
 		vControl.style.opacity = "1";
 		vPlaying.classList.add("current");
 		vPlaylistInline.classList.add("current");
+	}
+});
+
+mcControl.addEventListener("click", function() {
+	mcControl.style.animation = "";
+	if (mcControl.style.width == "100%") {
+		mcControl.style.width = "25%";
+		mcsiteList.classList.remove("current");
+	} else {
+		mcControl.style.width = "100%";
+		mcsiteList.classList.add("current");
 	}
 });
 
@@ -244,6 +288,42 @@ vLine.addEventListener("click", function(e) {
 				video[i].src = "#";
 				video[i].src = j;
 			}
+		}
+	}
+});
+
+albumSeries.addEventListener("click", function() {
+	for (var i=0; i<mcLink.length; i++) {
+		if (mcLink[i].href == "javascript:void(0)") {
+			mcControl.style.animation = "hint ease-in-out 5s infinite";
+		}
+	}
+});
+
+//merch_switch
+mcsiteList.addEventListener("click", function(e) {
+	mcControl.style.animation = "";
+	if (e.target.classList.contains("mc_site")) {
+		if (e.target.classList.contains("current")) {
+			e.target.classList.remove("current");
+			for (var i=0; i<mcLink.length; i++) {
+				mcLink[i].href = "javascript:void(0)";
+				mcLink[i].style.cursor = "default";
+			}
+			albumSeries.style.boxShadow = "";
+		} else {
+			for (var i=0; i<mcSite.length; i++) {
+				if (mcSite[i].classList.contains("current")) {
+					mcSite[i].classList.remove("current");
+				}
+			}
+			e.target.classList.add("current");
+			for (var i=0; i<mcLink.length; i++) {
+				mcLink[i].href = merchLinks[e.target.dataset.site][i];
+				mcLink[i].style.pointerEvents = "default";
+				mcLink[i].style.cursor = "pointer";
+			}
+			albumSeries.style.boxShadow = "0 0 10px 2px #3395AF";
 		}
 	}
 });

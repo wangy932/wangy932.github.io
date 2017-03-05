@@ -15,16 +15,22 @@
 					<div id="jack_video" class="jack" data-section="2"></div>
 					<div id="jack_merch" class="jack" data-section="3"></div>
 				</div>
-				<div class="wire"></div>
-				<div class="wire"></div>
-				<div class="wire"></div>
-				<div class="wire"></div>
+				<div id="plug_tour" class="plug"></div>
+				<div id="plug_music" class="plug"></div>
+				<div id="plug_video" class="plug"></div>
+				<div id="plug_merch" class="plug"></div>
+				<div id="wire_tour" class="wire"></div>
+				<div id="wire_music" class="wire"></div>
+				<div id="wire_video" class="wire"></div>
+				<div id="wire_merch" class="wire"></div>
 				<div id="jackdock_bg"></div>
 			</div> <!--jackdock-->
 
 			<div id="infobox" class="col col-2of6">
 				<div id="section_info">
-					<img src="assets/media/img/logo/mtv.png" id="mtv_mini" />
+					<a href="http://cromusik.info/" target="_blank">
+						<img src="assets/media/img/logo/mtv.png" id="mtv_mini" />
+					</a>
 					<h1 id="name_tour" class="name">TOUR</h1>
 					<h1 id="name_music" class="name">MUSIC</h1>
 					<h1 id="name_video" class="name">VIDEO</h1>
@@ -59,7 +65,9 @@
 			</section>
 
 			<section id="mtvlogo">
-				<img src="assets/media/img/logo/mtv.png" id="mtv" class="current" />
+				<a href="http://cromusik.info/" target="_blank">
+					<img src="assets/media/img/logo/mtv.png" id="mtv" class="current" />
+				</a>
 			</section>
 		</div>
 
@@ -1655,17 +1663,36 @@
 		<!--merch-->
 		<main id="merch">
 			<section id="albumseries">
-				<img src="assets/media/img/merch/album1.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album2.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album3.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album4.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album5.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album6.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album7.jpg" class="album_merch" />
-				<img src="assets/media/img/merch/album8.jpg" class="album_merch" />
+				<div id="merch_display">
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album1.jpg" class="album_merch" />
+					</a>
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album2.jpg" class="album_merch" />
+					</a>
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album3.jpg" class="album_merch" />
+					</a>
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album4.jpg" class="album_merch" />
+					</a>
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album5.jpg" class="album_merch" />
+					</a>
+					<a href="javascript:void(0)" class="mc_link" target="_blank">
+						<img src="assets/media/img/merch/album7.jpg" class="album_merch" />
+					</a>
+				</div>
 			</section>
 
-			<section id="merch_bg"></section>
+			<section id="mc_list" class="col col-1of6">
+				<div id="mcsite_list">
+					<h2 class="mc_site" data-site="0">Amazon</h2>
+					<h2 class="mc_site" data-site="1">Mediamarkt</h2>
+					<h2 class="mc_site" data-site="2">Saturn</h2>
+				</div>
+				<div id="mc_control"></div>
+			</section>
 		</main>
 		
 		<script type="text/javascript" src="assets/js/script.js"></script>
