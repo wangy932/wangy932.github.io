@@ -155,6 +155,8 @@ songlist.addEventListener("click", function(e) {
 			}
 			lyricalinfo.style.borderLeft = "";
 			lyricalinfo.style.borderRight = "";
+			buttonPlay.classList.add("current");
+			buttonPause.classList.remove("current");
 		} else {
 			for (var i=0; i<songname.length; i++) {
 				if (songname[i].classList.contains("current")) {
@@ -169,6 +171,8 @@ songlist.addEventListener("click", function(e) {
 			e.target.classList.add("current");
 			song.src = "assets/media/audio/music/Cro - " + e.target.innerHTML + ".mp3";
 			song.play();
+			buttonPlay.classList.remove("current");
+			buttonPause.classList.add("current");
 			albumcover.style.animation = "rtt linear 20s infinite";
 			for (var i=0; i<lyrics.length; i++) {
 				if (lyrics[i].dataset.lyrics == e.target.innerHTML) {
