@@ -192,16 +192,22 @@ vLine.addEventListener("click", function(e) {
 			if (video[i].dataset.video == e.target.dataset.preview) {
 				video[i].classList.add("current");
 				vLine.removeChild(e.target.parentNode);
-				console.log(e.target);
-				console.log(vPlaying);
+				//console.log(e.target);
+				//console.log(vPlaying);
+				e.target.classList.add("current");
+				e.target.classList.remove("pic_inline");
 				vPlaying.appendChild(e.target);
 			} else if (video[i].classList.contains("current")) {
 				video[i].classList.remove("current");
 				var vBack = document.createElement("div");
 				vLine.appendChild(vBack);
 				vBack.classList.add("v_preview");
-				vBack.innerHTML = vPlaying.innerHTML;
-				vPlaying.innerHTML = "";
+				var vPre = vPlaying.firstChild;
+				console.log(vPre);
+				vPre.classList.remove("current");
+				vPre.classList.add("pic_inline");
+				vBack.appendChild(vPre);
+				vPlaying.removeChild(vPre);
 				var j = video[i].src;
 				video[i].src = "#";
 				video[i].src = j;

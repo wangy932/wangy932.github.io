@@ -67,6 +67,10 @@ main.current {
 	left: 50%;
 }
 
+.preview_pic.current {
+	animation: slide ease-in-out 1s;
+}
+
 @keyframes fade {
 	0% {
 		opacity: 0;
@@ -395,6 +399,7 @@ main {
 	opacity: 0;
 	left: 40px;
 	transition: opacity 1.5s;
+	transition-delay: 0.5s;
 }
 
 #v_playlist_inline {
@@ -404,7 +409,6 @@ main {
 	transition: opacity 1s;
 	z-index: 2;
 	transition: left 1.5s, opacity 1.5s;
-	transition-delay: 0.2s;
 }
 
 #v_line_bg {
@@ -437,12 +441,25 @@ main {
 	overflow: hidden;
 }
 
+@keyframes slide {
+	0% {
+		transform: translateX(150px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}
+
 .preview_pic {
 	width: 100%;
 }
 
-.preview_pic:hover {
+.pic_inline {
+	transition: width 0.5s;
+}
 
+.pic_inline:hover {
+	width: 110%;
 }
 
 /*merch*/
