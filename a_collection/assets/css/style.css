@@ -389,7 +389,7 @@ main {
 	position: absolute;
 	top: -23%;
 	left: -20%;
-	width: 130%;
+	height: 130%;
 }
 
 #mtvlogo {
@@ -400,6 +400,7 @@ main {
 
 #mtv {
 	width: 25%;
+	min-width: 250px;
 	opacity: 0.8;
 	transition: opacity 0.5s;
 }
