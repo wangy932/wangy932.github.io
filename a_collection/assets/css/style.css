@@ -257,7 +257,7 @@ main.current, #home.current {
 
 #player_button {
 	position: absolute;
-	visibility: visible;
+	visibility: hidden;
 	opacity: 0;
 	top: 25%;
 	left: 48%;

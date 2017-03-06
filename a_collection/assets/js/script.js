@@ -1,4 +1,3 @@
-//nav
 var nav = document.getElementById("nav");
 	navBack = document.getElementById("nav_back");
 	playerButton = document.getElementById("player_button");
@@ -134,17 +133,10 @@ jacks.addEventListener("click", function(e) {
 		mtvMini.classList.add("current");
 		home.classList.remove("current");
 	}
-
-	if (section[1].classList.contains("current")) {
-		playerButton.classList.add("current");
-	} else {
-		playerButton.classList.remove("current");
-	}
 });
 
 //control
 mControl.addEventListener("click", function() {
-	mControl.style.animation = "";
 	if (mControl.style.width == "100%") {
 		mControl.style.width = "25%";
 		songlist.classList.remove("current");
@@ -182,26 +174,22 @@ mcControl.addEventListener("click", function() {
 
 //play, pause or loop
 playerButton.addEventListener("click", function() {
-	if (lyricalinfo.style.borderLeft) {
-		if (song.paused) {
-			song.play();
-			buttonPlay.classList.remove("current");
-			buttonPause.classList.add("current");
-			albumcover.style.animationPlayState = "running";
-			for (var i=0; i<lyrics.length; i++) {
-				lyrics[i].style.opacity = "0.8";
-			}
-		} else {
-			song.pause();
-			buttonPlay.classList.add("current");
-			buttonPause.classList.remove("current");
-			albumcover.style.animationPlayState = "paused";
-			for (var i=0; i<lyrics.length; i++) {
-				lyrics[i].style.opacity = "0.5";
-			}
+	if (song.paused) {
+		song.play();
+		buttonPlay.classList.remove("current");
+		buttonPause.classList.add("current");
+		albumcover.style.animationPlayState = "running";
+		for (var i=0; i<lyrics.length; i++) {
+			lyrics[i].style.opacity = "0.8";
 		}
 	} else {
-		mControl.style.animation = "hint ease-in-out 5s infinite";
+		song.pause();
+		buttonPlay.classList.add("current");
+		buttonPause.classList.remove("current");
+		albumcover.style.animationPlayState = "paused";
+		for (var i=0; i<lyrics.length; i++) {
+			lyrics[i].style.opacity = "0.5";
+		}
 	}
 });
 
@@ -223,7 +211,6 @@ playerButton.addEventListener("dblclick", function() {
 
 //music_switch
 songlist.addEventListener("click", function(e) {
-	mControl.style.animation = "";
 	if (e.target.classList.contains("songname")) {
 		if (e.target.classList.contains("current")) {
 			e.target.classList.remove("current");
@@ -236,6 +223,7 @@ songlist.addEventListener("click", function(e) {
 			lyricalinfo.style.borderRight = "";
 			buttonPlay.classList.add("current");
 			buttonPause.classList.remove("current");
+			playerButton.classList.remove("current");
 		} else {
 			for (var i=0; i<songname.length; i++) {
 				if (songname[i].classList.contains("current")) {
@@ -252,6 +240,7 @@ songlist.addEventListener("click", function(e) {
 			song.play();
 			buttonPlay.classList.remove("current");
 			buttonPause.classList.add("current");
+			playerButton.classList.add("current");
 			albumcover.style.animation = "rtt linear 20s infinite";
 			for (var i=0; i<lyrics.length; i++) {
 				if (lyrics[i].dataset.lyrics == e.target.innerHTML) {
