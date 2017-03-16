@@ -47,10 +47,10 @@ body {
 
 #bar {
 	position: absolute;
-	top: calc(50% - 25px);
-	left: calc(50% - 5px);
-	width: 10px;
-	height: 50px;
+	top: calc(50% - 15px);
+	left: calc(50% - 2.5px);
+	width: 5px;
+	height: 30px;
 	background-color: black;
 	transition: background-color 1s;
 }
@@ -154,6 +154,8 @@ ul {
 #site {
 	position: absolute;
 	font-weight: 400;
+	font-size: 14px;
 	width: 200px;
 	bottom: 20px;
+	opacity: 0.7;
 }
