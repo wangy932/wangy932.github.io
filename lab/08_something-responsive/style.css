@@ -1,0 +1,93 @@
+body {
+	background-color: lightblue;
+	margin: 0;
+	font-size: 0;
+}
+
+#triangle, #square, #circle {
+	position: absolute;
+	transition: left 1s, top 1s, right 1s, bottom 1s, background-color 1s 1s;
+}
+
+#triangle {
+	width: 0;
+	height: 0;
+}
+
+#square {
+	width: 60px;
+	height: 60px;
+	background-color: lemonChiffon;
+}
+
+#circle {
+	width: 60px;
+	height: 60px;
+	background-color: lemonChiffon;
+	border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+	#triangle, #square, #circle {
+		bottom: 0;
+	}
+
+	#triangle {
+		border-left: 30px solid transparent;
+		border-right: 30px solid transparent;
+		border-bottom: 60px solid lemonChiffon;
+		left: calc(50% - 100px);
+	}
+
+	#square {
+		left: calc(50% - 30px);
+	}
+
+	#circle {
+		left: calc(50% + 40px);
+	}
+}
+
+@media (min-width: 481px) and (max-width: 991px) {
+	#triangle, #square, #circle {
+		left: 0;
+	}
+
+	#triangle {
+		border-top: 30px solid transparent;
+		border-left: 60px solid lemonChiffon;
+		border-bottom: 30px solid transparent;
+		top: calc(50% - 100px);
+	}
+
+	#square {
+		top: calc(50% - 30px);
+		background-color: lightpink;
+	}
+
+	#circle {
+		top: calc(50% + 40px);
+	}
+}
+
+@media (min-width: 992px) {
+	#triangle, #square, #circle {
+		top: 0;
+	}
+
+	#triangle {
+		border-left: 30px solid transparent;
+		border-right: 30px solid transparent;
+		border-top: 60px solid lemonChiffon;
+		right: calc(50% - 100px);
+	}
+
+	#square {
+		right: calc(50% - 30px);
+	}
+
+	#circle {
+		right: calc(50% + 40px);
+		background-color: lightpink;
+	}
+}
