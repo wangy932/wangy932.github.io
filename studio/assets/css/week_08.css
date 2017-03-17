@@ -1,0 +1,63 @@
+.square {
+	position: absolute;
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	opacity: 0.9;
+	transition: background-color 5s ease-in-out 0.1s, top 5s ease-in-out;
+}
+
+#first {
+	z-index: 2;
+	top: calc(50% - 150px);
+	background-color: #78868F;
+}
+
+#second {
+	z-index: 1;
+	top: calc(50% - 100px);
+	background-color: #89A3AD;
+}
+
+#third {
+	z-index: 0;
+	top: calc(50% - 50px);
+	background-color: #A9B8BD;
+}
+
+#first:hover {
+	top: calc(50% - 100px);
+	background-color: #CCCACB;
+}
+
+#first:hover ~ #second {
+	top: 50%;
+	background-color: #F0E4DD;
+	transition-delay: 1.8s;
+}
+
+#first:hover ~ #third {
+	top: calc(50% + 100px);
+	background-color: #F1EDEB;
+	transition-delay: 2.6s;
+}
+
+img {
+	position: absolute;
+	top: calc(50% - 150px);
+	left: 50%;
+	height: 200px;
+}
+
+p {
+	position: absolute;
+	top: calc(50% - 140px);
+	left: 150px;
+	width: calc(50% - 200px);
+	height: 200px;
+	font-family: "helvetica neue";
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	overflow: scroll;
+}
