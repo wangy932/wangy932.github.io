@@ -10,7 +10,8 @@ var body = document.body;
 	{desc: "Building With CSS", link: "lab/02_building-with-css/index.html"},
 	{desc: "Layout With CSS", link: "lab/04_layout-with-css/index.html"},
 	{desc: "Responsive Practices", link: "lab/07_smiley/index.html"},
-	{desc: "Something Responsive", link: "lab/08_something-responsive/index.html"}];
+	{desc: "Something Responsive", link: "lab/08_something-responsive/index.html"},
+	{desc: "JS Events", link: "lab/09_js-events/index.html"}];
 	studio = [
 	{desc: "Week 1", link: "studio/week_01.html"},
 	{desc: "Week 2", link: "studio/week_02.html"},
@@ -19,7 +20,8 @@ var body = document.body;
 	{desc: "Week 5", link: "studio/week_05.html"},
 	{desc: "Week 6", link: "studio/week_06.html"},
 	{desc: "Week 7", link: "studio/week_07.html"},
-	{desc: "Week 8", link: "studio/week_08.html"}];
+	{desc: "Week 8", link: "studio/week_08.html"},
+	{desc: "Week 10", link: "studio/week_10.html"}];
 
 
 randomGenerator(lab);
