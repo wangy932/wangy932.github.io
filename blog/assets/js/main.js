@@ -20,6 +20,7 @@ var fileChooser = document.getElementById('fileChooser');
         loadFile();
        }
      }
+var circle = document.getElementById("circle");
 
 function loadFile() {
   var fileReader = new FileReader();
@@ -56,22 +57,27 @@ function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   var dataArray = new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(dataArray);
-  var step = Math.round(dataArray.length / 60);
-  for (var i = 0; i < 40; i++) {
+  var step = Math.round(dataArray.length / 64);
+  /*for (var i = 0; i < 60; i++) {
     var energy = (dataArray[step * i] / 256.0) * 50;
     for (var j = 0; j < energy; j++) {
-      ctx.beginPath(); ctx.moveTo(20 * i + 2, 200 + 4 * j);
-      ctx.lineTo(20 * (i + 1) - 2, 200 + 4 * j);
-      ctx.stroke();
       ctx.beginPath();
-      ctx.moveTo(20 * i + 2, 200 - 4 * j);
-      ctx.lineTo(20 * (i + 1) - 2, 200 - 4 * j);
+      ctx.moveTo(20 * i + 2, 200 + 4 * j);
+      ctx.lineTo(20 * (i + 1) - 2, 200 + 4 * j);
       ctx.stroke();
     }
     ctx.beginPath();
     ctx.moveTo(20 * i + 2, 200);
     ctx.lineTo(20 * (i + 1) - 2, 200);
     ctx.stroke();
+  }*/
+  var total = 0;
+  for (var i = 0; i < dataArray.length; i ++) {
+    total += dataArray[i];
   }
+  var mean = total/dataArray.length;
+  console.log(dataArray.length);
+  circle.style.width = Math.round(mean*3) + "px";
+  circle.style.height = Math.round(mean*3) + "px";
   window.requestAnimationFrame(render);
 }
