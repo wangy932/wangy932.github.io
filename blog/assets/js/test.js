@@ -1,6 +1,5 @@
 var init = function () {
     audio = document.getElementById("song");
-    audio.crossOrigin = "anonymous";
     audioCtx = new AudioContext();
     analyser = audioCtx.createAnalyser();
     source = audioCtx.createMediaElementSource(audio);
