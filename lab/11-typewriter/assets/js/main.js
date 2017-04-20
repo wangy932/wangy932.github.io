@@ -1,4 +1,8 @@
 var container = document.getElementById("container");
+    pButton = document.getElementById("p-button");
+    aButton = document.getElementById("a-button");
+    tButton = document.getElementById("t-button");
+    button = document.getElementsByTagName("button");
 
 var letters = {
   KeyA: {},
@@ -29,114 +33,120 @@ var letters = {
   KeyZ: {}
 };
 
-var a = 0;
+var pos = 0;
+    amp = 0;
+    thc = 0;
 
-for (key in letters) {
-  //console.log(key);
-  a += 100/(Object.keys(letters).length);
-  letters[key].position = a;
-}
+pButton.addEventListener("click", function() {
+  reset();
+  pButton.classList.add("current");
+  for (key in letters) {
+    pos += 80/(Object.keys(letters).length);
+    amp = 0.3;
+    thc = 1.5;
+    letters[key].position = pos;
+    letters[key].amplitude = amp;
+    letters[key].thickness = thc;
+  }
+});
 
-//console.log(Object.keys(letters));
+aButton.addEventListener("click", function() {
+  reset();
+  aButton.classList.add("current");
+  for (key in letters) {
+    amp += 0.03;
+    thc = 1.5;
+    letters[key].amplitude = amp;
+    letters[key].thickness = thc;
+  }
+});
+
+tButton.addEventListener("click", function() {
+  reset();
+  tButton.classList.add("current");
+  for (key in letters) {
+    amp = 0.3;
+    thc += 0.1;
+    letters[key].amplitude = amp;
+    letters[key].thickness = thc;
+  }
+});
 
 var unit = 50,
-    canvas, context, canvas2, context2,
-    height, width, xAxis, yAxis,
-    draw;
+    height, width, xAxis, yAxis;
     draw.seconds = 0;
     draw.t = 0;
 
 document.addEventListener("keydown", function(e) {
-  /*if (typeof(Humble) == "undefined") window.Humble = {};
-    Humble.Trig = {};
-    Humble.Trig.init = init;*/
-
-    //Humble.Trig.init();
-    var canvas = document.createElement("canvas");
-    container.appendChild(canvas);
-    canvas.classList.add("sine");
-    canvas.style.left = Math.random()*100 + "%";
-    canvas.style.top = letters[e.code].position + "%";
-    canvas.width = Math.random()*1000;
-    canvas.height = Math.random()*500;
-    context = canvas.getContext("2d");
-    context.font = "18px sans-serif";
-    context.strokeStyle = "#000";
-    context.lineJoin = "round";
-    height = canvas.height;
-    width = canvas.width;
-    xAxis = Math.floor(height/2);
-    yAxis = Math.floor(width/4);
-    context.save();
-    draw();
-
-  /*if (e.keyCode >= 65 && e.keyCode <= 90) {
-    var canvas = document.createElement("canvas");
-    container.appendChild(canvas);
-    canvas.style.left = Math.random()*100 + "%";
-    canvas.style.top = letters[e.code].position + "%";
-    var context = canvas.getContext("2d");
-    context.lineWidth = 5;   
-    context.beginPath();  
-    context.moveTo(Math.random()*200,Math.random()*200);  
-    context.quadraticCurveTo(Math.random()*200,Math.random()*200,Math.random()*200,Math.random()*200,Math.random()*200,Math.random()*200); 
-    context.strokeStyle = "white"; 
-    context.stroke();     
-    console.log(canvas.style.left);
-    console.log(canvas.style.top);
-  } else if (e.keyCode == 32) {
-    var div = document.createElement("div");
-    div.classList.add("space");
-    container.appendChild(div);
-  } else if (e.keyCode == 8) {
-    container.removeChild(container.lastChild);
-  }*/
+    if (amp != 0 || thc != 0) {
+      if (e.keyCode >= 65 && e.keyCode <= 90) {
+        var canvas = document.createElement("canvas");
+        container.appendChild(canvas);
+        canvas.style.left = Math.random()*70 + "%";
+        if (pos == 0) {
+          canvas.style.top = Math.random()*80 + "%";
+        } else {
+          canvas.style.top = letters[e.code].position + "%";
+        }
+        canvas.width = 200;
+        canvas.height = 50;
+        var context = canvas.getContext("2d");
+        context.t = context.seconds = 0;
+        context.font = "18px sans-serif";
+        context.strokeStyle = "#000";
+        context.lineJoin = "round";
+        height = canvas.height;
+        width = canvas.width;
+        xAxis = Math.floor(height/2);
+        yAxis = Math.floor(width/4);
+        context.save();
+        draw(context, e);
+      } else if (e.keyCode == 8) {
+        container.removeChild(container.lastChild);
+      }
+    } else {
+      for (var i = 0; i < button.length; i ++) {
+        button[i].style.animation = "alert 3s linear infinite";
+      }
+    }
 });
 
-function init() {
-    var canvas = document.createElement("canvas");
-    container.appendChild(canvas);
-    canvas.classList.add("sine");
-    canvas.style.left = Math.random()*100 + "%";
-    canvas.style.top = letters[e.code].position + "%";
-    canvas.width = Math.random()*1000;
-    canvas.height = Math.random()*500;
-    context = canvas.getContext("2d");
-    context.font = "18px sans-serif";
-    context.strokeStyle = "#000";
-    context.lineJoin = "round";
-    height = canvas.height;
-    width = canvas.width;
-    xAxis = Math.floor(height/2);
-    yAxis = Math.floor(width/4);
-    context.save();
-    draw();
-}
-
-function draw() {
+function draw(context, e) {
     context.clearRect(0, 0, width, height);
     context.save();
     context.strokeStyle = "white";
     context.fillStyle = "white";
-    context.lineWidth = 2;
+    context.lineWidth = letters[e.code].thickness;
     context.beginPath();
-    drawSine(draw.t);
+    drawSine(context, e);
     context.stroke();
     context.restore();
-    draw.seconds = draw.seconds - .007;
-    draw.t = draw.seconds*Math.PI;
-    setTimeout(draw, 10);
+    context.seconds = context.seconds - .007;
+    context.t = context.seconds*Math.PI;
+    setTimeout(function() {
+      draw(context, e);
+    }, 10);
 };
 
-
-function drawSine(t) {
-    var x = t;
-    var y = Math.sin(x)*0.5;
+function drawSine(context, e) {
+    var x = context.t;
+    var y = Math.sin(x)*letters[e.code].amplitude;
     context.moveTo(yAxis, unit*y+xAxis);
     
     for (i = yAxis; i <= width; i += 5) {
-        x = t+(-yAxis+i)/unit;
-        y = Math.sin(x)*0.5;
+        x = context.t+(-yAxis+i)/unit;
+        y = Math.sin(x)*letters[e.code].amplitude;
         context.lineTo(i, unit*y+xAxis);
     }
-}
+};
+
+function reset() {
+  container.innerHTML = "";
+  pos = amp = thc = 0;
+  for (var i = 0; i < button.length; i ++) {
+    if (button[i].classList.contains("current")) {
+      button[i].classList.remove("current");
+    }
+    button[i].style.animation = "";
+  }
+};
