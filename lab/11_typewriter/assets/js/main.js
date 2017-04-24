@@ -41,7 +41,7 @@ pButton.addEventListener("click", function() {
   reset();
   pButton.classList.add("current");
   for (key in letters) {
-    pos += 70/(Object.keys(letters).length);
+    pos += 75/(Object.keys(letters).length);
     amp += 0.03;
     thc = 1.5;
     letters[key].position = pos;
@@ -76,7 +76,7 @@ document.addEventListener("keydown", function(e) {
         container.appendChild(canvas);
         canvas.style.left = Math.random()*70 + "%";
         if (pos == 0) {
-          canvas.style.top = Math.random()*70 + "%";
+          canvas.style.top = Math.random()*75 + "%";
         } else {
           canvas.style.top = letters[e.code].position + "%";
         }
