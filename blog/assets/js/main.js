@@ -1,7 +1,7 @@
 var AudioContext = window.AudioContext || window.webkitAudioContext; //Cross browser variant. 
 var audioContext = new AudioContext();
-var audio = document.getElementById("audio");
-var audioSrc = audioContext.createMediaElementSource(audio);
+//var audio = document.getElementById("audio");
+//var audioSrc = audioContext.createMediaElementSource(audio);
 var analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
     /*audioSrc.connect(analyser);
@@ -11,15 +11,18 @@ var ctx = canvas.getContext("2d");
 var file;
 var fileContent;
 var audioBufferSourceNode;
+
 var fileChooser = document.getElementById('fileChooser');
     fileChooser.onchange = function() {
       if (fileChooser.files[0]) {
+        
         file = fileChooser.files[0];
         console.log(file);
-        console.log(audio);
+        //console.log(audio);
         loadFile();
        }
      }
+
 var circle = document.getElementById("circle");
 
 function loadFile() {
@@ -30,7 +33,7 @@ function loadFile() {
   fileReader.onload = function(e) {
     fileContent = e.target.result;
     console.log(fileContent);
-    console.log(audioSrc);
+    //console.log(audioSrc);
     decodeFile();
   }
   fileReader.readAsArrayBuffer(file);

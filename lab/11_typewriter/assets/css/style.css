@@ -43,15 +43,11 @@ button:hover {
 }
 
 #p-button {
-	top: 40%;
-}
-
-#a-button {
-	top: 50%;
+	top: 45%;
 }
 
 #t-button {
-	top: 60%;
+	top: 55%;
 }
 
 .current {
