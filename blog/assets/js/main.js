@@ -84,3 +84,97 @@ function render() {
   circle.style.height = Math.round(mean*3) + "px";
   window.requestAnimationFrame(render);
 }
+
+//----------------------------------------------
+var maintab = document.getElementById("maintab");
+var tabitem = document.getElementsByClassName("tabitem");
+var background = document.getElementById("background");
+var post = document.getElementById("post");
+var postbg = document.getElementById("postbg");
+var h1 = document.getElementsByTagName("h1");
+var h2 = document.getElementsByTagName("h2");
+var p = document.getElementsByTagName("p");
+
+maintab.addEventListener("click", function(e) {
+  if (e.target.nodeName == "H2") {
+    tabitemClick(e.target.parentNode);
+  } else if (e.target.nodeName == "DIV") {
+    tabitemClick(e.target);
+  } else if (e.target.nodeName == "MAIN") {
+    if (e.target.classList.contains("menu")) {
+      e.target.classList.remove("menu");
+      for (var i = 0; i < tabitem.length; i ++) {
+        tabitem[i].classList.remove("menu");
+      }
+    } else {
+      e.target.classList.add("menu");
+      for (var i = 0; i < tabitem.length; i ++) {
+        tabitem[i].classList.add("menu");
+      }
+    }
+  }
+  console.log(e.target.nodeName);
+});
+
+function tabitemClick(node) {
+  if (node.classList.contains("current")) {
+    node.classList.remove("current");
+    postInOut("0", "none", "translateY(-70%)", "white", "hidden", "0");
+  } else {
+    for (var i = 0; i < tabitem.length; i ++) {
+      tabitem[i].classList.remove("current");
+    }
+    node.classList.add("current");
+    postInOut("calc(100% / 6 * 4)", "white 1px solid", "translateY(0)", "black", "visible", "1");
+  }
+}
+
+function postInOut(ht, bd, ty, h2c, h1pv, h1po) {
+  post.style.height = ht;
+  post.style.borderTop = bd;
+  post.style.borderBottom = bd;
+  post.style.transform = ty;
+  for (var i = 0; i < h2.length; i ++) {
+    h2[i].style.color = h2c;
+  };
+  for (var i = 0; i < h1.length; i ++) {
+    h1[i].style.visibility = h1pv;
+    h1[i].style.opacity = h1po;
+  };
+  for (var i = 0; i < p.length; i ++) {
+    p[i].style.visibility = h1pv;
+    p[i].style.opacity = h1po;
+  };
+}
+
+//Background Animation for Text
+for (var i = 0; i < p.length; i ++) {
+  p[i].addEventListener("scroll", function() {
+    postbg.style.transition = "opacity 1s";
+    postbg.style.opacity = "1";
+    setTimeout(function() {
+      postbg.style.transition = "opacity 8s";
+      postbg.style.opacity = "0.7";
+    }, 1000);
+  });
+}
+
+//Lighting Set Change
+function lightSet(num) {
+  var effect1 = document.createElement("section");
+  effect1.classList.add("effect");
+  background.appendChild(effect1);
+  for (var i = 0; i < 72; i ++) {
+    var divCol = document.createElement("div");
+    var divLit = document.createElement("div");
+    divCol.classList.add("col", "col-1-12");
+    divLit.classList.add(num, "center");
+    divLit.style.height = Math.random()*window.innerHeight/6 + "px";
+    divLit.style.opacity = Math.random();
+    divLit.style.animationDelay = Math.random() + "s";
+    effect1.appendChild(divCol);
+    divCol.appendChild(divLit);
+  }
+}
+
+lightSet("light-1");

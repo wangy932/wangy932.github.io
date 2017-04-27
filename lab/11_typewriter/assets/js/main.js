@@ -41,7 +41,7 @@ pButton.addEventListener("click", function() {
   reset();
   pButton.classList.add("current");
   for (key in letters) {
-    pos += 75/(Object.keys(letters).length);
+    pos += 60/(Object.keys(letters).length);
     amp += 0.03;
     thc = 1.5;
     letters[key].position = pos;
@@ -76,12 +76,13 @@ document.addEventListener("keydown", function(e) {
         container.appendChild(canvas);
         canvas.style.left = Math.random()*70 + "%";
         if (pos == 0) {
-          canvas.style.top = Math.random()*75 + "%";
+          canvas.style.top = Math.random()*60 + "%";
         } else {
           canvas.style.top = letters[e.code].position + "%";
         }
+        canvas.style.opacity = Math.random();
         canvas.width = 200;
-        canvas.height = 75;
+        canvas.height = 160;
         var context = canvas.getContext("2d");
         context.t = context.seconds = 0;
         context.font = "18px sans-serif";
@@ -108,7 +109,7 @@ function draw(context, e) {
     setTimeout(function() {
       if (countup) {
         letters[e.code].newamp += 0.0003;
-        if (letters[e.code].newamp >= letters[e.code].amplitude + 1) {
+        if (letters[e.code].newamp >= letters[e.code].amplitude + 0.6) {
           countup = false;
         }
       } else {
