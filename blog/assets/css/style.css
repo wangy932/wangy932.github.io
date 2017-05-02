@@ -52,7 +52,6 @@ input {
 	border: white 1px solid;
 	background-color: black;
 	transition: background-color 1s;
-	padding: 5px;
 	top: auto;
 	cursor: n-resize;
 	overflow: scroll;
@@ -67,14 +66,14 @@ input {
 
 .tabitem {
 	position: relative;
-	width: 100%;
-	height: 100%;
+	visibility: hidden;
+	opacity: 0;
 	cursor: pointer;
 	transition: all 1s;
 	z-index: 4;
 }
 
-.tabitem.current {
+.tabitem.focus {
 	background-color: white;
 }
 
@@ -84,14 +83,22 @@ input {
 
 #post {
 	height: 0;
-	background-color: black;
 	border-top: none;
 	border-bottom: none;
+	transform: translateY(-70%);
 	background-color: transparent;
 	overflow: hidden;
-	transform: translateY(-70%);
-	transition: height 1.8s, border 1.8s, transform 2.5s;
+	background-color: black;
+	transition: height 1.8s, border 1.8s, transform 2.5s, opacity 1s;
 	z-index: 2;
+}
+
+#post.current {
+	height: calc(100% / 6 * 4);
+	border-top: white 1px solid;
+	border-bottom: white 1px solid;
+	transform: translateY(0);
+	background-color: transparent;
 }
 
 #postbg {
@@ -108,24 +115,92 @@ input {
 	z-index: 3;
 }
 
+.text {
+	position: relative;
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: all 1s;
+}
+
 #background {
 	width: 100%;
 	height: 100%;
 	z-index: 1;
 }
 
-.effect {
-	width: 100%;
-	height: 100%;
-}
-
-.text {
-	position: relative;
-}
-
 section {
 	width: 100%;
 	height: 100%;
+}
+
+/*effect&stage--------------------------------------*/
+.effect, .stage {
+	display: none;
+	width: 100%;
+	height: 100%;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 2s, opacity 2s;
+}
+
+.pattern {
+	display: inline-block;
+	animation: 1.5s linear infinite;
+}
+
+.post1, .post2, .post3 {
+	width: 1px;
+	height: 30px;
+}
+
+.post1 {
+	transform: rotate(45deg);
+}
+
+.post2 {
+	transform: rotate(-45deg);
+}
+
+.post4, .post5, .post6 {
+	border-radius: 50%;
+}
+
+.post5, .post7, .post8 {
+	width: 30px;
+	height: 30px;
+}
+
+.post6 {
+	width: 5px;
+	height: 5px;
+	box-shadow: 0 0 10px 2px white;
+}
+
+.perform {
+	border-radius: 50%;
+	border: white 1px solid;
+	animation: spread 1.5s linear infinite;
+	z-index: 1;
+}
+
+.vocal.post4 {
+	width: 200px;
+	height: 200px;
+}
+
+.chord.post4 {
+	width: 200px;
+	height: 200px;
+	animation-delay: 0.3s;
+	opacity: 0.8;
+}
+
+.drum.post4 {
+	width: 200px;
+	height: 200px;
+	animation-delay: 0.6s;
+	opacity: 0.6;
 }
 
 h1, h2, p {
@@ -138,14 +213,14 @@ h1, h2, p {
 }
 
 h1, p {
-	top: 0;
 	visibility: hidden;
 	opacity: 0;
-	transition: visibility 1s, opacity 1s;
+	transition: visibility 1.5s, opacity 1.5s;
 	overflow: scroll;
 }
 
 h1 {
+	top: 0;
 	font-size: 14px;
 	letter-spacing: 2px;
 }
@@ -164,13 +239,43 @@ h2 {
 	z-index: 3;
 }
 
+h2.current {
+	color: black;
+}
+
 p {
 	font-size: 11px;
 	line-height: 15px;
 	letter-spacing: 1px;
-	width: 50%;
-	height: 100%;
-	left: 50%;
+	transition: all 1s;
+}
+
+@media (max-width: 991px) {
+	.tabitem {
+		width: calc(100% - 20px);
+		height: calc(100% - 20px);
+		margin: 10px;
+	}
+	p {
+		width: 100%;
+		height: calc(100% - 50px);
+		left: 0;
+		top: 50px;
+	}
+}
+
+@media (min-width: 992px) {
+	.tabitem {
+		width: calc(100% - 10px);
+		height: calc(100% - 10px);
+		margin: 5px;
+	}
+	p {
+		width: 50%;
+		height: 100%;
+		left: 50%;
+		top: 0;
+	}
 }
 
 .col {
@@ -200,16 +305,12 @@ p {
 	margin: auto;
 }
 
-.light-1 {
-	display: inline-block;
-	width: 2px;
-	height: 30px;
-	background-color: white;
-	transition: box-shadow 0.5s;
-	animation: breathe 1s ease-in-out infinite;*/
+.current {
+	visibility: visible;
+	opacity: 1;
 }
 
-@keyframes breathe {
+@keyframes breathe0 {
 	0% {
 		box-shadow: none;
 	}
@@ -218,5 +319,77 @@ p {
 	}
 	100% {
 		box-shadow: none;
+	}
+}
+
+@keyframes breathe1 {
+	0% {
+		background-color: white;
+	}
+	50% {
+		background-color: black;
+	}
+	100% {
+		background-color: white;
+	}
+}
+
+@keyframes breathe2 {
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 0.9;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes breathe3 {
+	0% {
+		top: 0;
+	}
+	25% {
+		top: -20%;
+	}
+	50% {
+		top: 0;
+	}
+	75% {
+		top: 20%;
+	}
+	100% {
+		top: 0;
+	}
+}
+
+@keyframes breathe4 {
+	0% {
+		height: 100%;
+	}
+	50% {
+		height: 1px;
+	}
+	100% {
+		height: 100%;
+	}
+}
+
+@keyframes spread {
+	0% {
+		width: 200px;
+		height: 200px;
+		background-color: black;
+	}
+	50% {
+		width: 500px;
+		height: 500px;
+		background-color: white;
+	}
+	100% {
+		width: 200px;
+		height: 200px;
+		background-color: black;
 	}
 }
