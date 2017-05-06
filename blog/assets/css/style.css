@@ -35,15 +35,28 @@ input {
 	vertical-align: middle;
 }
 
-#circle {
+#v1, #v2 {
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	width: 100px;
-	height: 100px;
+	display: inline-block;
+	top: 100px;
+	width: 200px;
+	height: 200px;
 	border-radius: 50%;
 	background-color: white;
+	z-index: 999;
+}
+
+#b1, #b2 {
+	position: absolute;
+	width: 50px;
+}
+
+#v1, #b1 {
+	left: 100px;
+}
+
+#v2, #b2 {
+	left: 300px;
 }
 
 /*-----------------------*/
