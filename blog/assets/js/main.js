@@ -1,11 +1,11 @@
-var AudioContext = window.AudioContext || window.webkitAudioContext; //Cross browser variant. 
+/*var AudioContext = window.AudioContext || window.webkitAudioContext; //Cross browser variant. 
 var audioContext = new AudioContext();
 //var audio = document.getElementById("audio");
 //var audioSrc = audioContext.createMediaElementSource(audio);
 var analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
     /*audioSrc.connect(analyser);
-    analyser.connect(audioContext.destination);*/
+    analyser.connect(audioContext.destination);
 var canvas = document.getElementById("visualizer");
 var ctx = canvas.getContext("2d");
 var file;
@@ -73,7 +73,7 @@ function render() {
     ctx.moveTo(20 * i + 2, 200);
     ctx.lineTo(20 * (i + 1) - 2, 200);
     ctx.stroke();
-  }*/
+  }
   var total = 0;
   for (var i = 0; i < dataArray.length; i ++) {
     total += dataArray[i];
@@ -83,6 +83,77 @@ function render() {
   circle.style.width = Math.round(mean*3) + "px";
   circle.style.height = Math.round(mean*3) + "px";
   window.requestAnimationFrame(render);
+}*/
+
+var amount = 8;
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+if (AudioContext) {
+  audio = new AudioContext();
+  source = audio.createBufferSource();
+  // Create two separate analyzers for left and right channel.
+  analyserL = audio.createAnalyser();
+  analyserL.smoothingTimeConstant = 0.25;
+  analyserL.fftSize = Math.pow(2, amount) * 2;
+  analyserR = audio.createAnalyser();
+  analyserR.smoothingTimeConstant = analyserL.smoothingTimeConstant;
+  analyserR.fftSize = analyserL.fftSize;
+  // Create the buffer to receive the analyzed data.
+  freqByteData = new Uint8Array(analyserL.frequencyBinCount);
+  // Create a splitter to feed them both
+  var splitter = audio.createChannelSplitter();
+  // Connect audio processing graph
+  source.connect(splitter);
+  splitter.connect(analyserL, 0, 0);
+  splitter.connect(analyserR, 1, 0);
+  // Connect source to output also so we can hear it
+  source.connect(audio.destination);
+  loadAudioBuffer("http://www.yuqiwang.graphics/blog/media/everyday.m4a");
+} else {
+  // TODO: Print error message
+  alert("Audio not supported");
+}
+
+setInterval(function() {console.log(freqByteData);}, 2000);
+
+function loadAudioBuffer(url) {
+  // Load asynchronously
+  var request = new XMLHttpRequest();
+  request.open("GET", url, true);
+  request.responseType = "arraybuffer";
+
+  request.onload = function() { 
+    audio.decodeAudioData(
+      request.response,
+      function(buffer) {
+        source.buffer = buffer;
+        source.loop = true;
+        source.start(0);
+        view.play();
+      },
+      
+      function(buffer) {
+        alert("Error loading MP3");
+      }
+    );
+  };
+  request.send();
+}
+
+function getEqualizerBands(data) {
+  var bands = [];
+  var amount = Math.sqrt(data.length) / 2;
+  for(var i = 0; i < amount; i++) {
+    var start = Math.pow(2, i) - 1;
+    var end = start * 2 + 1;
+    var sum = 0;
+    for (var j = start; j < end; j++) {
+      sum += data[j];
+    }
+    var avg = sum / (255 * (end - start));
+    bands[i] = Math.sqrt(avg / Math.sqrt(2));
+  }
+  return bands;
 }
 
 //---------------------------------------------------------------
@@ -100,9 +171,11 @@ var p = document.getElementsByTagName("p");
 var loading = {
   start: function() {
     maintab.classList.add("menu");
+    maintab.style.backgroundColor = "white";
   },
   complete: function() {
     maintab.classList.remove("menu");
+    maintab.style.backgroundColor = "black";
     for (var i = 0; i < maintab.children.length; i ++) {
       maintab.children[i].classList.add("current");
     };
@@ -129,14 +202,22 @@ maintab.addEventListener("click", function(e) {
       e.target.classList.remove("menu");
       for (var i = 0; i < tabitem.length; i ++) {
         tabitem[i].classList.remove("menu");
-      }
+      };
       post.style.opacity = "1";
+      setTimeout(function() {
+        for (var i = 0; i < tabitem.length; i ++) {
+          if (tabitem[i].classList.contains("focus")) {
+            scrollTo(maintab, i * (maintab.clientHeight), 900);
+          };
+       };
+      }, 1000);
     } else {
       e.target.classList.add("menu");
       for (var i = 0; i < tabitem.length; i ++) {
         tabitem[i].classList.add("menu");
       }
       post.style.opacity = "0.5";
+      scrollTo(maintab, 0, 10);
     }
   }
 });
@@ -149,14 +230,29 @@ function tabitemClick(node) {
   } else {
     for (var i = 0; i < tabitem.length; i ++) {
       tabitem[i].classList.remove("focus");
+      if (node == tabitem[i] && !tabitem[i].classList.contains("menu")) {
+        scrollTo(maintab, i * (maintab.clientHeight), 500);
+      }
     }
     node.classList.add("focus");
     post.classList.add("current");
     var n = node.dataset;
     lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.rotate, n.breathe);
-    stageSet(n.item);
+    stageSet(n.item, n.form);
   }
   postInOut(node);
+}
+
+function scrollTo(element, to, duration) {
+  if (duration <= 0) return;
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 10;
+
+  setTimeout(function() {
+    element.scrollTop = element.scrollTop + perTick;
+    if (element.scrollTop == to) return;
+    scrollTo(element, to, duration - 10);
+  }, 10);
 }
 
 function postInOut(nd) {
@@ -252,7 +348,7 @@ function lightSet(pattern, randomw, randomh, fill, stroke, rotate, breathe) {
   }, 500);
 }
 
-function stageSet(perform) {
+function stageSet(perform, form) {
   var stage = document.createElement("section");
   stage.classList.add("stage");
   background.appendChild(stage);
@@ -262,6 +358,9 @@ function stageSet(perform) {
   vocal.classList.add(perform, "vocal", "perform", "center");
   chord.classList.add(perform, "chord", "perform", "center");
   drum.classList.add(perform, "drum", "perform", "center");
+  vocal.style.animationName = "form" + form;
+  chord.style.animationName = "form" + form;
+  drum.style.animationName = "form" + form;
   stage.appendChild(vocal);
   stage.appendChild(chord);
   stage.appendChild(drum);
