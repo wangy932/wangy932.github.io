@@ -39,10 +39,11 @@ input {
 	position: absolute;
 	display: inline-block;
 	top: 100px;
-	min-width: 80px;
-	min-height: 80px;
+	min-width: 20px;
+	min-height: 20px;
 	border-radius: 50%;
 	background-color: white;
+	transition: width 0.25s, height 0.25s;
 	z-index: 999;
 }
 

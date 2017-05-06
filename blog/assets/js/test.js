@@ -1,3 +1,29 @@
+var audioSrc = {
+    song01: {name: "Ratten"},
+    song02: {name: "Diamanten"},
+    song03: {name: "Mehr als ein Job"},
+    song04: {name: "Hände weg (feat. Rico)"},
+    song05: {name: "2 Seelen"},
+    song06: {name: "Power"},
+    song07: {name: "Plem Plem (feat. Raf Camora & Bonez MC)"},
+    song08: {name: "Einfach"},
+    song09: {name: "Gute Nacht"},
+    song10: {name: "Mosaik (feat. Rico)"},
+    song11: {name: "Wie du"},
+    song12: {name: "Gift (feat. BTNG & AK Ausser Kontrolle)"},
+    song13: {name: "Instinkt"},
+    song14: {name: "Jedes Mal (feat. Fatal & Skepsis)"},
+    song15: {name: "Kreis (feat. Bausa)"},
+    song16: {name: "Lass mal"},
+    song17: {name: "Glücklichen"},
+    song18: {name: "Lass mich los"}
+}
+
+for (song in audioSrc) {
+    audioSrc[song].original = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + ".m4a";
+    audioSrc[song].instrumental = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + "-Instrumental.m4a";
+}
+
 
 var context1 = new AudioContext();
 var audioElement1 = document.getElementById("song");
@@ -56,8 +82,8 @@ function update1() {
     total2 += frequencyData2[i];
   }
   var mean = (total1-total2)/frequencyData1.length;
-  circle1.style.width = mean*2 + "px";
-  circle1.style.height = mean*2 + "px";
+  circle1.style.width = 50 + mean*5 + "px";
+  circle1.style.height = 50 + mean*5 + "px";
 };
 
 function update2() {
@@ -73,16 +99,16 @@ function update2() {
     total += frequencyData2[i];
   }
   var mean = total/frequencyData2.length;
-  circle2.style.width = mean*2 + "px";
-  circle2.style.height = mean*2 + "px";
+  circle2.style.width = mean*4 + "px";
+  circle2.style.height = mean*4 + "px";
 };
 
 b1.addEventListener("click", function() {
     if (audioElement1.paused) {
         audioElement1.play();
-        update1();
-        audioElement2.volume = 0.9;
+        audioElement2.volume = 0.8;
         audioElement2.play();
+        update1();
         update2();
     } else {
         audioElement1.pause();
