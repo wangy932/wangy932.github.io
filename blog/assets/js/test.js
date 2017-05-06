@@ -24,94 +24,81 @@ for (song in audioSrc) {
     audioSrc[song].instrumental = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + "-Instrumental.m4a";
 }
 
+var buttonOri = document.getElementById("button");
 
-var context1 = new AudioContext();
-var audioElement1 = document.getElementById("song");
-var analyser1 = context1.createAnalyser();
-audioElement1.addEventListener("canplay", function() {
-    var source1 = context1.createMediaElementSource(audioElement1);
-    source1.connect(analyser1);
-    analyser1.connect(context1.destination);
-});
-analyser1.fftSize = 1024;
-var frequencyData1 = new Uint8Array(analyser1.frequencyBinCount);
-analyser1.getByteFrequencyData(frequencyData1);
-var circle1 = document.getElementById("v1");
-var b1 = document.getElementById("b1");
+var audioOri = document.getElementById("original");
+var audioIns = document.getElementById("instrumental");
+var circleVoc = document.getElementById("v1");
+var circleIns = document.getElementById("v2");
 
-
-
-// Kick it off...
-
-var context2 = new AudioContext();
-var audioElement2 = document.getElementById("instrumental");
-var analyser2 = context2.createAnalyser();
-audioElement2.addEventListener("canplay", function() {
-    var source2 = context2.createMediaElementSource(audioElement2);
-    source2.connect(analyser2);
-    analyser2.connect(context2.destination);
-});
-analyser2.fftSize = 1024;
-var frequencyData2 = new Uint8Array(analyser2.frequencyBinCount);
-analyser2.getByteFrequencyData(frequencyData2);
-var circle2 = document.getElementById("v2");
-var b2 = document.getElementById("b2");
-b2.addEventListener("click", function() {
-    if (audioElement2.paused) {
-        audioElement2.play();
-        update1();
+button.addEventListener("click", function() {
+    audioOri.src = audioSrc.song09.original;
+    audioIns.src = audioSrc.song09.instrumental;
+    if (audioOri.paused) {
+        audioOri.play();
+        audioIns.volume = 0.8;
+        audioIns.play();
+        updateVoc();
+        updateIns();
     } else {
-        audioElement2.pause();
+        audioOri.pause();
+        audioIns.pause();
     }
-})
+});
 
-function update1() {
-    // Schedule the next update
-    requestAnimationFrame(update1);
+//Analyze Original
+var contextOri = new AudioContext();
+var analyserOri = contextOri.createAnalyser();
+audioOri.addEventListener("canplay", function() {
+    var sourceOri = contextOri.createMediaElementSource(audioOri);
+    sourceOri.connect(analyserOri);
+    analyserOri.connect(contextOri.destination);
+});
+analyserOri.fftSize = 1024;
+var frequencyDataOri = new Uint8Array(analyserOri.frequencyBinCount);
+analyserOri.getByteFrequencyData(frequencyDataOri);
 
-    // Get the new frequency data
-    analyser1.getByteFrequencyData(frequencyData1);
+//Analyze Instrumental
+var contextIns = new AudioContext();
+var analyserIns = contextIns.createAnalyser();
+audioIns.addEventListener("canplay", function() {
+    var sourceIns = contextIns.createMediaElementSource(audioIns);
+    sourceIns.connect(analyserIns);
+    analyserIns.connect(contextIns.destination);
+});
+analyserIns.fftSize = 1024;
+var frequencyDataIns = new Uint8Array(analyserIns.frequencyBinCount);
+analyserIns.getByteFrequencyData(frequencyDataIns);
 
-    // Update the visualisation
-    var total1 = 0;
-    var total2 = 0;
-  for (var i = 0; i < frequencyData1.length; i ++) {
-    total1 += frequencyData1[i];
-  }
-  for (var i = 0; i < frequencyData2.length; i ++) {
-    total2 += frequencyData2[i];
-  }
-  var mean = (total1-total2)/frequencyData1.length;
-  circle1.style.width = 50 + mean*5 + "px";
-  circle1.style.height = 50 + mean*5 + "px";
+function updateVoc() {
+    requestAnimationFrame(updateVoc);
+    analyserOri.getByteFrequencyData(frequencyDataOri);
+
+    var totalOri = 0;
+    var totalIns = 0;
+    for (var i = 0; i < frequencyDataOri.length; i ++) {
+        totalOri += frequencyDataOri[i];
+    }
+    for (var i = 0; i < frequencyDataIns.length; i ++) {
+        totalIns += frequencyDataIns[i];
+    }
+    var totalVoc = totalOri - totalIns;
+
+    var meanVoc = totalVoc/frequencyDataOri.length;
+    circleVoc.style.width = 50 + meanVoc*5 + "px";
+    circleVoc.style.height = 50 + meanVoc*5 + "px";
 };
 
-function update2() {
-    // Schedule the next update
-    requestAnimationFrame(update2);
+function updateIns() {
+    requestAnimationFrame(updateIns);
+    analyserIns.getByteFrequencyData(frequencyDataIns);
 
-    // Get the new frequency data
-    analyser2.getByteFrequencyData(frequencyData2);
-
-    // Update the visualisation
     var total = 0;
-  for (var i = 0; i < frequencyData2.length; i ++) {
-    total += frequencyData2[i];
-  }
-  var mean = total/frequencyData2.length;
-  circle2.style.width = mean*4 + "px";
-  circle2.style.height = mean*4 + "px";
-};
-
-b1.addEventListener("click", function() {
-    if (audioElement1.paused) {
-        audioElement1.play();
-        audioElement2.volume = 0.8;
-        audioElement2.play();
-        update1();
-        update2();
-    } else {
-        audioElement1.pause();
-        audioElement2.pause();
+    for (var i = 0; i < frequencyDataIns.length; i ++) {
+        total += frequencyDataIns[i];
     }
-})
+
+    var meanIns = total/frequencyDataOri.length;
+    circleIns.style.width = meanIns*4 + "px";
+    circleIns.style.height = meanIns*4 + "px";
+};

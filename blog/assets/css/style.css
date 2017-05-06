@@ -20,44 +20,10 @@ body {
     display: none; 
 }
 
-input {
-	color: #ffffff;
-} 
-
-#wrapper {
-	display: none;
-	width: 100%;
-	height: 100%;
-}
-
-#wrapper-inner {
-	display: table-cell;
-	vertical-align: middle;
-}
-
-#v1, #v2 {
-	position: absolute;
-	display: inline-block;
-	top: 100px;
-	min-width: 20px;
-	min-height: 20px;
-	border-radius: 50%;
-	background-color: white;
-	transition: width 0.25s, height 0.25s;
-	z-index: 999;
-}
-
-#b1, #b2 {
+#button {
 	position: absolute;
 	width: 50px;
-}
-
-#v1, #b1 {
-	left: 100px;
-}
-
-#v2, #b2 {
-	left: 300px;
+	z-index: 3;
 }
 
 /*-----------------------*/
@@ -193,31 +159,24 @@ section {
 }
 
 .perform {
-	border: white 1px solid;
-	animation: 1.5s linear infinite;
+	border: white 2px solid;
 	z-index: 1;
 }
 
-.vocal.post4 {
+.vocal, .instrumental {
 	width: 200px;
 	height: 200px;
 	border-radius: 50%;
 }
 
-.chord.post4 {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	animation-delay: 0.3s;
-	opacity: 0.8;
+.vocal {
+	background-color: white;
+	opacity: 0.7;
 }
 
-.drum.post4 {
-	width: 200px;
-	height: 200px;
-	border-radius: 50%;
-	animation-delay: 0.6s;
-	opacity: 0.6;
+.instrumental {
+	background-color: black;
+	opacity: 0.7;
 }
 
 h1, h2, p {

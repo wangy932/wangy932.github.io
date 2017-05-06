@@ -1,89 +1,35 @@
-/*var AudioContext = window.AudioContext || window.webkitAudioContext; //Cross browser variant. 
-var audioContext = new AudioContext();
-//var audio = document.getElementById("audio");
-//var audioSrc = audioContext.createMediaElementSource(audio);
-var analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
-    /*audioSrc.connect(analyser);
-    analyser.connect(audioContext.destination);
-var canvas = document.getElementById("visualizer");
-var ctx = canvas.getContext("2d");
-var file;
-var fileContent;
-var audioBufferSourceNode;
-
-var fileChooser = document.getElementById('fileChooser');
-    fileChooser.onchange = function() {
-      if (fileChooser.files[0]) {
-        
-        file = fileChooser.files[0];
-        console.log(file);
-        //console.log(audio);
-        loadFile();
-       }
-     }
-
-var circle = document.getElementById("circle");
-
-function loadFile() {
-  var fileReader = new FileReader();
-  fileReader.onload = function() {
-    decodeFile();
-  }
-  fileReader.onload = function(e) {
-    fileContent = e.target.result;
-    console.log(fileContent);
-    //console.log(audioSrc);
-    decodeFile();
-  }
-  fileReader.readAsArrayBuffer(file);
+var audioSrc = {
+    song1: {name: "Ratten"},
+    song2: {name: "Diamanten"},
+    song3: {name: "Mehr als ein Job"},
+    song4: {name: "Hande weg (feat. Rico)"},
+    song5: {name: "2 Seelen"},
+    song6: {name: "Power"},
+    song7: {name: "Plem Plem (feat. Raf Camora & Bonez MC)"},
+    song8: {name: "Einfach"},
+    song9: {name: "Gute Nacht"},
+    song10: {name: "Mosaik (feat. Rico)"},
+    song11: {name: "Wie du"},
+    song12: {name: "Gift (feat. BTNG & AK Ausser Kontrolle)"},
+    song13: {name: "Instinkt"},
+    song14: {name: "Jedes Mal (feat. Fatal & Skepsis)"},
+    song15: {name: "Kreis (feat. Bausa)"},
+    song16: {name: "Lass mal"},
+    song17: {name: "Glucklichen"},
+    song18: {name: "Lass mich los"}
 }
 
-function decodeFile() {
-  audioContext.decodeAudioData(fileContent, function(buffer) {
-    if(audioBufferSourceNode) {
-      audioBufferSourceNode.stop();
-    }
-    audioBufferSourceNode = audioContext.createBufferSource();
-    audioBufferSourceNode.connect(analyser);
-    analyser.connect(audioContext.destination);
-    audioBufferSourceNode.buffer = buffer;
-    audioBufferSourceNode.start(0);
-    window.requestAnimationFrame(render);
-  });
+for (song in audioSrc) {
+    audioSrc[song].original = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + ".m4a";
+    audioSrc[song].instrumental = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + "-Instrumental.m4a";
 }
 
+var button = document.getElementById("button");
 
-function render() {
-  ctx.strokeStyle = "#00d0ff";
-  ctx.lineWidth = 2;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  var dataArray = new Uint8Array(analyser.frequencyBinCount);
-  analyser.getByteFrequencyData(dataArray);
-  var step = Math.round(dataArray.length / 64);
-  /*for (var i = 0; i < 60; i++) {
-    var energy = (dataArray[step * i] / 256.0) * 50;
-    for (var j = 0; j < energy; j++) {
-      ctx.beginPath();
-      ctx.moveTo(20 * i + 2, 200 + 4 * j);
-      ctx.lineTo(20 * (i + 1) - 2, 200 + 4 * j);
-      ctx.stroke();
-    }
-    ctx.beginPath();
-    ctx.moveTo(20 * i + 2, 200);
-    ctx.lineTo(20 * (i + 1) - 2, 200);
-    ctx.stroke();
-  }
-  var total = 0;
-  for (var i = 0; i < dataArray.length; i ++) {
-    total += dataArray[i];
-  }
-  var mean = total/dataArray.length;
-  console.log(dataArray.length);
-  circle.style.width = Math.round(mean*3) + "px";
-  circle.style.height = Math.round(mean*3) + "px";
-  window.requestAnimationFrame(render);
-}*/
+var audioOri = document.getElementById("original");
+var audioIns = document.getElementById("instrumental");
+var circleVoc = document.getElementById("v1");
+var circleIns = document.getElementById("v2");
 
 //---------------------------------------------------------------
 var maintab = document.getElementById("maintab");
@@ -167,7 +113,7 @@ function tabitemClick(node) {
     post.classList.add("current");
     var n = node.dataset;
     lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.rotate, n.breathe);
-    stageSet(n.item, n.form);
+    stageSet(n.item);
   }
   postInOut(node);
 }
@@ -277,36 +223,113 @@ function lightSet(pattern, randomw, randomh, fill, stroke, rotate, breathe) {
   }, 500);
 }
 
-function stageSet(perform, form) {
+function stageSet(perform) {
   var stage = document.createElement("section");
   stage.classList.add("stage");
   background.appendChild(stage);
   var vocal = document.createElement("div");
-  var chord = document.createElement("div");
-  var drum = document.createElement("div");
+  var instrumental = document.createElement("div");
   vocal.classList.add(perform, "vocal", "perform", "center");
-  chord.classList.add(perform, "chord", "perform", "center");
-  drum.classList.add(perform, "drum", "perform", "center");
-  vocal.style.animationName = "form" + form;
-  chord.style.animationName = "form" + form;
-  drum.style.animationName = "form" + form;
+  instrumental.classList.add(perform, "instrumental", "perform", "center");
   stage.appendChild(vocal);
-  stage.appendChild(chord);
-  stage.appendChild(drum);
+  stage.appendChild(instrumental);
 }
 
+var onPlay = false;
 
-//Background Animation for Music---------------------------------
-background.addEventListener("click", function() {
+button.addEventListener("click", function() {
+  var randomize = Math.ceil(Math.random()*Object.keys(audioSrc).length);
+  audioOri.src = audioSrc["song" + randomize].original;
+  audioIns.src = audioSrc["song" + randomize].instrumental;
   if (background.children.length != 0) {
     if (background.children[0].classList.contains("current")) {
       bgSwitch(0, 1);
+      post.style.transform = "translateX(-100%)";
+      audioOri.play();
+      audioIns.play();
+      audioIns.volume = 0.8;
+      updateVoc();
+      updateIns();
+      onPlay = true;
     } else {
       bgSwitch(1, 0);
+      post.style.transform = "translateX(0)";
+      audioOri.pause();
+      audioIns.pause();
+      onPlay = false;
     }
   }
 });
 
+//Analyze Original
+var contextOri = new AudioContext();
+var analyserOri = contextOri.createAnalyser();
+audioOri.addEventListener("canplaythrough", function() {
+  if (onPlay == false) {
+    return;
+  } else {
+    var sourceOri = contextOri.createMediaElementSource(audioOri);
+    sourceOri.connect(analyserOri);
+    analyserOri.connect(contextOri.destination);
+  }
+});
+analyserOri.fftSize = 1024;
+var frequencyDataOri = new Uint8Array(analyserOri.frequencyBinCount);
+analyserOri.getByteFrequencyData(frequencyDataOri);
+
+//Analyze Instrumental
+var contextIns = new AudioContext();
+var analyserIns = contextIns.createAnalyser();
+audioIns.addEventListener("canplaythrough", function() {
+  if (onPlay == false) {
+    return;
+  } else {
+    var sourceIns = contextIns.createMediaElementSource(audioIns);
+    sourceIns.connect(analyserIns);
+    analyserIns.connect(contextIns.destination);
+  }
+});
+analyserIns.fftSize = 1024;
+var frequencyDataIns = new Uint8Array(analyserIns.frequencyBinCount);
+analyserIns.getByteFrequencyData(frequencyDataIns);
+
+function updateVoc() {
+  requestAnimationFrame(updateVoc);
+  analyserOri.getByteFrequencyData(frequencyDataOri);
+
+  var totalOri = 0;
+  var totalIns = 0;
+  for (var i = 0; i < frequencyDataOri.length; i ++) {
+    totalOri += frequencyDataOri[i];
+  }
+  for (var i = 0; i < frequencyDataIns.length; i ++) {
+    totalIns += frequencyDataIns[i];
+  }
+  var totalVoc = totalOri - totalIns;
+
+  var meanVoc = totalVoc/frequencyDataOri.length;
+  var vocal = document.querySelector(".vocal");
+  vocal.style.width = 50 + meanVoc*5 + "px";
+  vocal.style.height = 50 + meanVoc*5 + "px";
+};
+
+function updateIns() {
+  requestAnimationFrame(updateIns);
+  analyserIns.getByteFrequencyData(frequencyDataIns);
+
+  var total = 0;
+  for (var i = 0; i < frequencyDataIns.length; i ++) {
+    total += frequencyDataIns[i];
+  }
+
+  var meanIns = total/frequencyDataOri.length;
+  var instrumental = document.querySelector(".instrumental");
+  instrumental.style.width = meanIns*4 + "px";
+  instrumental.style.height = meanIns*4 + "px";
+};
+
+
+//Background Animation for Music---------------------------------
 function bgSwitch(n1, n2) {
   background.children[n1].style.display = "none";
   background.children[n2].style.display = "block";
