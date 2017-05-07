@@ -1,4 +1,5 @@
-var audioSrc = {
+//Audio Setup--------------------------------------------------------
+/*var audioSrc = {
     song1: {name: "Ratten"},
     song2: {name: "Diamanten"},
     song3: {name: "Mehr als ein Job"},
@@ -22,87 +23,235 @@ var audioSrc = {
 for (song in audioSrc) {
     audioSrc[song].original = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + ".m4a";
     audioSrc[song].instrumental = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + "-Instrumental.m4a";
-}
-
-var button = document.getElementById("button");
+}*/
 
 var audioOri = document.getElementById("original");
 var audioIns = document.getElementById("instrumental");
-var circleVoc = document.getElementById("v1");
-var circleIns = document.getElementById("v2");
 
-//---------------------------------------------------------------
+
+audioOri.addEventListener("ended", function() {
+  audioOri.play();
+})
+
+audioIns.addEventListener("ended", function() {
+  audioIns.play();
+})
+
+//Element---------------------------------------------------------------------
+var slogan = document.getElementById("slogan");
+
 var maintab = document.getElementById("maintab");
 var tabitem = document.getElementsByClassName("tabitem");
+var postTitle = document.getElementsByClassName("posttitle");
+
 var background = document.getElementById("background");
 var post = document.getElementById("post");
 var postbg = document.getElementById("postbg");
 var text = document.getElementsByClassName("text");
 var h1 = document.getElementsByTagName("h1");
-var h2 = document.getElementsByTagName("h2");
 var p = document.getElementsByTagName("p");
 
-//loading---------------------------------------------------------
+var player  = document.getElementById("player");
+var song = document.getElementsByClassName("song");
+var songName = document.getElementsByClassName("songname");
+
+var social = document.getElementById("social");
+
+//Loading---------------------------------------------------------
 var loading = {
   start: function() {
-    maintab.classList.add("menu");
-    maintab.style.backgroundColor = "white";
+    maintab.classList.add("full");
+    player.classList.add("full");
+    social.classList.add("full");
+    player.style.cursor = "default";
+    social.style.cursor = "default";
   },
   complete: function() {
-    maintab.classList.remove("menu");
-    maintab.style.backgroundColor = "black";
+    maintab.classList.remove("full");
+    player.classList.remove("full");
+    social.classList.remove("full");
+    player.style.cursor = "pointer";
+    social.style.cursor = "pointer";
     for (var i = 0; i < maintab.children.length; i ++) {
       maintab.children[i].classList.add("current");
     };
+
+    //Maintab Event-------------------------------------------------
+    maintab.addEventListener("click", function(e) {
+      if (e.target.nodeName == "H2") {
+        tabitemClick(e.target.parentNode);
+      } else if (e.target.nodeName == "DIV") {
+        tabitemClick(e.target);
+      } else if (e.target.nodeName == "MAIN") {
+        if (e.target.classList.contains("menu")) {
+          e.target.classList.remove("menu");
+          for (var i = 0; i < tabitem.length; i ++) {
+            tabitem[i].classList.remove("menu");
+          };
+          post.style.opacity = "1";
+          setTimeout(function() {
+            for (var i = 0; i < tabitem.length; i ++) {
+              if (tabitem[i].classList.contains("focus")) {
+                scrollTo(maintab, i * (maintab.clientHeight), 900);
+              };
+           };
+          }, 1000);
+        } else {
+          e.target.classList.add("menu");
+          for (var i = 0; i < tabitem.length; i ++) {
+            tabitem[i].classList.add("menu");
+          }
+          post.style.opacity = "0.5";
+          scrollTo(maintab, 0, 10);
+        }
+      }
+    });
+
+    //Player Event--------------------------------------------------
+    player.addEventListener("click", function(e) {
+      if (e.target.nodeName == "H2") {
+        songClick(e.target.parentNode);
+      } else if (e.target.nodeName == "DIV") {
+        songClick(e.target);
+      }
+    });
+
+    player.addEventListener("mouseover", function() {
+      if (!player.classList.contains("menu")) {
+        if (player.classList.contains("current")) {
+          player.classList.remove("current");
+        }
+        player.classList.add("menu");
+        for (var i = 0; i < song.length; i ++) {
+          song[i].classList.add("current");
+        }
+      }
+    });
+
+    player.addEventListener("mouseout", function() {
+      if (player.classList.contains("menu")) {
+        player.classList.remove("menu");
+        for (var i = 0; i < song.length; i ++) {
+          if (song[i].classList.contains("current")) {
+            song[i].classList.remove("current");
+          }
+          if (song[i].classList.contains("focus") && background.children.length != 0) {
+            player.classList.add("current");
+          }
+        }
+      }
+    });
   }
 };
 
 loading.start();
 
 document.addEventListener("readystatechange", function() {
-  console.log(document.readyState);
   if (document.readyState == "complete") {
     loading.complete();
   };
 });
 
+//Slogan Scroll Animation-------------------------------------
+var countup = false;
+
+function sloganScroll() {
+  if (countup == false) {
+    slogan.scrollTop += slogan.scrollHeight / 3;
+    if (slogan.scrollTop >= slogan.scrollHeight / 3 * 2) {
+      countup = true;
+    }
+  } else if (countup == true) {
+    slogan.scrollTop -= slogan.scrollHeight / 3;
+    if (slogan.scrollTop <= 0) {
+      countup = false;
+    }
+  };
+};
+
+var sloganInterval = setInterval(function() {
+  sloganScroll();
+}, 2500);
 //Navigation---------------------------------------------------
-maintab.addEventListener("click", function(e) {
-  if (e.target.nodeName == "H2") {
-    tabitemClick(e.target.parentNode);
-  } else if (e.target.nodeName == "DIV") {
-    tabitemClick(e.target);
-  } else if (e.target.nodeName == "MAIN") {
-    if (e.target.classList.contains("menu")) {
-      e.target.classList.remove("menu");
-      for (var i = 0; i < tabitem.length; i ++) {
-        tabitem[i].classList.remove("menu");
-      };
-      post.style.opacity = "1";
-      setTimeout(function() {
-        for (var i = 0; i < tabitem.length; i ++) {
-          if (tabitem[i].classList.contains("focus")) {
-            scrollTo(maintab, i * (maintab.clientHeight), 900);
-          };
-       };
-      }, 1000);
+
+
+function songClick(node) {
+  var previousOriSrc = audioOri.src;
+  var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20") + ".m4a";
+  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20") + "-Instrumental.m4a";
+  if (node.classList.contains("focus")) {
+    node.classList.remove("focus");
+    audioOri.pause();
+    audioIns.pause();
+    if (background.children.length != 0 && background.children[1].classList.contains("current")) {
+      bgSwitch(1, 0);
+      player.classList.remove("current");
+      post.classList.remove("mini");
+      post.style.transform = "translateY(0)";
+    }
+  } else {
+    for (var i = 0; i < song.length; i ++) {
+      song[i].classList.remove("focus");
+    };
+    node.classList.add("focus");
+
+    if (newOriSrc != previousOriSrc) {
+      audioOri.src = newOriSrc;
+      audioIns.src = newInsSrc;
+      audioOri.addEventListener("canplaythrough", function() {
+        audioOri.play();
+      });
+      audioIns.addEventListener("canplaythrough", function() {
+        audioIns.play();
+      })
     } else {
-      e.target.classList.add("menu");
-      for (var i = 0; i < tabitem.length; i ++) {
-        tabitem[i].classList.add("menu");
+      audioOri.play();
+      audioIns.play();
+    }
+    audioIns.volume = 0.8;
+
+    if (background.children.length != 0) {
+      if (background.children[0].classList.contains("current")) {
+        bgSwitch(0, 1);
+        post.classList.add("mini");
+        post.style.transform = "translateY(-250%)";
       }
-      post.style.opacity = "0.5";
-      scrollTo(maintab, 0, 10);
+      updateVoc();
+      updateIns();
     }
   }
-});
+
+  for (var i = 0; i < songName.length; i ++) {
+    if (songName[i].parentNode == node) {
+      if (!songName[i].classList.contains("current")) {
+        songName[i].classList.add("current");
+      } else {
+        songName[i].classList.remove("current");
+      }
+    } else {
+      songName[i].classList.remove("current");
+    }
+  };
+};
 
 function tabitemClick(node) {
   background.innerHTML = "";
+  for (var i = 0; i < song.length; i ++) {
+    if (song[i].classList.contains("focus")) {
+      player.classList.add("current");
+    }
+  }
   if (node.classList.contains("focus")) {
+    player.classList.remove("current");
     node.classList.remove("focus");
     post.classList.remove("current");
+    slogan.classList.add("current");
+    var sloganInterval = setInterval(function() {
+      sloganScroll();
+    }, 6000);
   } else {
+    clearInterval(sloganInterval);
+    slogan.classList.remove("current");
     for (var i = 0; i < tabitem.length; i ++) {
       tabitem[i].classList.remove("focus");
       if (node == tabitem[i] && !tabitem[i].classList.contains("menu")) {
@@ -114,21 +263,29 @@ function tabitemClick(node) {
     var n = node.dataset;
     lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.rotate, n.breathe);
     stageSet(n.item);
+    if (player.classList.contains("current")) {
+      bgSwitch(0, 1);
+      updateVoc();
+      updateIns();
+      post.classList.add("mini");
+      post.style.transform = "translateY(-250%)";
+    } else {
+      bgSwitch(1, 0);
+    }
   }
+  for (var i = 0; i < postTitle.length; i ++) {
+    if (postTitle[i].parentNode == node) {
+      if (!postTitle[i].classList.contains("current")) {
+        postTitle[i].classList.add("current");
+      } else {
+        postTitle[i].classList.remove("current");
+      }
+    } else {
+      postTitle[i].classList.remove("current");
+    }
+  };
   postInOut(node);
-}
-
-function scrollTo(element, to, duration) {
-  if (duration <= 0) return;
-  var difference = to - element.scrollTop;
-  var perTick = difference / duration * 10;
-
-  setTimeout(function() {
-    element.scrollTop = element.scrollTop + perTick;
-    if (element.scrollTop == to) return;
-    scrollTo(element, to, duration - 10);
-  }, 10);
-}
+};
 
 function postInOut(nd) {
   for (var i = 0; i < text.length; i ++) {
@@ -153,18 +310,7 @@ function postInOut(nd) {
       blur.children[1].classList.remove("current");
     }
   };
-  for (var i = 0; i < h2.length; i ++) {
-    if (h2[i].parentNode == nd) {
-      if (!h2[i].classList.contains("current")) {
-        h2[i].classList.add("current");
-      } else {
-        h2[i].classList.remove("current");
-      }
-    } else {
-      h2[i].classList.remove("current");
-    }
-  };
-}
+};
 
 //Background Animation for Text---------------------------------
 for (var i = 0; i < p.length; i ++) {
@@ -216,11 +362,6 @@ function lightSet(pattern, randomw, randomh, fill, stroke, rotate, breathe) {
     effect.appendChild(divCol);
     divCol.appendChild(divLit);
   }
-  var effect = document.querySelector(".effect");
-  effect.style.display = "block";
-  setTimeout(function() {
-    effect.classList.add("current");
-  }, 500);
 }
 
 function stageSet(perform) {
@@ -235,44 +376,17 @@ function stageSet(perform) {
   stage.appendChild(instrumental);
 }
 
-var onPlay = false;
-
-button.addEventListener("click", function() {
-  var randomize = Math.ceil(Math.random()*Object.keys(audioSrc).length);
-  audioOri.src = audioSrc["song" + randomize].original;
-  audioIns.src = audioSrc["song" + randomize].instrumental;
-  if (background.children.length != 0) {
-    if (background.children[0].classList.contains("current")) {
-      bgSwitch(0, 1);
-      post.style.transform = "translateX(-100%)";
-      audioOri.play();
-      audioIns.play();
-      audioIns.volume = 0.8;
-      updateVoc();
-      updateIns();
-      onPlay = true;
-    } else {
-      bgSwitch(1, 0);
-      post.style.transform = "translateX(0)";
-      audioOri.pause();
-      audioIns.pause();
-      onPlay = false;
-    }
-  }
-});
 
 //Analyze Original
 var contextOri = new AudioContext();
 var analyserOri = contextOri.createAnalyser();
+//if (onPlay === true) {
 audioOri.addEventListener("canplaythrough", function() {
-  if (onPlay == false) {
-    return;
-  } else {
-    var sourceOri = contextOri.createMediaElementSource(audioOri);
-    sourceOri.connect(analyserOri);
-    analyserOri.connect(contextOri.destination);
-  }
+  var sourceOri = contextOri.createMediaElementSource(audioOri);
+  sourceOri.connect(analyserOri);
+  analyserOri.connect(contextOri.destination);
 });
+//};
 analyserOri.fftSize = 1024;
 var frequencyDataOri = new Uint8Array(analyserOri.frequencyBinCount);
 analyserOri.getByteFrequencyData(frequencyDataOri);
@@ -280,56 +394,70 @@ analyserOri.getByteFrequencyData(frequencyDataOri);
 //Analyze Instrumental
 var contextIns = new AudioContext();
 var analyserIns = contextIns.createAnalyser();
+//if (onPlay === true) {
 audioIns.addEventListener("canplaythrough", function() {
-  if (onPlay == false) {
-    return;
-  } else {
-    var sourceIns = contextIns.createMediaElementSource(audioIns);
-    sourceIns.connect(analyserIns);
-    analyserIns.connect(contextIns.destination);
-  }
+  var sourceIns = contextIns.createMediaElementSource(audioIns);
+  sourceIns.connect(analyserIns);
+  analyserIns.connect(contextIns.destination);
 });
+//};
 analyserIns.fftSize = 1024;
 var frequencyDataIns = new Uint8Array(analyserIns.frequencyBinCount);
 analyserIns.getByteFrequencyData(frequencyDataIns);
 
 function updateVoc() {
-  requestAnimationFrame(updateVoc);
-  analyserOri.getByteFrequencyData(frequencyDataOri);
+  if (background.children.length != 0) {
+    requestAnimationFrame(updateVoc);
+    analyserOri.getByteFrequencyData(frequencyDataOri);
 
-  var totalOri = 0;
-  var totalIns = 0;
-  for (var i = 0; i < frequencyDataOri.length; i ++) {
-    totalOri += frequencyDataOri[i];
-  }
-  for (var i = 0; i < frequencyDataIns.length; i ++) {
-    totalIns += frequencyDataIns[i];
-  }
-  var totalVoc = totalOri - totalIns;
+    var totalOri = 0;
+    var totalIns = 0;
+    for (var i = 0; i < frequencyDataOri.length; i ++) {
+      totalOri += frequencyDataOri[i];
+    }
+    for (var i = 0; i < frequencyDataIns.length; i ++) {
+      totalIns += frequencyDataIns[i];
+    }
+    var totalVoc = totalOri - totalIns;
 
-  var meanVoc = totalVoc/frequencyDataOri.length;
-  var vocal = document.querySelector(".vocal");
-  vocal.style.width = 50 + meanVoc*5 + "px";
-  vocal.style.height = 50 + meanVoc*5 + "px";
+    var meanVoc = totalVoc/frequencyDataOri.length;
+    var vocal = document.querySelector(".vocal");
+    vocal.style.width = 50 + meanVoc*5 + "px";
+    vocal.style.height = 50 + meanVoc*5 + "px";
+  }
 };
 
 function updateIns() {
-  requestAnimationFrame(updateIns);
-  analyserIns.getByteFrequencyData(frequencyDataIns);
+  if (background.children.length != 0) {
+    requestAnimationFrame(updateIns);
+    analyserIns.getByteFrequencyData(frequencyDataIns);
 
-  var total = 0;
-  for (var i = 0; i < frequencyDataIns.length; i ++) {
-    total += frequencyDataIns[i];
+    var total = 0;
+    for (var i = 0; i < frequencyDataIns.length; i ++) {
+      total += frequencyDataIns[i];
+    }
+
+    var meanIns = total/frequencyDataOri.length;
+    var instrumental = document.querySelector(".instrumental");
+    instrumental.style.width = meanIns*4 + "px";
+    instrumental.style.height = meanIns*4 + "px";
   }
-
-  var meanIns = total/frequencyDataOri.length;
-  var instrumental = document.querySelector(".instrumental");
-  instrumental.style.width = meanIns*4 + "px";
-  instrumental.style.height = meanIns*4 + "px";
 };
 
 
-//Background Animation for Music---------------------------------
+function scrollTo(element, to, duration) {
+  if (duration <= 0) return;
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 10;
+
+  setTimeout(function() {
+    element.scrollTop = element.scrollTop + perTick;
+    if (element.scrollTop == to) return;
+    scrollTo(element, to, duration - 10);
+  }, 10);
+};
+
+//Background Switch-------------------------------------------
 function bgSwitch(n1, n2) {
   background.children[n1].style.display = "none";
   background.children[n2].style.display = "block";
@@ -337,4 +465,4 @@ function bgSwitch(n1, n2) {
   setTimeout(function() {
     background.children[n2].classList.add("current");
   }, 500);
-}
+};
