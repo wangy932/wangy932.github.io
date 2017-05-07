@@ -125,7 +125,7 @@ document.addEventListener("readystatechange", function() {
   };
 });
 
-//Slogan Scroll Animation-------------------------------------
+//Slogan Scroll Animation-----------------------------------------
 var countup = false;
 
 function sloganScroll() {
@@ -146,11 +146,11 @@ var sloganInterval = setInterval(function() {
   sloganScroll();
 }, 2500);
 
-//Tab Content---------------------------------------------------
+//Event Functions---------------------------------------------------
 function songClick(node) {
   var previousOriSrc = audioOri.src;
-  var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20") + ".m4a";
-  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20") + "-Instrumental.m4a";
+  var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
+  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
   if (node.classList.contains("focus")) {
     node.classList.remove("focus");
     audioOri.pause();
@@ -393,7 +393,6 @@ analyserIns.getByteFrequencyData(frequencyDataIns);
 
 function updateVoc() {
   if (background.children.length != 0) {
-    //form = background.children[0].children[0].children[0].classList[0];
     requestAnimationFrame(updateVoc);
     analyserOri.getByteFrequencyData(frequencyDataOri);
 
@@ -419,18 +418,19 @@ function updateVoc() {
         var radius = tabitem[i].dataset.radius;
         var rotate = tabitem[i].dataset.rotate;
         var breathe = tabitem[i].dataset.breathe;
+        var n = i;
       }
     }
 
     if (randomw == 1) {
       vocal.style.width = meanVoc*5 + "px";
     } else {
-      vocal.style.width = "1px";
+      vocal.style.width = "2px";
     }
     if (randomh == 1 || breathe == 4) {
       vocal.style.height = meanVoc*5 + "px";
     } else {
-      vocal.style.height = "5px";
+      vocal.style.height = "2px";
     }
     if (randomw == 0 && randomh == 0) {
       vocal.style.width = vocal.style.height = meanVoc*4 + "px";
@@ -451,13 +451,28 @@ function updateVoc() {
       vocal.style.transform = "rotate(" + meanVoc + "deg)";
     }
     if (breathe == 0) {
-      vocal.style.boxShadow = "0 0 " + meanVoc/6 + "px " + meanVoc/3 + "px white";
+      vocal.style.boxShadow = "0 0 " + 25 + "px " + meanVoc/10 + "px white";
     } else if (breathe == 1) {
       vocal.style.backgroundColor = "rgba(255, 255, 255, " + meanVoc/80 + ")";
     } else if (breathe == 2) {
       vocal.style.opacity = meanVoc/80;
     } else if (breathe == 3) {
-      vocal.style.top = vocal.style.left = "-"+ meanVoc/2 +"%";
+      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";
+    }
+    if (n == 1) {
+      vocal.style.transform = "";
+    } else if (n == 2) {
+      vocal.style.top = "-" + meanVoc/2 +"%";
+    } else if (n == 3) {
+      vocal.style.width = "2px";
+      vocal.style.height = meanVoc*5 + "px";
+      vocal.style.left = "-" + meanVoc/2 +"%";
+    } else if (n == 4) {
+      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";
+    } else if (n == 7) {
+      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";
+    } else if (n == 8) {
+      vocal.style.backgroundColor = "rgba(0, 0, 0, " + meanVoc/80 + ")";
     }
   }
 };
@@ -484,18 +499,19 @@ function updateIns() {
         var radius = tabitem[i].dataset.radius;
         var rotate = tabitem[i].dataset.rotate;
         var breathe = tabitem[i].dataset.breathe;
+        var n = i;
       }
     }
 
     if (randomw == 1) {
       instrumental.style.width = meanIns*4 + "px";
     } else {
-      instrumental.style.width = "5px";
+      instrumental.style.width = "2px";
     }
     if (randomh == 1 || breathe == 4) {
       instrumental.style.height = meanIns*4 + "px";
     } else {
-      instrumental.style.height = "5px";
+      instrumental.style.height = "2px";
     }
     if (randomw == 0 && randomh == 0) {
       instrumental.style.width = instrumental.style.height = meanIns*4 + "px";
@@ -516,12 +532,26 @@ function updateIns() {
       instrumental.style.transform = "rotate(" + meanIns + "deg)";
     }*/
     if (breathe == 0) {
-      instrumental.style.boxShadow = "0 0 " + meanIns/5 + "px " + meanIns/10 +"px white";
+      instrumental.style.boxShadow = "0 0 " + 25 + "px " + meanIns/10 +"px white";
     } else if (breathe == 1) {
       instrumental.style.backgroundColor = "rgba(255, 255, 255, " + meanIns/180 + ")";
-    } else if (breathe == 2 || 1) {
+    } else if (breathe == 2) {
       instrumental.style.opacity = meanIns/180;
     } else if (breathe == 3) {
+      instrumental.style.top = instrumental.style.left = meanIns/4 + "%";
+    }
+    if (n == 1) {
+      instrumental.style.transform = "rotate(" + meanIns + "deg)";
+    } if (n == 2) {
+      instrumental.style.top = meanIns/4 + "%";
+    } else if (n == 3) {
+      instrumental.style.width = "2px";
+      instrumental.style.height = meanIns*4 + "px";
+      instrumental.style.left = meanIns/4 + "%";
+    } else if (n == 4) {
+      instrumental.style.top = instrumental.style.left = meanIns/4 + "%";
+      instrumental.style.transform = "rotate(" + meanIns + "deg)";
+    } else if (n == 7) {
       instrumental.style.top = instrumental.style.left = meanIns/4 + "%";
     }
   }
