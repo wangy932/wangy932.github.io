@@ -174,7 +174,7 @@ function songClick(node) {
       }
     }
 
-    if (newOriSrc != previousOriSrc || previousOriSrc == "#") {
+    if (newOriSrc != previousOriSrc) {
       audioOri.src = newOriSrc;
       audioIns.src = newInsSrc;
       audioOri.addEventListener("canplay", function() {
