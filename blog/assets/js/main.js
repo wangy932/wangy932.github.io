@@ -1,30 +1,4 @@
 //Audio Setup--------------------------------------------------------
-/*var audioSrc = {
-    song1: {name: "Ratten"},
-    song2: {name: "Diamanten"},
-    song3: {name: "Mehr als ein Job"},
-    song4: {name: "Hande weg (feat. Rico)"},
-    song5: {name: "2 Seelen"},
-    song6: {name: "Power"},
-    song7: {name: "Plem Plem (feat. Raf Camora & Bonez MC)"},
-    song8: {name: "Einfach"},
-    song9: {name: "Gute Nacht"},
-    song10: {name: "Mosaik (feat. Rico)"},
-    song11: {name: "Wie du"},
-    song12: {name: "Gift (feat. BTNG & AK Ausser Kontrolle)"},
-    song13: {name: "Instinkt"},
-    song14: {name: "Jedes Mal (feat. Fatal & Skepsis)"},
-    song15: {name: "Kreis (feat. Bausa)"},
-    song16: {name: "Lass mal"},
-    song17: {name: "Glucklichen"},
-    song18: {name: "Lass mich los"}
-}
-
-for (song in audioSrc) {
-    audioSrc[song].original = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + ".m4a";
-    audioSrc[song].instrumental = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + audioSrc[song].name + "-Instrumental.m4a";
-}*/
-
 var audioOri = document.getElementById("original");
 var audioIns = document.getElementById("instrumental");
 
