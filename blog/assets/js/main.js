@@ -2,16 +2,14 @@
 var audioOri = document.getElementById("original");
 var audioIns = document.getElementById("instrumental");
 
-
 audioOri.addEventListener("ended", function() {
   audioOri.play();
 })
-
 audioIns.addEventListener("ended", function() {
   audioIns.play();
 })
 
-//Element---------------------------------------------------------------------
+//Elements---------------------------------------------------------------------
 var slogan = document.getElementById("slogan");
 
 var maintab = document.getElementById("maintab");
@@ -19,6 +17,7 @@ var tabitem = document.getElementsByClassName("tabitem");
 var postTitle = document.getElementsByClassName("posttitle");
 
 var background = document.getElementById("background");
+
 var post = document.getElementById("post");
 var postbg = document.getElementById("postbg");
 var text = document.getElementsByClassName("text");
@@ -146,9 +145,8 @@ function sloganScroll() {
 var sloganInterval = setInterval(function() {
   sloganScroll();
 }, 2500);
-//Navigation---------------------------------------------------
 
-
+//Tab Content---------------------------------------------------
 function songClick(node) {
   var previousOriSrc = audioOri.src;
   var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20") + ".m4a";
@@ -160,14 +158,21 @@ function songClick(node) {
     if (background.children.length != 0 && background.children[1].classList.contains("current")) {
       bgSwitch(1, 0);
       player.classList.remove("current");
-      post.classList.remove("mini");
-      post.style.transform = "translateY(0)";
+      if (post.classList.contains("mini")) {
+        post.classList.remove("mini");
+      }
     }
   } else {
     for (var i = 0; i < song.length; i ++) {
       song[i].classList.remove("focus");
     };
     node.classList.add("focus");
+
+    for (var i = 0; i < song.length; i ++) {
+      if (song[i].classList.contains("focus")) {
+        scrollTo(player, i * ((player.clientHeight-1) / 3), 900);
+      }
+    }
 
     if (newOriSrc != previousOriSrc) {
       audioOri.src = newOriSrc;
@@ -188,7 +193,6 @@ function songClick(node) {
       if (background.children[0].classList.contains("current")) {
         bgSwitch(0, 1);
         post.classList.add("mini");
-        post.style.transform = "translateY(-250%)";
       }
       updateVoc();
       updateIns();
@@ -235,14 +239,13 @@ function tabitemClick(node) {
     node.classList.add("focus");
     post.classList.add("current");
     var n = node.dataset;
-    lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.rotate, n.breathe);
+    lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.radius, n.rotate, n.breathe);
     stageSet(n.item);
     if (player.classList.contains("current")) {
       bgSwitch(0, 1);
       updateVoc();
       updateIns();
       post.classList.add("mini");
-      post.style.transform = "translateY(-250%)";
     } else {
       bgSwitch(1, 0);
     }
@@ -286,7 +289,17 @@ function postInOut(nd) {
   };
 };
 
-//Background Animation for Text---------------------------------
+//Post Animation---------------------------------------------------
+post.addEventListener("click", function() {
+  if (background.children.length != 0 && background.children[1].classList.contains("current")) {
+    if (post.classList.contains("mini")) {
+      post.classList.remove("mini");
+    } else {
+      post.classList.add("mini");
+    }
+  }
+})
+
 for (var i = 0; i < p.length; i ++) {
   p[i].addEventListener("scroll", function() {
     postbg.style.transition = "opacity 1s";
@@ -299,7 +312,7 @@ for (var i = 0; i < p.length; i ++) {
 }
 
 //Lighting Set Change------------------------------------------
-function lightSet(pattern, randomw, randomh, fill, stroke, rotate, breathe) {
+function lightSet(pattern, randomw, randomh, fill, stroke, radius, rotate, breathe) {
   var effect = document.createElement("section");
   effect.classList.add("effect");
   background.appendChild(effect);
@@ -327,6 +340,9 @@ function lightSet(pattern, randomw, randomh, fill, stroke, rotate, breathe) {
       var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]
       divLit.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";
     }
+    /*if (radius == 1) {
+      divLiv.style.borderRadius = "50%";
+    }*/
     if (rotate == 1) {
       divLit.style.transform = "rotate(" + Math.random()*360 + "deg)";
     }
@@ -350,17 +366,15 @@ function stageSet(perform) {
   stage.appendChild(instrumental);
 }
 
-
+//Audio Analysis-------------------------------------------------
 //Analyze Original
 var contextOri = new AudioContext();
 var analyserOri = contextOri.createAnalyser();
-//if (onPlay === true) {
 audioOri.addEventListener("canplaythrough", function() {
   var sourceOri = contextOri.createMediaElementSource(audioOri);
   sourceOri.connect(analyserOri);
   analyserOri.connect(contextOri.destination);
 });
-//};
 analyserOri.fftSize = 1024;
 var frequencyDataOri = new Uint8Array(analyserOri.frequencyBinCount);
 analyserOri.getByteFrequencyData(frequencyDataOri);
@@ -368,19 +382,18 @@ analyserOri.getByteFrequencyData(frequencyDataOri);
 //Analyze Instrumental
 var contextIns = new AudioContext();
 var analyserIns = contextIns.createAnalyser();
-//if (onPlay === true) {
 audioIns.addEventListener("canplaythrough", function() {
   var sourceIns = contextIns.createMediaElementSource(audioIns);
   sourceIns.connect(analyserIns);
   analyserIns.connect(contextIns.destination);
 });
-//};
 analyserIns.fftSize = 1024;
 var frequencyDataIns = new Uint8Array(analyserIns.frequencyBinCount);
 analyserIns.getByteFrequencyData(frequencyDataIns);
 
 function updateVoc() {
   if (background.children.length != 0) {
+    //form = background.children[0].children[0].children[0].classList[0];
     requestAnimationFrame(updateVoc);
     analyserOri.getByteFrequencyData(frequencyDataOri);
 
@@ -396,8 +409,56 @@ function updateVoc() {
 
     var meanVoc = totalVoc/frequencyDataOri.length;
     var vocal = document.querySelector(".vocal");
-    vocal.style.width = 50 + meanVoc*5 + "px";
-    vocal.style.height = 50 + meanVoc*5 + "px";
+    
+    for (var i = 0; i < tabitem.length; i ++) {
+      if (tabitem[i].classList.contains("focus")) {
+        var randomw = tabitem[i].dataset.randomw;
+        var randomh = tabitem[i].dataset.randomh;
+        var fill = tabitem[i].dataset.fill;
+        var stroke = tabitem[i].dataset.stroke;
+        var radius = tabitem[i].dataset.radius;
+        var rotate = tabitem[i].dataset.rotate;
+        var breathe = tabitem[i].dataset.breathe;
+      }
+    }
+
+    if (randomw == 1) {
+      vocal.style.width = meanVoc*5 + "px";
+    } else {
+      vocal.style.width = "1px";
+    }
+    if (randomh == 1 || breathe == 4) {
+      vocal.style.height = meanVoc*5 + "px";
+    } else {
+      vocal.style.height = "5px";
+    }
+    if (randomw == 0 && randomh == 0) {
+      vocal.style.width = vocal.style.height = meanVoc*4 + "px";
+    }
+    if (fill == 1) {
+      vocal.style.backgroundColor = "white";
+    }
+    if (stroke == 1) {
+      vocal.style.border = "white 1px solid";
+    } else if (stroke == 2) {
+      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]
+      vocal.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";
+    }
+    if (radius == 1) {
+      vocal.style.borderRadius = "50%";
+    }
+    if (rotate == 1) {
+      vocal.style.transform = "rotate(" + meanVoc + "deg)";
+    }
+    if (breathe == 0) {
+      vocal.style.boxShadow = "0 0 " + meanVoc/6 + "px " + meanVoc/3 + "px white";
+    } else if (breathe == 1) {
+      vocal.style.backgroundColor = "rgba(255, 255, 255, " + meanVoc/80 + ")";
+    } else if (breathe == 2) {
+      vocal.style.opacity = meanVoc/80;
+    } else if (breathe == 3) {
+      vocal.style.top = vocal.style.left = "-"+ meanVoc/2 +"%";
+    }
   }
 };
 
@@ -405,7 +466,7 @@ function updateIns() {
   if (background.children.length != 0) {
     requestAnimationFrame(updateIns);
     analyserIns.getByteFrequencyData(frequencyDataIns);
-
+    
     var total = 0;
     for (var i = 0; i < frequencyDataIns.length; i ++) {
       total += frequencyDataIns[i];
@@ -413,12 +474,60 @@ function updateIns() {
 
     var meanIns = total/frequencyDataOri.length;
     var instrumental = document.querySelector(".instrumental");
-    instrumental.style.width = meanIns*4 + "px";
-    instrumental.style.height = meanIns*4 + "px";
+    
+    for (var i = 0; i < tabitem.length; i ++) {
+      if (tabitem[i].classList.contains("focus")) {
+        var randomw = tabitem[i].dataset.randomw;
+        var randomh = tabitem[i].dataset.randomh;
+        var fill = tabitem[i].dataset.fill;
+        var stroke = tabitem[i].dataset.stroke;
+        var radius = tabitem[i].dataset.radius;
+        var rotate = tabitem[i].dataset.rotate;
+        var breathe = tabitem[i].dataset.breathe;
+      }
+    }
+
+    if (randomw == 1) {
+      instrumental.style.width = meanIns*4 + "px";
+    } else {
+      instrumental.style.width = "5px";
+    }
+    if (randomh == 1 || breathe == 4) {
+      instrumental.style.height = meanIns*4 + "px";
+    } else {
+      instrumental.style.height = "5px";
+    }
+    if (randomw == 0 && randomh == 0) {
+      instrumental.style.width = instrumental.style.height = meanIns*4 + "px";
+    }
+    if (fill == 1) {
+      instrumental.style.backgroundColor = "white";
+    }
+    if (stroke == 1) {
+      instrumental.style.border = "white 1px solid";
+    } else if (stroke == 2) {
+      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]
+      instrumental.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";
+    }
+    if (radius == 1) {
+      instrumental.style.borderRadius = "50%";
+    }
+    /*if (rotate == 1) {
+      instrumental.style.transform = "rotate(" + meanIns + "deg)";
+    }*/
+    if (breathe == 0) {
+      instrumental.style.boxShadow = "0 0 " + meanIns/5 + "px " + meanIns/10 +"px white";
+    } else if (breathe == 1) {
+      instrumental.style.backgroundColor = "rgba(255, 255, 255, " + meanIns/180 + ")";
+    } else if (breathe == 2 || 1) {
+      instrumental.style.opacity = meanIns/180;
+    } else if (breathe == 3) {
+      instrumental.style.top = instrumental.style.left = meanIns/4 + "%";
+    }
   }
 };
 
-
+//Scroll Animation----------------------------------------------
 function scrollTo(element, to, duration) {
   if (duration <= 0) return;
   var difference = to - element.scrollTop;
