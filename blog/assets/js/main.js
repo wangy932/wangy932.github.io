@@ -177,7 +177,7 @@ function songClick(node) {
     if (newOriSrc != previousOriSrc || previousOriSrc == "#") {
       audioOri.src = newOriSrc;
       audioIns.src = newInsSrc;
-      audioOri.addEventListener("canplaythrough", function() {
+      audioOri.addEventListener("canplay", function() {
         audioIns.addEventListener("canplay", function() {
           audioOri.play();
           audioIns.play();
