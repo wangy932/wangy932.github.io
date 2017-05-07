@@ -178,10 +178,10 @@ function songClick(node) {
       audioOri.src = newOriSrc;
       audioIns.src = newInsSrc;
       audioOri.addEventListener("canplaythrough", function() {
-        audioOri.play();
-      });
-      audioIns.addEventListener("canplaythrough", function() {
-        audioIns.play();
+        audioIns.addEventListener("canplaythrough", function() {
+          audioOri.play();
+          audioIns.play();
+        })
       })
     } else {
       audioOri.play();
