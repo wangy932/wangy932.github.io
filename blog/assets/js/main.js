@@ -57,25 +57,19 @@ var loading = {
         tabitemClick(e.target);
       } else if (e.target.nodeName == "MAIN") {
         if (e.target.classList.contains("menu")) {
-          e.target.classList.remove("menu");
-          for (var i = 0; i < tabitem.length; i ++) {
-            tabitem[i].classList.remove("menu");
-          };
-          post.style.opacity = "1";
-          setTimeout(function() {
-            for (var i = 0; i < tabitem.length; i ++) {
-              if (tabitem[i].classList.contains("focus")) {
-                scrollTo(maintab, i * (maintab.clientHeight), 900);
-              };
-           };
-          }, 1000);
-        } else {
-          e.target.classList.add("menu");
-          for (var i = 0; i < tabitem.length; i ++) {
-            tabitem[i].classList.add("menu");
+          maintabMenuRemove();
+          if (background.children.length == 0) {
+            maintabInterval = setInterval(function() {
+              maintabScroll();
+            }, 3000);
           }
-          post.style.opacity = "0.5";
-          scrollTo(maintab, 0, 10);
+        } else {
+          if (maintabInterval) {
+            clearInterval(maintabInterval);
+          }
+          setTimeout(function() {
+            maintabMenuAdd();
+          }, 50);
         }
       }
     });
@@ -91,12 +85,14 @@ var loading = {
 
     player.addEventListener("mouseover", function() {
       if (!player.classList.contains("menu")) {
+        player.classList.add("menu");
         if (player.classList.contains("current")) {
           player.classList.remove("current");
         }
-        player.classList.add("menu");
         for (var i = 0; i < song.length; i ++) {
-          song[i].classList.add("current");
+          if (!song[i].classList.contains("current")) {
+            song[i].classList.add("current");
+          }
         }
       }
     });
@@ -105,11 +101,11 @@ var loading = {
       if (player.classList.contains("menu")) {
         player.classList.remove("menu");
         for (var i = 0; i < song.length; i ++) {
+          if (song[i].classList.contains("focus")) {
+            player.classList.add("current");
+          }
           if (song[i].classList.contains("current")) {
             song[i].classList.remove("current");
-          }
-          if (song[i].classList.contains("focus") && background.children.length != 0) {
-            player.classList.add("current");
           }
         }
       }
@@ -125,7 +121,7 @@ document.addEventListener("readystatechange", function() {
   };
 });
 
-//Slogan Scroll Animation-----------------------------------------
+//Slogan & Tabitem Scroll Animation-----------------------------------------
 var countup = false;
 
 function sloganScroll() {
@@ -142,94 +138,150 @@ function sloganScroll() {
   };
 };
 
-var sloganInterval = setInterval(function() {
+function maintabScroll() {
+  maintab.scrollTop = maintab.clientHeight*Math.floor(Math.random()*tabitem.length);
+}
+
+sloganInterval = setInterval(function() {
   sloganScroll();
 }, 2500);
 
+maintabInterval = setInterval(function() {
+  maintabScroll();
+}, 3000);
+
 //Event Functions---------------------------------------------------
+function maintabMenuRemove() {
+  maintab.classList.remove("menu");
+  for (var i = 0; i < tabitem.length; i ++) {
+    tabitem[i].classList.remove("menu");
+  };
+  post.style.opacity = "1";
+  setTimeout(function() {
+    for (var i = 0; i < tabitem.length; i ++) {
+      if (tabitem[i].classList.contains("focus")) {
+        scrollTo(maintab, i * (maintab.clientHeight), 900);
+      };
+    };
+  }, 1200);
+};
+
+function maintabMenuAdd() {
+  maintab.classList.add("menu");
+  for (var i = 0; i < tabitem.length; i ++) {
+    tabitem[i].classList.add("menu");
+  }
+  post.style.opacity = "0.5";
+  scrollTo(maintab, 0, 1);
+};
+
 function songClick(node) {
   var previousOriSrc = audioOri.src;
   var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
   var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
+
   if (node.classList.contains("focus")) {
     node.classList.remove("focus");
+    for (var i = 0; i < songName.length; i ++) {
+      if (songName[i].parentNode == node) {
+        songName[i].classList.remove("current");
+      }
+    };
+    player.classList.remove("current");
     audioOri.pause();
     audioIns.pause();
     if (background.children.length != 0 && background.children[1].classList.contains("current")) {
       bgSwitch(1, 0);
-      player.classList.remove("current");
       if (post.classList.contains("mini")) {
         post.classList.remove("mini");
       }
-    }
+    };
   } else {
     for (var i = 0; i < song.length; i ++) {
       song[i].classList.remove("focus");
     };
     node.classList.add("focus");
-
+    for (var i = 0; i < songName.length; i ++) {
+      if (songName[i].parentNode == node) {
+        if (!songName[i].classList.contains("current")) {
+          songName[i].classList.add("current");
+        }
+      } else {
+        songName[i].classList.remove("current");
+      }
+    };
     for (var i = 0; i < song.length; i ++) {
       if (song[i].classList.contains("focus")) {
         scrollTo(player, i * ((player.clientHeight-1) / 3), 900);
       }
-    }
+    };
 
     if (newOriSrc != previousOriSrc) {
       audioOri.src = newOriSrc;
       audioIns.src = newInsSrc;
+      audioOri.addEventListener("loadstart", function() {
+        player.style.animation = "breathe1 1.5s linear infinite";
+      });
       audioOri.addEventListener("canplay", function() {
         audioIns.addEventListener("canplay", function() {
+          player.style.animation = "";
+          player.classList.add("current");
           audioOri.play();
           audioIns.play();
+          if (background.children.length == 0) {
+            clearInterval(maintabInterval);
+            setTimeout(function() {
+              if (!maintab.classList.contains("menu")) {
+                maintabMenuAdd();
+              }
+            }, 1500);
+          }
         })
       })
     } else {
+      player.classList.add("current");
       audioOri.play();
       audioIns.play();
     }
     audioIns.volume = 0.8;
 
-    if (background.children.length != 0) {
-      if (background.children[0].classList.contains("current")) {
-        bgSwitch(0, 1);
+    if (background.children.length != 0 && background.children[0].classList.contains("current")) {
+      bgSwitch(0, 1);
+      if (!post.classList.contains("mini")) {
         post.classList.add("mini");
       }
       updateVoc();
       updateIns();
     }
   }
-
-  for (var i = 0; i < songName.length; i ++) {
-    if (songName[i].parentNode == node) {
-      if (!songName[i].classList.contains("current")) {
-        songName[i].classList.add("current");
-      } else {
-        songName[i].classList.remove("current");
-      }
-    } else {
-      songName[i].classList.remove("current");
-    }
-  };
 };
 
 function tabitemClick(node) {
   background.innerHTML = "";
-  for (var i = 0; i < song.length; i ++) {
-    if (song[i].classList.contains("focus")) {
-      player.classList.add("current");
-    }
-  }
   if (node.classList.contains("focus")) {
-    player.classList.remove("current");
     node.classList.remove("focus");
+    for (var i = 0; i < postTitle.length; i ++) {
+      if (postTitle[i].parentNode == node) {
+        postTitle[i].classList.remove("current");
+      }
+    };
     post.classList.remove("current");
     slogan.classList.add("current");
-    var sloganInterval = setInterval(function() {
+    sloganInterval = setInterval(function() {
       sloganScroll();
-    }, 6000);
+    }, 2500);
+    maintabInterval = setInterval(function() {
+      maintabScroll();
+    }, 3000);
   } else {
-    clearInterval(sloganInterval);
+    clearInterval(maintabInterval);
     slogan.classList.remove("current");
+    clearInterval(sloganInterval);
+    setTimeout(function() {
+      if (maintab.classList.contains("menu")) {
+        maintabMenuRemove();
+      }
+    }, 800);
     for (var i = 0; i < tabitem.length; i ++) {
       tabitem[i].classList.remove("focus");
       if (node == tabitem[i] && !tabitem[i].classList.contains("menu")) {
@@ -237,6 +289,15 @@ function tabitemClick(node) {
       }
     }
     node.classList.add("focus");
+    for (var i = 0; i < postTitle.length; i ++) {
+      if (postTitle[i].parentNode == node) {
+        if (!postTitle[i].classList.contains("current")) {
+          postTitle[i].classList.add("current");
+        }
+      } else {
+        postTitle[i].classList.remove("current");
+      }
+    };
     post.classList.add("current");
     var n = node.dataset;
     lightSet(n.item, n.randomw, n.randomh, n.fill, n.stroke, n.radius, n.rotate, n.breathe);
@@ -250,17 +311,6 @@ function tabitemClick(node) {
       bgSwitch(1, 0);
     }
   }
-  for (var i = 0; i < postTitle.length; i ++) {
-    if (postTitle[i].parentNode == node) {
-      if (!postTitle[i].classList.contains("current")) {
-        postTitle[i].classList.add("current");
-      } else {
-        postTitle[i].classList.remove("current");
-      }
-    } else {
-      postTitle[i].classList.remove("current");
-    }
-  };
   postInOut(node);
 };
 
