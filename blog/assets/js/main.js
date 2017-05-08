@@ -212,7 +212,7 @@ function songClick(node) {
     };
     for (var i = 0; i < song.length; i ++) {
       if (song[i].classList.contains("focus")) {
-        scrollTo(player, i * ((player.clientHeight-1) / 3), 900);
+        scrollTo(player, i * (player.clientHeight / 3), 900);
       }
     };
 
