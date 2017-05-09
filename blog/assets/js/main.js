@@ -49,7 +49,7 @@ var loading = {
       maintab.children[i].classList.add("current");
     };
 
-    //Maintab Event-------------------------------------------------
+    //Maintab Events-------------------------------------------------
     maintab.addEventListener("click", function(e) {
       if (e.target.nodeName == "H2") {
         tabitemClick(e.target.parentNode);
@@ -74,7 +74,7 @@ var loading = {
       }
     });
 
-    //Player Event--------------------------------------------------
+    //Player Events--------------------------------------------------
     player.addEventListener("click", function(e) {
       if (e.target.nodeName == "H2") {
         songClick(e.target.parentNode);
@@ -150,7 +150,7 @@ maintabInterval = setInterval(function() {
   maintabScroll();
 }, 3000);
 
-//Event Functions---------------------------------------------------
+//Maintab Functions---------------------------------------------------
 function maintabMenuRemove() {
   maintab.classList.remove("menu");
   for (var i = 0; i < tabitem.length; i ++) {
@@ -173,87 +173,6 @@ function maintabMenuAdd() {
   }
   post.style.opacity = "0.5";
   scrollTo(maintab, 0, 1);
-};
-
-function songClick(node) {
-  var previousOriSrc = audioOri.src;
-  var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
-  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
-
-  if (node.classList.contains("focus")) {
-    node.classList.remove("focus");
-    for (var i = 0; i < songName.length; i ++) {
-      if (songName[i].parentNode == node) {
-        songName[i].classList.remove("current");
-      }
-    };
-    player.classList.remove("current");
-    audioOri.pause();
-    audioIns.pause();
-    if (background.children.length != 0 && background.children[1].classList.contains("current")) {
-      bgSwitch(1, 0);
-      if (post.classList.contains("mini")) {
-        post.classList.remove("mini");
-      }
-    };
-  } else {
-    for (var i = 0; i < song.length; i ++) {
-      song[i].classList.remove("focus");
-    };
-    node.classList.add("focus");
-    for (var i = 0; i < songName.length; i ++) {
-      if (songName[i].parentNode == node) {
-        if (!songName[i].classList.contains("current")) {
-          songName[i].classList.add("current");
-        }
-      } else {
-        songName[i].classList.remove("current");
-      }
-    };
-    for (var i = 0; i < song.length; i ++) {
-      if (song[i].classList.contains("focus")) {
-        scrollTo(player, i * ((player.clientHeight - 1) / 3), 900);
-      }
-    };
-
-    if (newOriSrc != previousOriSrc) {
-      audioOri.src = newOriSrc;
-      audioIns.src = newInsSrc;
-      audioOri.addEventListener("loadstart", function() {
-        player.style.animation = "breathe1 1.5s linear infinite";
-      });
-      audioOri.addEventListener("canplay", function() {
-        audioIns.addEventListener("canplay", function() {
-          player.style.animation = "";
-          player.classList.add("current");
-          audioOri.play();
-          audioIns.play();
-          if (background.children.length == 0) {
-            clearInterval(maintabInterval);
-            setTimeout(function() {
-              if (!maintab.classList.contains("menu")) {
-                maintabMenuAdd();
-              }
-            }, 1500);
-          }
-        })
-      })
-    } else {
-      player.classList.add("current");
-      audioOri.play();
-      audioIns.play();
-    }
-    audioIns.volume = 0.8;
-
-    if (background.children.length != 0 && background.children[0].classList.contains("current")) {
-      bgSwitch(0, 1);
-      if (!post.classList.contains("mini")) {
-        post.classList.add("mini");
-      }
-      updateVoc();
-      updateIns();
-    }
-  }
 };
 
 function tabitemClick(node) {
@@ -359,6 +278,122 @@ for (var i = 0; i < p.length; i ++) {
       postbg.style.opacity = "0.7";
     }, 1000);
   });
+}
+
+//Player Animation---------------------------------------------------
+function songClick(node) {
+  var previousOriSrc = audioOri.src;
+  var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
+  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
+
+  if (node.classList.contains("focus")) {
+    node.classList.remove("focus");
+    for (var i = 0; i < songName.length; i ++) {
+      if (songName[i].parentNode == node) {
+        songName[i].classList.remove("current");
+      }
+    };
+    audioPauseSet();
+  } else {
+    audioPlaySet();
+    node.classList.add("focus");
+    for (var i = 0; i < songName.length; i ++) {
+      if (songName[i].parentNode == node) {
+        if (!songName[i].classList.contains("current")) {
+          songName[i].classList.add("current");
+        }
+      } else {
+        songName[i].classList.remove("current");
+      }
+    };
+    
+    for (var i = 0; i < song.length; i ++) {
+      if (song[i].classList.contains("focus")) {
+        scrollTo(player, i * ((player.clientHeight - 1) / 3), 900);
+      }
+    };
+
+    if (newOriSrc != previousOriSrc) {
+      audioOri.src = newOriSrc;
+      audioIns.src = newInsSrc;
+      audioOri.addEventListener("loadstart", function() {
+        player.style.animation = "breathe1 1.5s linear infinite";
+      });
+      audioOri.addEventListener("canplay", function() {
+        audioIns.addEventListener("canplay", function() {
+          player.style.animation = "";
+          player.classList.add("current");
+          audioOri.play();
+          audioIns.play();
+          if (background.children.length == 0) {
+            clearInterval(maintabInterval);
+            setTimeout(function() {
+              if (!maintab.classList.contains("menu")) {
+                maintabMenuAdd();
+              }
+            }, 1500);
+          }
+        })
+      })
+    } else {
+      player.classList.add("current");
+      audioOri.play();
+      audioIns.play();
+    }
+    audioIns.volume = 0.8;
+  }
+};
+
+document.addEventListener("keydown", function(e) {
+  e.preventDefault();
+  for (var i = 0; i < songName.length; i ++) {
+    if (audioOri.src == "http://www.yuqiwang.graphics/blog/assets/media/audio/" + songName[i].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a") {
+      if (e.keyCode == 32) {
+        if (audioOri.paused) {
+          audioPlaySet();
+          songName[i].classList.add("current");
+          songName[i].parentNode.classList.add("focus");
+          player.classList.add("current");
+          audioOri.play();
+          audioIns.play();
+          audioIns.volume = 0.8;
+        } else {
+          audioPauseSet();
+          if (songName[i].classList.contains("current")) {
+            songName[i].classList.remove("current");
+          }
+          songName[i].parentNode.classList.remove("focus");
+        }
+      }
+    }
+  };
+});
+
+function audioPauseSet() {
+  player.classList.remove("current");
+  audioOri.pause();
+  audioIns.pause();
+  if (background.children.length != 0 && background.children[1].classList.contains("current")) {
+    bgSwitch(1, 0);
+    if (post.classList.contains("mini")) {
+      post.classList.remove("mini");
+    }
+  };
+};
+
+function audioPlaySet() {
+  for (var i = 0; i < song.length; i ++) {
+    song[i].classList.remove("focus");
+  };
+
+  if (background.children.length != 0 && background.children[0].classList.contains("current")) {
+    bgSwitch(0, 1);
+    if (!post.classList.contains("mini")) {
+      post.classList.add("mini");
+    }
+    updateVoc();
+    updateIns();
+  }
 }
 
 //Lighting Set Change------------------------------------------
