@@ -418,7 +418,9 @@ function stageSet(perform) {
 
 //Audio Analysis-------------------------------------------------
 //Analyze Original
-var contextOri = new AudioContext();
+var AudioContext = (window.AudioContext || window.webkitAudioContext);
+
+var contextOri = new AudioContext;
 var analyserOri = contextOri.createAnalyser();
 audioOri.addEventListener("canplaythrough", function() {
   var sourceOri = contextOri.createMediaElementSource(audioOri);
@@ -430,7 +432,7 @@ var frequencyDataOri = new Uint8Array(analyserOri.frequencyBinCount);
 analyserOri.getByteFrequencyData(frequencyDataOri);
 
 //Analyze Instrumental
-var contextIns = new AudioContext();
+var contextIns = new AudioContext;
 var analyserIns = contextIns.createAnalyser();
 audioIns.addEventListener("canplaythrough", function() {
   var sourceIns = contextIns.createMediaElementSource(audioIns);
