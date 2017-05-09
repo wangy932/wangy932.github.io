@@ -29,6 +29,8 @@ var song = document.getElementsByClassName("song");
 var songName = document.getElementsByClassName("songname");
 
 var social = document.getElementById("social");
+var media = document.getElementsByClassName("media");
+var mediaName = document.getElementsByClassName("mediaName");
 
 //Loading---------------------------------------------------------
 var loading = {
@@ -74,6 +76,30 @@ var loading = {
       }
     });
 
+    //Up Arrow = Menu Up, Down Arrow = Menu Down
+    document.addEventListener("keydown", function(e) {
+      e.preventDefault();
+      if (e.keyCode == 38) {
+        if (!maintab.classList.contains("menu")) {
+          if (maintabInterval) {
+            clearInterval(maintabInterval);
+          }
+          setTimeout(function() {
+            maintabMenuAdd();
+          }, 50);
+        }
+      } else if (e.keyCode == 40) {
+          if (maintab.classList.contains("menu")) {
+            maintabMenuRemove();
+            if (background.children.length == 0) {
+              maintabInterval = setInterval(function() {
+                maintabScroll();
+              }, 3000);
+            }
+          };
+      }
+    });
+
     //Player Events--------------------------------------------------
     player.addEventListener("click", function(e) {
       if (e.target.nodeName == "H2") {
@@ -84,29 +110,38 @@ var loading = {
     });
 
     player.addEventListener("mouseover", function() {
-      if (!player.classList.contains("menu")) {
-        player.classList.add("menu");
-        if (player.classList.contains("current")) {
-          player.classList.remove("current");
-        }
-        for (var i = 0; i < song.length; i ++) {
-          if (!song[i].classList.contains("current")) {
-            song[i].classList.add("current");
-          }
+      playerMenuAdd();
+    });
+
+    player.addEventListener("mouseout", function() {
+      playerMenuRemove();
+    });
+
+    //Right Arrow = Player Menu Right, Left Arrow = Player Menu Left
+    document.addEventListener("keydown", function(e) {
+      e.preventDefault();
+      if (e.keyCode == 39) {
+        playerMenuAdd();
+      } else if (e.keyCode == 37) {
+        playerMenuRemove();
+      }
+    });
+
+    //Social Events--------------------------------------------------
+    social.addEventListener("mouseover", function() {
+      if (!social.classList.contains("menu")) {
+        social.classList.add("menu");
+        for (var i = 0; i < media.length; i ++) {
+          media[i].classList.add("current");
         }
       }
     });
 
-    player.addEventListener("mouseout", function() {
-      if (player.classList.contains("menu")) {
-        player.classList.remove("menu");
-        for (var i = 0; i < song.length; i ++) {
-          if (song[i].classList.contains("focus")) {
-            player.classList.add("current");
-          }
-          if (song[i].classList.contains("current")) {
-            song[i].classList.remove("current");
-          }
+    social.addEventListener("mouseout", function() {
+      if (social.classList.contains("menu")) {
+        social.classList.remove("menu");
+        for (var i = 0; i < media.length; i ++) {
+          media[i].classList.remove("current");
         }
       }
     });
@@ -139,7 +174,7 @@ function sloganScroll() {
 };
 
 function maintabScroll() {
-  maintab.scrollTop = maintab.clientHeight*Math.floor(Math.random()*tabitem.length);
+  maintab.scrollTop = maintab.clientHeight * Math.floor(Math.random()*tabitem.length);
 }
 
 sloganInterval = setInterval(function() {
@@ -150,7 +185,16 @@ maintabInterval = setInterval(function() {
   maintabScroll();
 }, 3000);
 
-//Maintab Functions---------------------------------------------------
+//Menu Add&Remove Animations---------------------------------------------------
+function maintabMenuAdd() {
+  maintab.classList.add("menu");
+  for (var i = 0; i < tabitem.length; i ++) {
+    tabitem[i].classList.add("menu");
+  }
+  post.style.opacity = "0.5";
+  scrollTo(maintab, 0, 1);
+};
+
 function maintabMenuRemove() {
   maintab.classList.remove("menu");
   for (var i = 0; i < tabitem.length; i ++) {
@@ -166,15 +210,35 @@ function maintabMenuRemove() {
   }, 1200);
 };
 
-function maintabMenuAdd() {
-  maintab.classList.add("menu");
-  for (var i = 0; i < tabitem.length; i ++) {
-    tabitem[i].classList.add("menu");
+function playerMenuAdd() {
+  if (!player.classList.contains("menu")) {
+    player.classList.add("menu");
+    if (player.classList.contains("current")) {
+      player.classList.remove("current");
+    }
+    for (var i = 0; i < song.length; i ++) {
+      if (!song[i].classList.contains("current")) {
+        song[i].classList.add("current");
+      }
+    }
   }
-  post.style.opacity = "0.5";
-  scrollTo(maintab, 0, 1);
 };
 
+function playerMenuRemove() {
+  if (player.classList.contains("menu")) {
+    player.classList.remove("menu");
+    for (var i = 0; i < song.length; i ++) {
+      if (song[i].classList.contains("focus")) {
+        player.classList.add("current");
+      }
+      if (song[i].classList.contains("current")) {
+        song[i].classList.remove("current");
+      }
+    }
+  }
+};
+
+//Maintab Functions---------------------------------------------------
 function tabitemClick(node) {
   background.innerHTML = "";
   if (node.classList.contains("focus")) {
@@ -213,8 +277,6 @@ function tabitemClick(node) {
         if (!postTitle[i].classList.contains("current")) {
           postTitle[i].classList.add("current");
         }
-      } else {
-        postTitle[i].classList.remove("current");
       }
     };
     post.classList.add("current");
@@ -258,6 +320,32 @@ function postInOut(nd) {
   };
 };
 
+//ESC = Back Home
+document.addEventListener("keydown", function(e) {
+  e.preventDefault();
+  if (background.children.length != 0) {
+    if (e.keyCode == 27) {
+      background.innerHTML = "";
+      for (var i = 0; i < tabitem.length; i ++) {
+        if (tabitem[i].classList.contains("focus")) {
+          var target = tabitem[i];
+          target.classList.remove("focus");
+          target.children[0].classList.remove("current");
+          post.classList.remove("current");
+          slogan.classList.add("current");
+          sloganInterval = setInterval(function() {
+            sloganScroll();
+          }, 2500);
+          maintabInterval = setInterval(function() {
+            maintabScroll();
+          }, 3000);
+        }
+      }
+      postInOut(target);
+    }
+  }
+});
+
 //Post Animation---------------------------------------------------
 post.addEventListener("click", function() {
   if (background.children.length != 0 && background.children[1].classList.contains("current")) {
@@ -280,7 +368,7 @@ for (var i = 0; i < p.length; i ++) {
   });
 }
 
-//Player Animation---------------------------------------------------
+//Player Functions---------------------------------------------------
 function songClick(node) {
   var previousOriSrc = audioOri.src;
   var newOriSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
@@ -309,7 +397,7 @@ function songClick(node) {
     
     for (var i = 0; i < song.length; i ++) {
       if (song[i].classList.contains("focus")) {
-        scrollTo(player, i * ((player.clientHeight - 1) / 3), 900);
+        scrollTo(player, i * ((player.scrollHeight - 2) / song.length), 900);
       }
     };
 
@@ -319,8 +407,8 @@ function songClick(node) {
       audioOri.addEventListener("loadstart", function() {
         player.style.animation = "breathe1 1.5s linear infinite";
       });
-      audioOri.addEventListener("canplay", function() {
-        audioIns.addEventListener("canplay", function() {
+      audioOri.addEventListener("canplaythrough", function() {
+        audioIns.addEventListener("canplaythrough", function() {
           player.style.animation = "";
           player.classList.add("current");
           audioOri.play();
@@ -344,6 +432,7 @@ function songClick(node) {
   }
 };
 
+//Space = Pause/Play
 document.addEventListener("keydown", function(e) {
   e.preventDefault();
   for (var i = 0; i < songName.length; i ++) {

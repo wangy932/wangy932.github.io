@@ -69,12 +69,15 @@ h2.current {
 	color: black;
 }
 
-/*Text*/
 p {
 	font-size: 11px;
 	line-height: 15px;
 	letter-spacing: 1px;
 	transition: all 1s;
+}
+
+a:-webkit-any-link {
+	text-decoration: none;
 }
 
 #slogan {
@@ -143,7 +146,7 @@ p {
 	background-color: white;
 }
 
-.tabitem, .song {
+.tabitem, .song, .media {
 	position: relative;
 	display: inline-block;
 	visibility: hidden;
@@ -153,12 +156,12 @@ p {
 	z-index: 4;
 }
 
-.tabitem.current, .song.current {
+.tabitem.current, .song.current, .media.current {
 	visibility: visible;
 	opacity: 1;
 }
 
-.tabitem.focus, .song.focus {
+.tabitem.focus, .song.focus, .media.focus {
 	background-color: white;
 }
 
@@ -166,9 +169,17 @@ p {
 	height: calc(100% / 18);
 }
 
-.songname {
+.songname, .medianame {
 	padding-left: 5px;
 	text-align: left;
+}
+
+.media:active {
+	background-color: white;
+}
+
+.media:active .medianame {
+	color: black;
 }
 
 #post {
@@ -314,7 +325,7 @@ p {
 		height: calc(100% - 20px);
 		margin: 10px;
 	}
-	.song {
+	.song, .media {
 		width: calc(100% - 20px);
 		height: calc(100% / 3 - 20px);
 		margin: 10px;
@@ -333,7 +344,7 @@ p {
 		height: calc(100% - 10px);
 		margin: 5px;
 	}
-	.song {
+	.song, .media {
 		width: calc(100% - 10px);
 		height: calc(100% / 3 - 10px);
 		margin: 5px;
