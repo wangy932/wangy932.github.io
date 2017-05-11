@@ -344,7 +344,7 @@ a:-webkit-any-link {
 }
 
 /*Responsive-------------------------------------*/
-@media (max-width: 480px) {
+@media (max-width: 991px) {
 	#maintab {
 		width: calc(100% / 3);
 	}
@@ -359,27 +359,6 @@ a:-webkit-any-link {
 		height: calc(100% / 6 * 4);
 		transform: translateY(0);
 	}
-}
-
-@media (min-width: 481px) {
-	#maintab {
-		width: calc(100% / 6);
-	}
-	#post {
-		width: calc(100% / 3);
-	}
-	#excerpt.current {
-		visibility: visible;
-		opacity: 1;
-		background-color: white;
-	}
-	#post.current.mini {
-		height: calc(100% / 6);
-		transform: translateY(-250%);
-	}
-}
-
-@media (max-width: 991px) {
 	.tabitem {
 		width: calc(100% - 20px);
 		height: calc(100% - 20px);
@@ -399,6 +378,21 @@ a:-webkit-any-link {
 }
 
 @media (min-width: 992px) {
+	#maintab {
+		width: calc(100% / 6);
+	}
+	#post {
+		width: calc(100% / 3);
+	}
+	#excerpt.current {
+		visibility: visible;
+		opacity: 1;
+		background-color: white;
+	}
+	#post.current.mini {
+		height: calc(100% / 6);
+		transform: translateY(-250%);
+	}
 	.tabitem {
 		width: calc(100% - 10px);
 		height: calc(100% - 10px);
