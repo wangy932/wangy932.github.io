@@ -16,14 +16,6 @@ var maintab = document.getElementById("maintab");
 var tabitem = document.getElementsByClassName("tabitem");
 var postTitle = document.getElementsByClassName("posttitle");
 
-var background = document.getElementById("background");
-
-var post = document.getElementById("post");
-var postbg = document.getElementById("postbg");
-var text = document.getElementsByClassName("text");
-var h1 = document.getElementsByTagName("h1");
-var p = document.getElementsByTagName("p");
-
 var player  = document.getElementById("player");
 var song = document.getElementsByClassName("song");
 var songName = document.getElementsByClassName("songname");
@@ -31,6 +23,19 @@ var songName = document.getElementsByClassName("songname");
 var social = document.getElementById("social");
 var media = document.getElementsByClassName("media");
 var mediaName = document.getElementsByClassName("mediaName");
+
+var excerpt = document.getElementsByClassName("excerpt");
+for (var i = 0; i < excerpt.length; i ++) {
+  excerpt[i].style.width = window.innerHeight + "px";
+}
+
+var post = document.getElementById("post");
+var postbg = document.getElementById("postbg");
+var text = document.getElementsByClassName("text");
+var h1 = document.getElementsByTagName("h1");
+var p = document.getElementsByTagName("p");
+
+var background = document.getElementById("background");
 
 //Loading---------------------------------------------------------
 var loading = {
@@ -50,6 +55,11 @@ var loading = {
     for (var i = 0; i < maintab.children.length; i ++) {
       maintab.children[i].classList.add("current");
     };
+    window.addEventListener("resize", function() {
+      for (var i = 0; i < excerpt.length; i ++) {
+        excerpt[i].style.width = window.innerHeight + "px";
+      }
+    });
 
     //Maintab Events-------------------------------------------------
     maintab.addEventListener("click", function(e) {
@@ -72,6 +82,42 @@ var loading = {
           setTimeout(function() {
             maintabMenuAdd();
           }, 50);
+        }
+      }
+    });
+
+    maintab.addEventListener("mouseover", function(e) {
+      if (e.target.nodeName == "H2" || e.target.nodeName == "DIV") {
+        if (maintab.classList.contains("menu")) {
+            setTimeout(function() {
+              for (var i = 0; i < excerpt.length; i ++) {
+                excerpt[i].classList.add("current");
+              }
+            }, 50);
+        }
+      } else {
+        for (var i = 0; i < excerpt.length; i ++) {
+          if (excerpt[i].classList.contains("current")) {
+            excerpt[i].classList.remove("current");
+          }
+        }
+      }
+    });
+
+    maintab.addEventListener("mouseout", function(e) {
+        if (e.target.nodeName == "H2" || e.target.nodeName == "DIV") {
+          for (var i = 0; i < excerpt.length; i ++) {
+            if (excerpt[i].classList.contains("current")) {
+              excerpt[i].classList.remove("current");
+            }
+          }
+        }
+    });
+
+    background.addEventListener("mouseover", function(e) {
+      for (var i = 0; i < excerpt.length; i ++) {
+        if (excerpt[i].classList.contains("current")) {
+          excerpt[i].classList.remove("current");
         }
       }
     });
@@ -185,12 +231,12 @@ maintabInterval = setInterval(function() {
   maintabScroll();
 }, 3000);
 
-//Menu Add&Remove Animations---------------------------------------------------
+//Menu Add & Remove Animations---------------------------------------------------
 function maintabMenuAdd() {
   maintab.classList.add("menu");
   for (var i = 0; i < tabitem.length; i ++) {
     tabitem[i].classList.add("menu");
-  }
+  };
   post.style.opacity = "0.5";
   scrollTo(maintab, 0, 1);
 };
@@ -201,6 +247,11 @@ function maintabMenuRemove() {
     tabitem[i].classList.remove("menu");
   };
   post.style.opacity = "1";
+  for (var i = 0; i < excerpt.length; i ++) {
+    if (excerpt[i].classList.contains("current")) {
+      excerpt[i].classList.remove("current");
+    }
+  };
   setTimeout(function() {
     for (var i = 0; i < tabitem.length; i ++) {
       if (tabitem[i].classList.contains("focus")) {
@@ -273,10 +324,11 @@ function tabitemClick(node) {
     }
     node.classList.add("focus");
     for (var i = 0; i < postTitle.length; i ++) {
+      if (postTitle[i].classList.contains("current")) {
+        postTitle[i].classList.remove("current");
+      }
       if (postTitle[i].parentNode == node) {
-        if (!postTitle[i].classList.contains("current")) {
-          postTitle[i].classList.add("current");
-        }
+        postTitle[i].classList.add("current");
       }
     };
     post.classList.add("current");
@@ -704,9 +756,6 @@ function updateIns() {
     if (radius == 1) {
       instrumental.style.borderRadius = "50%";
     }
-    /*if (rotate == 1) {
-      instrumental.style.transform = "rotate(" + meanIns + "deg)";
-    }*/
     if (breathe == 0) {
       instrumental.style.boxShadow = "0 0 " + 25 + "px " + meanIns/10 +"px white";
     } else if (breathe == 1) {

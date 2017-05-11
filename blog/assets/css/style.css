@@ -28,7 +28,7 @@ section {
 	height: 100%;
 }
 
-h1, h2, p {
+h1, h2, h3, p {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -44,14 +44,14 @@ h1, p {
 	overflow: scroll;
 }
 
-/*Title*/
+/*Post Title*/
 h1 {
 	top: 0;
 	font-size: 14px;
 	letter-spacing: 2px;
 }
 
-/*Tabitem*/
+/*Button*/
 h2 {
 	font-size: 12px;
 	letter-spacing: 1px;
@@ -69,6 +69,20 @@ h2.current {
 	color: black;
 }
 
+/*Excerpt*/
+h3 {
+	display: inline-block;
+	font-size: 12px;
+	letter-spacing: 1px;
+	text-align: center;
+	width: 100%;
+	height: 14px;
+	color: black;
+	animation: autoscroll 12s linear infinite;
+	z-index: 2;
+}
+
+/*Post Text*/
 p {
 	font-size: 11px;
 	line-height: 15px;
@@ -80,17 +94,12 @@ a:-webkit-any-link {
 	text-decoration: none;
 }
 
+/*Specified Setting-------------------------------------*/
 #slogan {
 	height: 16px;
 	text-align: center;
 	overflow: scroll;
 	white-space: nowrap;
-}
-
-#background {
-	width: 100%;
-	height: 100%;
-	z-index: 1;
 }
 
 #maintab, #player, #social {
@@ -174,12 +183,37 @@ a:-webkit-any-link {
 	text-align: left;
 }
 
+
 .media:active {
 	background-color: white;
 }
 
 .media:active .medianame {
 	color: black;
+}
+
+.excerpt {
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	height: 14px;
+	background-color: rgba(255, 255, 255, 0.8);
+	transition: all 0.5s;
+	z-index: 3;
+}
+
+#excerpt-left {
+	left: calc(50% - 100% / 12);
+	bottom: 0;
+	transform: rotate(-90deg);
+	transform-origin: left bottom 0;
+}
+
+#excerpt-right {
+	left: calc(50% + 100% / 12 + 14px);
+	top: 0;
+	transform: rotate(90deg);
+	transform-origin: left top 0;
 }
 
 #post {
@@ -229,7 +263,13 @@ a:-webkit-any-link {
 	transition: all 1s;
 }
 
-/*effect&stage--------------------------------------*/
+/*Effect & Stage-------------------------------------*/
+#background {
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
 .effect, .stage {
 	display: none;
 	width: 100%;
@@ -421,5 +461,14 @@ a:-webkit-any-link {
 	}
 	100% {
 		height: 100%;
+	}
+}
+
+@keyframes autoscroll {
+	0% {
+		margin-left: -800px;
+	}
+	100% {
+		margin-left: 800px;
 	}
 }
