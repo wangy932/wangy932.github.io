@@ -24,10 +24,10 @@ var social = document.getElementById("social");
 var media = document.getElementsByClassName("media");
 var mediaName = document.getElementsByClassName("mediaName");
 
-var excerpt = document.getElementsByClassName("excerpt");
-for (var i = 0; i < excerpt.length; i ++) {
+var excerpt = document.getElementById("excerpt");
+/*for (var i = 0; i < excerpt.length; i ++) {
   excerpt[i].style.width = window.innerHeight + "px";
-}
+}*/
 
 var post = document.getElementById("post");
 var postbg = document.getElementById("postbg");
@@ -55,11 +55,11 @@ var loading = {
     for (var i = 0; i < maintab.children.length; i ++) {
       maintab.children[i].classList.add("current");
     };
-    window.addEventListener("resize", function() {
+    /*window.addEventListener("resize", function() {
       for (var i = 0; i < excerpt.length; i ++) {
         excerpt[i].style.width = window.innerHeight + "px";
       }
-    });
+    });*/
 
     //Maintab Events-------------------------------------------------
     maintab.addEventListener("click", function(e) {
@@ -88,37 +88,45 @@ var loading = {
 
     maintab.addEventListener("mouseover", function(e) {
       if (e.target.nodeName == "H2" || e.target.nodeName == "DIV") {
-        if (maintab.classList.contains("menu")) {
-            setTimeout(function() {
-              for (var i = 0; i < excerpt.length; i ++) {
-                excerpt[i].classList.add("current");
-              }
-            }, 50);
+        var topOption = ["calc(100% / 6)", "calc(100% / 6 * 3 - 7px)", "calc(100% / 6 * 5 - 14px)"];
+        var leftOption = ["calc(100% / 6)", "calc(100% / 6 * 4)"]
+        excerpt.style.top = topOption[Math.floor(Math.random()*topOption.length)];
+        excerpt.style.left = leftOption[Math.floor(Math.random()*leftOption.length)];
+        setTimeout(function() {
+          excerpt.classList.add("current");
+        }, 50);
+        if (e.target.nodeName == "H2") {
+          var item = e.target.parentNode.dataset.item;
+        } else if (e.target.nodeName == "DIV") {
+          var item = e.target.dataset.item;
+        }
+        for (var i = 0; i < excerpt.children.length; i ++) {
+          if (excerpt.children[i].dataset.content == item) {
+            excerpt.children[i].classList.add("current");
+          } else {
+            if (excerpt.children[i].classList.contains("current")) {
+              excerpt.children[i].classList.remove("current");
+            }
+          }
         }
       } else {
-        for (var i = 0; i < excerpt.length; i ++) {
-          if (excerpt[i].classList.contains("current")) {
-            excerpt[i].classList.remove("current");
-          }
+        if (excerpt.classList.contains("current")) {
+          excerpt.classList.remove("current");
         }
       }
     });
 
     maintab.addEventListener("mouseout", function(e) {
         if (e.target.nodeName == "H2" || e.target.nodeName == "DIV") {
-          for (var i = 0; i < excerpt.length; i ++) {
-            if (excerpt[i].classList.contains("current")) {
-              excerpt[i].classList.remove("current");
-            }
+          if (excerpt.classList.contains("current")) {
+            excerpt.classList.remove("current");
           }
         }
     });
 
     background.addEventListener("mouseover", function(e) {
-      for (var i = 0; i < excerpt.length; i ++) {
-        if (excerpt[i].classList.contains("current")) {
-          excerpt[i].classList.remove("current");
-        }
+      if (excerpt.classList.contains("current")) {
+        excerpt.classList.remove("current");
       }
     });
 
@@ -247,10 +255,8 @@ function maintabMenuRemove() {
     tabitem[i].classList.remove("menu");
   };
   post.style.opacity = "1";
-  for (var i = 0; i < excerpt.length; i ++) {
-    if (excerpt[i].classList.contains("current")) {
-      excerpt[i].classList.remove("current");
-    }
+  if (excerpt.classList.contains("current")) {
+    excerpt.classList.remove("current");
   };
   setTimeout(function() {
     for (var i = 0; i < tabitem.length; i ++) {
