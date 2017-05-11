@@ -55,9 +55,16 @@ var loading = {
     for (var i = 0; i < maintab.children.length; i ++) {
       maintab.children[i].classList.add("current");
     };
-    /*window.addEventListener("resize", function() {
-      for (var i = 0; i < excerpt.length; i ++) {
-        excerpt[i].style.width = window.innerHeight + "px";
+
+/*    window.addEventListener("resize", function() {
+      if (window.innerWidth <= 480) {
+        maintab.classList.remove("col-2-12");
+        maintab.classList.add("col-4-12");
+      } else {
+        if (maintab.classList.contains("col-4-12")) {
+          maintab.classList.remove("col-4-12");
+          maintab.classList.add("col-2-12");
+        }
       }
     });*/
 

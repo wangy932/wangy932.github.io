@@ -188,7 +188,6 @@ a:-webkit-any-link {
 	text-align: left;
 }
 
-
 .media:active {
 	background-color: white;
 }
@@ -207,12 +206,6 @@ a:-webkit-any-link {
 	z-index: 2;
 }
 
-#excerpt.current {
-	visibility: visible;
-	opacity: 1;
-	background-color: white;
-}
-
 #post {
 	height: 0;
 	border-top: none;
@@ -221,7 +214,7 @@ a:-webkit-any-link {
 	background-color: transparent;
 	overflow: hidden;
 	background-color: black;
-	transition: height 1.8s, border 1.8s, transform 2.5s, opacity 1s;
+	transition: width 1s, height 1.8s, border 1.8s, transform 2.5s, opacity 1s;
 	z-index: 2;
 }
 
@@ -231,11 +224,6 @@ a:-webkit-any-link {
 	border-bottom: white 1px solid;
 	transform: translateY(0);
 	background-color: transparent;
-}
-
-#post.current.mini {
-	height: calc(100% / 6);
-	transform: translateY(-250%);
 }
 
 #postbg {
@@ -356,6 +344,41 @@ a:-webkit-any-link {
 }
 
 /*Responsive-------------------------------------*/
+@media (max-width: 480px) {
+	#maintab {
+		width: calc(100% / 3);
+	}
+	#post {
+		width: calc(100% / 1.5);
+	}
+	#excerpt.current {
+		visibility: hidden;
+		opacity: 0;
+	}
+	#post.current.mini {
+		height: calc(100% / 6 * 4);
+		transform: translateY(0);
+	}
+}
+
+@media (min-width: 481px) {
+	#maintab {
+		width: calc(100% / 6);
+	}
+	#post {
+		width: calc(100% / 3);
+	}
+	#excerpt.current {
+		visibility: visible;
+		opacity: 1;
+		background-color: white;
+	}
+	#post.current.mini {
+		height: calc(100% / 6);
+		transform: translateY(-250%);
+	}
+}
+
 @media (max-width: 991px) {
 	.tabitem {
 		width: calc(100% - 20px);
