@@ -74,8 +74,11 @@ h3 {
 	font-size: 12px;
 	letter-spacing: 1px;
 	text-align: center;
-	width: 100%;
+	left: 5%;
+	width: 90%;
 	height: 100%;
+	white-space: nowrap;
+	overflow-x: auto;
 	color: black;
 	z-index: 2;
 }
@@ -209,20 +212,6 @@ a:-webkit-any-link {
 	opacity: 1;
 	background-color: white;
 }
-
-/*#excerpt-left {
-	left: calc(50% - 100% / 12);
-	bottom: 0;
-	transform: rotate(-90deg);
-	transform-origin: left bottom 0;
-}
-
-#excerpt-right {
-	left: calc(50% + 100% / 12 + 20px);
-	top: 0;
-	transform: rotate(90deg);
-	transform-origin: left top 0;
-}*/
 
 #post {
 	height: 0;
