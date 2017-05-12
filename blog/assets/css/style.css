@@ -227,7 +227,7 @@ img {
 	transform: translateY(-70%);
 	background-color: transparent;
 	overflow: hidden;
-	background-color: black;
+	background-color: rgba(0, 0, 0, 1);
 	transition: background-color 3s, width 1s, height 1.8s, border 1.8s, transform 2.5s, opacity 1s;
 	z-index: 2;
 }
