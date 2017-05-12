@@ -11,17 +11,20 @@ var body = document.body;
 	{desc: "Layout With CSS", link: "lab/04_layout-with-css/index.html"},
 	{desc: "Responsive Practices", link: "lab/07_smiley/index.html"},
 	{desc: "Something Responsive", link: "lab/08_something-responsive/index.html"},
-	{desc: "JS Events", link: "lab/09_js-events/index.html"}];
+	{desc: "JS Events", link: "lab/09_js-events/index.html"},
+	{desc: "JS Quiz", link: "lab/10_js-quiz/index.html"},
+	{desc: "Typewriter Workshop", link: "lab/10_typewriter-workshop/index.html"},
+	{desc: "Typewriter", link: "lab/11_typewriter/index.html"}];
 	studio = [
-	{desc: "Week 1", link: "studio/week_01.html"},
 	{desc: "Week 2", link: "studio/week_02.html"},
 	{desc: "Week 3", link: "studio/week_03.html"},
 	{desc: "Week 4", link: "studio/week_04.html"},
 	{desc: "Week 5", link: "studio/week_05.html"},
 	{desc: "Week 6", link: "studio/week_06.html"},
-	{desc: "Week 7", link: "studio/week_07.html"},
 	{desc: "Week 8", link: "studio/week_08.html"},
-	{desc: "Week 10", link: "studio/week_10.html"}];
+	{desc: "Week 10", link: "studio/week_10.html"},
+	{desc: "Week 12", link: "studio/week_12.html"},
+	{desc: "Week 14", link: "studio/week_14.html"}];
 
 
 randomGenerator(lab);
