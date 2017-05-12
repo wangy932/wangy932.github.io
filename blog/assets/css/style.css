@@ -51,7 +51,7 @@ h1 {
 	letter-spacing: 2px;
 }
 
-/*Button*/
+/*Tab*/
 h2 {
 	font-size: 12px;
 	letter-spacing: 1px;
@@ -113,7 +113,7 @@ a:-webkit-any-link {
 	display: inline-block;
 	border: white solid;
 	margin: auto;
-	background-color: black;
+	background-color: rgba(0, 0, 0, 0.8);
 	transition: all 1s;
 	padding: 0;
 	overflow: scroll;
@@ -148,6 +148,10 @@ a:-webkit-any-link {
 	left: auto;
 }
 
+#musictab.full, #blogtab.full {
+	height: 100%;
+}
+
 #musictab.menu, #blogtab.menu {
 	height: calc(100% / 3);
 }
@@ -160,16 +164,12 @@ a:-webkit-any-link {
 	cursor: s-resize;
 }
 
-#musictab.full, #blogtab.full {
-	height: 100%;
+#social.full {
+	width: 50%;
 }
 
 #social.menu {
 	width: calc(100% / 6);
-}
-
-#social.full {
-	width: 50%;
 }
 
 .song, .post, .media {
@@ -334,7 +334,7 @@ a:-webkit-any-link {
 		width: calc(100% / 6);
 	}
 	#content {
-		width: calc(100% / 3);
+		width: calc(100% / 6 * 4);
 	}
 	#excerpt.current {
 		visibility: hidden;
@@ -386,7 +386,7 @@ a:-webkit-any-link {
 		width: calc(100% / 3);
 	}
 	#excerpt.current {
-		visibility: visible;
+		visibility: visible; 
 		opacity: 1;
 		background-color: white;
 	}
