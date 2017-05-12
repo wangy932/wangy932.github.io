@@ -193,13 +193,19 @@ var loading = {
 
 
     //Social Events--------------------------------------------------
-    /*social.addEventListener("mouseover", function() {
-      socialMenuAdd();
+    social.addEventListener("mouseover", function() {
+      social.classList.add("menu");
+      for (var i = 0; i < media.length; i ++) {
+        media[i].classList.add("current");
+      };
     });
 
     social.addEventListener("mouseout", function() {
-      socialMenuRemove();
-    });*/
+      social.classList.remove("menu");
+      for (var i = 0; i < media.length; i ++) {
+        media[i].classList.remove("current");
+      };
+    });
   }
 };
 
@@ -252,27 +258,6 @@ function setBlogTabInterval() {
 
 setMusicTabInterval();
 setBlogTabInterval();
-
-//--------------------------------------------------------------
-
-
-function socialMenuAdd() {
-  if (!social.classList.contains("menu")) {
-    social.classList.add("menu");
-    for (var i = 0; i < media.length; i ++) {
-      media[i].classList.add("current");
-    }
-  }
-};
-
-function socialMenuRemove() {
-  if (social.classList.contains("menu")) {
-    social.classList.remove("menu");
-    for (var i = 0; i < media.length; i ++) {
-      media[i].classList.remove("current");
-    }
-  }
-};
 
 //BlogTab Functions---------------------------------------------------
 function postClick(node) {

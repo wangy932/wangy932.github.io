@@ -109,8 +109,8 @@
 			</div>
 		</main>
 
-		<!--Social/Right Button-->
-		<main id="social" class="center" style="display: none">
+		<!--Social/Scroll-->
+		<main id="social">
 			<div class="media">
 				<a href="https://github.com/wangy932/wangy932.github.io" target="_blank">
 					<h2 class="medianame center">GitHub</h2>
@@ -272,6 +272,37 @@
 					<h1>IDEATION</h1>
 					<div class="container">
 						<p>
+							Musical elements are burnt together when exporting, a practice that disables practitioners to access the separate music tracks. Hence, the frequency data of the vocal track need to be obtained by subtraction. Simultaneously playing the original song and the instrumental part can generate individual data synchronously. The data of vocal equals the data of the song minus the synchronous data of the instrumental. Visualization of the vocal and instrumental data would provide viewers up-to-date musical messages with unperceivable mismatch. This requires high simultaneity, which is attempted to achieve by overlapped event listeners.<br><br>
+
+							<strong>JavaScript</strong><br>
+							function updateVoc() {<br>
+							  requestAnimationFrame(updateVoc);<br>
+							  analyserMix.getByteFrequencyData(frequencyDataMix);<br><br>
+
+							  var totalMix = 0;<br>
+							  var totalIns = 0;<br>
+							  for (var i = 0; i < frequencyDataMix.length; i ++) {<br>
+							    totalMix += frequencyDataMix[i];<br>
+							  }<br>
+							  for (var i = 0; i < frequencyDataIns.length; i ++) {<br>
+							    totalIns += frequencyDataIns[i];<br>
+							  }<br>
+							  var totalVoc = totalMix - totalIns;<br>
+							  var meanVoc = totalVoc/frequencyDataMix.length;<br>
+							};<br><br>
+
+							function updateIns() {<br>
+							  requestAnimationFrame(updateIns);<br>
+							  analyserIns.getByteFrequencyData(frequencyDataIns);<br><br>
+							    
+							  var total = 0;<br>
+							  for (var i = 0; i < frequencyDataIns.length; i ++) {<br>
+							    total += frequencyDataIns[i];<br>
+							  }<br>
+
+							  var meanIns = total/frequencyDataMix.length;<br>
+							};<br><br>
+
 							<img src="assets/media/img/lighting1.jpg">
 						</p>
 					</div>
