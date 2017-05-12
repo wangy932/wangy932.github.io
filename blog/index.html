@@ -305,6 +305,13 @@
 							  var meanIns = total/frequencyDataMix.length;<br>
 							};<br><br>
 
+							audioMix.addEventListener("canplaythrough", function() {<br>
+					          audioIns.addEventListener("canplaythrough", function() {<br>
+					            audioMix.play();<br>
+					            audioIns.play();<br>
+					          });<br>
+					        });<br><br>
+
 							<img src="assets/media/img/lighting1.jpg">
 						</p>
 					</div>
