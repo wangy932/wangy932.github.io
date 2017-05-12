@@ -87,25 +87,25 @@
 				<h2 class="posttitle center">Consideration</h2>
 			</div>
 			<div class="post" data-content="post2" data-width="0" data-height="0" data-fill="1" data-stroke="0" data-radius="0" data-rotate="0" data-breathe="4">
-				<h2 class="posttitle center">Tools</h2>
+				<h2 class="posttitle center">Implement I</h2>
 			</div>
 			<div class="post" data-content="post3" data-width="0" data-height="1" data-fill="1" data-stroke="0" data-radius="0" data-rotate="1" data-breathe="0">
-				<h2 class="posttitle center">Principle</h2>
+				<h2 class="posttitle center">Implement II</h2>
 			</div>
 			<div class="post" data-content="post4" data-width="1" data-height="1" data-fill="1" data-stroke="0" data-radius="1" data-rotate="0" data-breathe="1">
 				<h2 class="posttitle center">Ideation</h2>
 			</div>
 			<div class="post" data-content="post5" data-width="0" data-height="0" data-fill="0" data-stroke="0" data-radius="1" data-rotate="0" data-breathe="0">
-				<h2 class="posttitle center">Coding - Data</h2>
+				<h2 class="posttitle center">Coding I</h2>
 			</div>
 			<div class="post" data-content="post6" data-width="0" data-height="0" data-fill="1" data-stroke="0" data-radius="1" data-rotate="0" data-breathe="2">
-				<h2 class="posttitle center">Coding - Audio</h2>
+				<h2 class="posttitle center">Coding II</h2>
 			</div>
 			<div class="post" data-content="post7" data-width="0" data-height="0" data-fill="0" data-stroke="1" data-radius="0" data-rotate="0" data-breathe="1">
-				<h2 class="posttitle center">Coding - Pattern</h2>
+				<h2 class="posttitle center">Coding III</h2>
 			</div>
 			<div class="post" data-content="post8" data-width="1" data-height="1" data-fill="0" data-stroke="1" data-radius="0" data-rotate="1" data-breathe="2">
-				<h2 class="posttitle center">Coding - Animation</h2>
+				<h2 class="posttitle center">Coding IV</h2>
 			</div>
 		</main>
 
@@ -146,75 +146,382 @@
 			<div id="textwrapper" class="center">
 				<section class="text" data-content="about">
 					<h1>ABOUT</h1>
-					<p>
-						This experiment-oriented blog attempts to bring forth music visualization in both individual and combinational forms of lines, shapes, and colors. German musician Kontra K’s latest album “Gute Nacht” is set as the experimental subject for potential visual performances. Animated representations along with short text explanations are expected to convey the musical messages to a potential audience in a compelling and clear manner, which also seek to serve as promising digital prototypes for concert lighting/stage design. Ideation and working process are detailed for others’ reference. This project is mainly credited to Kontra K, Zachary Lieberman (visual artist), and Ian Reah (software developer).
-					</p>
+					<div class="container">
+						<p>
+							This experiment-oriented blog attempts to bring forth music visualization in both individual and combinational forms of lines, shapes, and colors. German musician Kontra K’s latest album “Gute Nacht” is set as the experimental subject for potential visual performances. Animated representations along with short text explanations are expected to convey the musical messages to a potential audience in a compelling and clear manner, which also seek to serve as promising digital prototypes for concert lighting/stage design. Ideation and working process are detailed for others’ reference. This project is mainly credited to Kontra K, Zachary Lieberman (visual artist), and Ian Reah (software developer).
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="bio">
 					<h1>BIO</h1>
-					<p>
-						Yuqi Wang, born in 1994 in Zhejiang, China. He studied Economics/Management Science at Sun Yat-sen University. Currently majors in Communication Design at Parsons School of Design, focusing on Interaction Design. With enthusiasm for music performance and German culture, he is pursuing future study experience in Lighting/Stage Design in Germany. Lives in New York City, United States.
-					</p>
+					<div class="container">
+						<p>
+							Yuqi Wang, born in 1994 in Zhejiang, China. He studied Economics/Management Science at Sun Yat-sen University. Currently majors in Communication Design at Parsons School of Design, focusing on Interaction Design. With enthusiasm for music performance and German culture, he is pursuing future study experience in Lighting/Stage Design in Germany. Lives in New York City, United States.
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post1">
-					<h1>POST 1</h1>
-					<p>
-						post 1
-					</p>
+					<h1>Inspiration</h1>
+					<div class="container">
+						<p>
+							post 1
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post2">
-					<h1>POST 2</h1>
-					<p>
-						post 2
-					</p>
+					<h1>IMPLEMENT — CONCEPT</h1>
+					<div class="container">
+						<p>
+							The implement this project chiefly employs is termed Web Audio API. The following explanation from <strong><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">MDN</a></strong> details the concepts and usage of this tool.<br><br>
+
+							&quot;The Web Audio API involves handling audio operations inside an <em>audio context</em>, and has been designed to allow <em>modular routing</em>. Basic audio operations are performed with <em>audio nodes</em>, which are linked together to form an <em>audio routing graph</em>. Several sources — with different types of channel layout — are supported even within a single context. This modular design provides the flexibility to create complex audio functions with dynamic effects.<br><br>
+
+							Audio nodes are linked into chains and simple webs by their inputs and outputs. They typically start with one or more sources. Sources provide arrays of sound intensities (samples) at very small timeslices, often tens of thousands of them per second. These could be either computed mathematically (such as <em>OscillatorNode</em>), or they can be recordings from sound/video files (like <em>AudioBufferSourceNode</em> and <em>MediaElementAudioSourceNode</em>) and audio streams (<em>MediaStreamAudioSourceNode</em>). In fact, sound files are just recordings of sound intensities themselves, which come in from microphones or electric instruments, and get mixed down into a single, complicated wave.<br><br>
+
+							Outputs of these nodes could be linked to inputs of others, which mix or modify these streams of sound samples into different streams. A common modification is multiplying the samples by a value to make them louder or quieter (as is the case with <em>GainNode</em>). Once the sound has been sufficiently processed for the intended effect, it can be linked to the input of a destination (<em>AudioContext.destination</em>), which sends the sound to the speakers or headphones. This last connection is only necessary if the user is supposed to hear the audio.<br><br>
+
+							A simple, typical workflow for web audio would look something like this:<br><br>
+
+							1.	Create audio context<br>
+							2.	Inside the context, create sources — such as &lt;audio&gt;, oscillator, stream<br>
+							3.	Create effects nodes, such as reverb, biquad filter, panner, compressor<br>
+							4.	Choose final destination of audio, for example your system speakers<br>
+							5.	Connect the sources up to the effects, and the effects to the destination.<br><br>
+
+							<img src="assets/media/img/webaudioAPI_en.svg"><br><br>
+
+							Timing is controlled with high precision and low latency, allowing developers to write code that responds accurately to events and is able to target specific samples, even at a high sample rate. So applications such as drum machines and sequencers are well within reach.<br><br>
+
+							The Web Audio API also allows us to control how audio is <em>spatialized</em>. Using a system based on a <em>source-listener</em> model, it allows control of the <em>panning model</em> and deals with <em>distance-induced attenuation</em> or <em>doppler shift</em> induced by a moving source (or moving listener).&quot;
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post3">
-					<h1>POST 3</h1>
-					<p>
-						post 3
-					</p>
+					<h1>IMPLEMENT — INTERFACES</h1>
+					<div class="container">
+						<p>
+							Interfaces essential for this project also need to be introduced before we get our hands dirty. The definitions from <strong><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">MDN</a></strong> are listed below.<br><br>
+
+							<em>AudioContext</em><br>
+							The AudioContext interface represents an audio-processing graph built from audio modules linked together, each represented by an AudioNode. An audio context controls the creation of the nodes it contains and the execution of the audio processing, or decoding. You need to create an AudioContext before you do anything else, as everything happens inside a context.<br><br>
+
+							<em>AudioNode</em><br>
+							The AudioNode interface represents an audio-processing module like an audio source (e.g. an HTML &lt;audio&gt; or &lt;video&gt; element), audio destination, intermediate processing module (e.g. a filter like BiquadFilterNode, or volume control like GainNode).<br><br>
+
+							<em>MediaElementAudioSourceNode</em><br>
+							The MediaElementAudioSourceNode interface represents an audio source consisting of an HTML5 &lt;audio&gt; or &lt;video&gt; element. It is an AudioNode that acts as an audio source.<br><br>
+
+							<em>AnalyserNode</em><br>
+							The AnalyserNode interface represents a node able to provide real-time frequency and time-domain analysis information, for the purposes of data analysis and visualization.<br><br>
+
+							Ian Reah offers a possible approach to audio visualization with a clear workflow employing these interfaces in his blog <strong><em><a href="http://ianreah.com/2013/02/28/Real-time-analysis-of-streaming-audio-data-with-Web-Audio-API.html" target="_blank">Real-time analysis of streaming audio data with Web Audio API</a></em></strong>, whose contribution to this project is highly appreciated. Five major steps ought to be taken as interpreted:<br><br>
+
+							1.	Create AudioContext for the source-to-destination routing<br>
+							var context = new AudioContext();<br><br>
+
+							2.	Get audio input by using Audio tag<br>
+							&lt;audio id=”id” src=”url”&gt;&lt;/audio&gt;
+							var audio = document.getElementById(“id”);<br>
+							var source = context.createMediaElementSource(audio);<br><br>
+
+							3.	Create Analyser and connect nodes<br>
+							var analyser = context.createAnalyser();<br>
+							source.connect(analyser);<br>
+							Analyser.connect(context.destination);<br><br>
+
+							4.	Access the source data (frequency)<br>
+							analyser.fftSize = 2048 (by default);<br>
+							analyser.frequencyBinCount = 1024;<br>
+							var frequencyData = new Uint8Array(analyser.frequencyBinCount);<br>
+							analyser.getByteFrequencyData(frequencyData);<br><br>
+
+							5.	Define visual output by creating animations and keep them updated<br>
+							function update() {<br>
+							    requestAnimationFrame(update);<br>
+							    analyser.getByteFrequencyData(frequencyData);<br>
+							    animation;<br>
+							};<br><br>
+
+							update();<br><br>
+
+							<img src="assets/media/img/routing_with_analyser_node.png">
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post4">
-					<h1>POST 4</h1>
-					<p>
-						post 4
-					</p>
+					<h1>IDEATION</h1>
+					<div class="container">
+						<p>
+							
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post5">
-					<h1>POST 5</h1>
-					<p>
-						post 5
-					</p>
+					<h1>CODING — DATA</h1>
+					<div class="container">
+						<p>
+							Due to the lack of original vocal tracks, songs with vocal and instrumental mixed and pure instrumental parts are both needed for the data analysis. Thus, two Audio tags should be created in HTML file for the mixed and the instrumental respectively. Sources would be dynamically defined when the “click” event is triggered on Music Tab, which is on the top right.<br><br>
+
+							<strong>HTML</strong><br>
+							&lt;audio id="mixed" src="#" preload="auto" crossOrigin="anonymous"&gt;&lt;/audio&gt;<br>
+							&lt;audio id="instrumental" src="#" preload="auto" crossOrigin="anonymous"&gt;&lt;/audio&gt;<br><br>
+							&lt;main id="musictab"&gt;<br>
+								&lt;div class="song"&gt;<br>
+									&lt;h2 class="songname"&gt;Song Name&lt;/h2&gt;<br>
+								&lt;/div&gt;<br>
+							&lt;/main&gt;<br><br>
+
+							<strong>JavaScript</strong><br>
+							var audioMix = document.getElementById("mixed");<br>
+							var audioIns = document.getElementById("instrumental");<br>				
+							var musicTab = document.getElementById("musictab");<br><br>
+
+							musicTab.addEventListener("click", function(e) {<br>
+								if (e.target.nodeName == "H2") {<br>
+									var node = e.target;<br>
+								} else if (e.target.nodeName == "DIV") {<br>
+									var node = e.target.children[0];<br>
+								};<br>
+								audioMix.src = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.innerHTML.split(" ").join("%20").split("&amp;amp;").join("&") + ".m4a";<br>
+  								audioIns.Src = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.innerHTML.split(" ").join("%20").split("&amp;amp;").join("&") + "-Instrumental.m4a";<br>
+							});
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post6">
-					<h1>POST 6</h1>
-					<p>
-						post 6
-					</p>
+					<h1>CODING — API & EVENTS</h1>
+					<div class="container">
+						<p>
+							Web Audio API is utilized twice for both mixed and instrumental music. In addition, audios are expected to be on repeat. "Ended" event hence ought to trigger audios' replay.<br><br>
+
+							<strong>JavaScript</strong><br>
+							audioMix.addEventListener("ended", function() {<br>
+							  audioMix.play();<br>
+							})<br>
+							audioIns.addEventListener("ended", function() {<br>
+							  audioIns.play();<br>
+							})<br><br>
+
+							var AudioContext = (window.AudioContext || window.webkitAudioContext);<br><br>
+
+							var contextMix = new AudioContext;<br>
+							var analyserMix = contextMix.createAnalyser();<br>
+							audioMix.addEventListener("canplaythrough", function() {<br>
+							  var sourceMix = contextMix.createMediaElementSource(audioMix);<br>
+							  sourceMix.connect(analyserMix);<br>
+							  analyserMix.connect(contextMix.destination);<br>
+							});<br>
+							analyserMix.fftSize = 1024;<br>
+							var frequencyDataMix = new Uint8Array(analyserMix.frequencyBinCount);<br>
+							analyserMix.getByteFrequencyData(frequencyDataMix);<br><br>
+
+							var contextIns = new AudioContext;<br>
+							var analyserIns = contextIns.createAnalyser();<br>
+							audioIns.addEventListener("canplaythrough", function() {<br>
+							  var sourceIns = contextIns.createMediaElementSource(audioIns);<br>
+							  sourceIns.connect(analyserIns);<br>
+							  analyserIns.connect(contextIns.destination);<br>
+							});<br>
+							analyserIns.fftSize = 1024;<br>
+							var frequencyDataIns = new Uint8Array(analyserIns.frequencyBinCount);<br>
+							analyserIns.getByteFrequencyData(frequencyDataIns);<br><br>
+
+							function updateVoc() {<br>
+							  requestAnimationFrame(updateVoc);<br>
+							  analyserMix.getByteFrequencyData(frequencyDataMix);<br>
+							  vocalAnimation;<br>
+							};<br><br>
+
+							function updateIns() {<br>
+							  requestAnimationFrame(updateIns);<br>
+							  analyserIns.getByteFrequencyData(frequencyDataIns);<br>
+							  instrumentalAnimation;<br>
+							};<br><br>
+
+							*Animations will be detailed in the following posts.
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post7">
-					<h1>POST 7</h1>
-					<p>
-						post 7
-					</p>
+					<h1>CODING — PATTERN</h1>
+					<div class="container">
+						<p>
+							The HTMLElement.dataset property is used for accessing specific pattern settings when Blog Tab (on the bottom right) is clicked. Variables in use are of two groups: width, height, fill, stroke, border-radius, and rotate for defining the shape, and box-shadow, background-color, opacity, top as well as height for determining the animation. Two modes of animations for the same post are essentially in the same shape and pattern. This post mainly demonstrates the relatively static background setting, and the last post will detail the animation part.<br><br>
+
+							<strong>HTML</strong><br>
+							&lt;main id="blogtab"&gt;<br>
+								&lt;div class="post" data-content="about" data-width="1" data-height="1" data-fill="0" data-stroke="2" data-radius="0" data-rotate="1" data-breathe="3"&gt;<br>
+									&lt;h2 class="posttitle"&gt;About&lt;/h2&gt;<br>
+								&lt;/div&gt;<br>
+							&lt;/main&gt;<br><br>
+
+							<strong>JavaScript</strong><br>
+							blogTab.addEventListener("click", function(e) {<br>
+								var n = e.target.dataset;<br>
+								effectSet(n.content, n.width, n.height, n.fill, n.stroke, n.radius, n.rotate, n.breathe);<br>
+							};<br><br>
+
+							function effectSet(pattern, width, height, fill, stroke, radius, rotate, breathe) {<br>
+							  var effect = document.createElement("section");<br>
+							  effect.classList.add("effect");<br>
+							  background.appendChild(effect);<br>
+							  for (var i = 0; i < 72; i ++) {<br>
+							    var divCol = document.createElement("div");<br>
+							    var divLit = document.createElement("div");<br>
+							    divCol.classList.add("col", "col-1");<br>
+							    divLit.classList.add(pattern, "pattern", "center");<br>
+							    if (width == 1) {<br>
+							      divLit.style.width = Math.random()*window.innerWidth/12 + "px";<br>
+							    };<br>
+							    if (height == 1) {<br>
+							      if (width == 1) {<br>
+							        divLit.style.height = divLit.style.width;<br>
+							      } else {<br>
+							        divLit.style.height = Math.random()*window.innerHeight/6 + "px";<br>
+							      };<br>
+							    };<br>
+							    if (fill == 1) {<br>
+							      divLit.style.backgroundColor = "white";<br>
+							    };<br>
+							    if (stroke == 1) {<br>
+							      divLit.style.border = "white 1px solid";<br>
+							    } else if (stroke == 2) {<br>
+							      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]<br>
+							      divLit.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";<br>
+							    };<br>
+							    if (rotate == 1) {<br>
+							      divLit.style.transform = "rotate(" + Math.random()*360 + "deg)";<br>
+							    };<br>
+							    divLit.style.opacity = Math.random();<br>
+							    divLit.style.animationName = "breathe" + breathe;<br>
+							    divLit.style.animationDelay = Math.random() + "s";<br>
+							    effect.appendChild(divCol);<br>
+							    divCol.appendChild(divLit);<br>
+							  };<br>
+							}
+						</p>
+					</div>
 				</section>
 
 				<section class="text" data-content="post8">
-					<h1>POST 8</h1>
-					<p>
-						post 8
-					</p>
+					<h1>CODING — ANIMATION</h1>
+					<div class="container">
+						<p>
+							<strong>JavaScript</strong><br>
+							blogTab.addEventListener("click", function(e) {<br>
+								var n = e.target.dataset;<br>
+								stageSet(n.content);<br>
+							};<br><br>
+
+							function stageSet(perform) {<br>
+							  var stage = document.createElement("section");<br>
+							  stage.classList.add("stage");<br>
+							  background.appendChild(stage);<br>
+							  var vocal = document.createElement("div");<br>
+							  var instrumental = document.createElement("div");<br>
+							  vocal.classList.add(perform, "vocal", "perform", "center");<br>
+							  instrumental.classList.add(perform, "instrumental", "perform", "center");<br>
+							  stage.appendChild(vocal);<br>
+							  stage.appendChild(instrumental);<br>
+							}<br><br>
+
+							function updateVoc() {<br>
+							  if (background.children.length != 0) {<br>
+							    requestAnimationFrame(updateVoc);<br>
+							    analyserMix.getByteFrequencyData(frequencyDataMix);<br><br>
+
+							    var totalMix = 0;<br>
+							    var totalIns = 0;<br>
+							    for (var i = 0; i < frequencyDataMix.length; i ++) {<br>
+							      totalMix += frequencyDataMix[i];<br>
+							    }<br>
+							    for (var i = 0; i < frequencyDataIns.length; i ++) {<br>
+							      totalIns += frequencyDataIns[i];<br>
+							    }<br>
+							    var totalVoc = totalMix - totalIns;<br><br>
+
+							    var meanVoc = totalVoc/frequencyDataMix.length;<br>
+							    var vocal = document.querySelector(".vocal");<br><br>
+							    
+							    for (var i = 0; i < post.length; i ++) {<br>
+							      if (post[i].classList.contains("focus")) {<br>
+							        var width = post[i].dataset.width;<br>
+							        var height = post[i].dataset.height;<br>
+							        var fill = post[i].dataset.fill;<br>
+							        var stroke = post[i].dataset.stroke;<br>
+							        var radius = post[i].dataset.radius;<br>
+							        var rotate = post[i].dataset.rotate;<br>
+							        var breathe = post[i].dataset.breathe;<br>
+							        var n = i;<br>
+							      }<br>
+							    }<br><br>
+
+							    if (width == 1) {<br>
+							      vocal.style.width = meanVoc*5 + "px";<br>
+							    } else {<br>
+							      vocal.style.width = "2px";<br>
+							    };<br>
+							    if (height == 1 || breathe == 4) {<br>
+							      vocal.style.height = meanVoc*5 + "px";<br>
+							    } else {<br>
+							      vocal.style.height = "2px";<br>
+							    };<br>
+							    if (width == 0 && height == 0) {<br>
+							      vocal.style.width = vocal.style.height = meanVoc*4 + "px";<br>
+							    };<br>
+							    if (fill == 1) {<br>
+							      vocal.style.backgroundColor = "white";<br>
+							    };<br>
+							    if (stroke == 1) {<br>
+							      vocal.style.border = "white 1px solid";<br>
+							    } else if (stroke == 2) {<br>
+							      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"];<br>
+							      vocal.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";<br>
+							    };<br>
+							    if (radius == 1) {<br>
+							      vocal.style.borderRadius = "50%";<br>
+							    };<br>
+							    if (rotate == 1) {<br>
+							      vocal.style.transform = "rotate(" + meanVoc + "deg)";<br>
+							    };<br>
+							    if (breathe == 0) {<br>
+							      vocal.style.boxShadow = "0 0 " + 25 + "px " + meanVoc/10 + "px white";<br>
+							    } else if (breathe == 1) {<br>
+							      vocal.style.backgroundColor = "rgba(255, 255, 255, " + meanVoc/80 + ")";<br>
+							    } else if (breathe == 2) {<br>
+							      vocal.style.opacity = meanVoc/80;<br>
+							    } else if (breathe == 3) {<br>
+							      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";<br>
+							    };<br>
+							    if (n == 1) {<br>
+							      vocal.style.transform = "";<br>
+							    } else if (n == 2) {<br>
+							      vocal.style.top = "-" + meanVoc/2 +"%";<br>
+							    } else if (n == 3) {<br>
+							      vocal.style.width = "2px";<br>
+							      vocal.style.height = meanVoc*5 + "px";<br>
+							      vocal.style.left = "-" + meanVoc/2 +"%";<br>
+							    } else if (n == 4) {<br>
+							      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";<br>
+							    } else if (n == 7) {<br>
+							      vocal.style.top = vocal.style.left = "-" + meanVoc/2 +"%";<br>
+							    } else if (n == 8) {<br>
+							      vocal.style.backgroundColor = "rgba(0, 0, 0, " + meanVoc/80 + ")";<br>
+							    };<br>
+							  };<br>
+							};
+						</p>
+					</div>
 				</section>
 			</div>
-			<div id="postbg"></div>
 		</main>
 
 		<!--Effect & Stage-->

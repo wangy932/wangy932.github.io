@@ -29,7 +29,7 @@ var excerpt = document.getElementById("excerpt");
 var content = document.getElementById("content");
 var text = document.getElementsByClassName("text");
 var h1 = document.getElementsByTagName("h1");
-var p = document.getElementsByTagName("p");
+var container = document.getElementsByClassName("container");
 
 var background = document.getElementById("background");
 
@@ -359,8 +359,8 @@ content.addEventListener("click", function() {
   }
 })
 
-for (var i = 0; i < p.length; i ++) {
-  p[i].addEventListener("scroll", function() {
+for (var i = 0; i < container.length; i ++) {
+  container[i].addEventListener("scroll", function() {
     content.style.transition = "background-color 1s width 1s, height 1.8s, border 1.8s, transform 2.5s, opacity 1s";
     content.style.backgroundColor = "rgba(0, 0, 0, 1)";
     setTimeout(function() {
@@ -582,7 +582,7 @@ function updateVoc() {
     if (stroke == 1) {
       vocal.style.border = "white 1px solid";
     } else if (stroke == 2) {
-      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]
+      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"];
       vocal.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";
     }
     if (radius == 1) {
@@ -663,7 +663,7 @@ function updateIns() {
     if (stroke == 1) {
       instrumental.style.border = "white 1px solid";
     } else if (stroke == 2) {
-      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"]
+      var borderRandom = ["borderTop", "borderBottom", "borderLeft", "borderRight"];
       instrumental.style[borderRandom[Math.floor(Math.random()*borderRandom.length)]] = "white 1px solid";
     }
     if (radius == 1) {
