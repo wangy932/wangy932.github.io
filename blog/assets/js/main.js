@@ -146,7 +146,7 @@ var loading = {
       } else if (e.keyCode == 32) {//Space = Pause/Play
         clearInterval(musicTabInterval);
         for (var i = 0; i < songName.length; i ++) {
-          if (audioMix.src == "http://www.yuqiwang.graphics/blog/assets/media/audio/" + songName[i].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a") {
+          if (audioMix.src == "http://wangy932.github.io/blog/assets/media/audio/" + songName[i].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a") {
             if (audioMix.paused) {
               audioPlaySet();
               songName[i].classList.add("current");
@@ -359,8 +359,8 @@ for (var i = 0; i < container.length; i ++) {
 function songClick(node) {
   clearInterval(musicTabInterval);
   var previousMixSrc = audioMix.src;
-  var newMixSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
-  var newInsSrc = "http://www.yuqiwang.graphics/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
+  var newMixSrc = "http://wangy932.github.io/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + ".m4a";
+  var newInsSrc = "http://wangy932.github.io/blog/assets/media/audio/" + node.children[0].innerHTML.split(" ").join("%20").split("&amp;").join("&") + "-Instrumental.m4a";
 
   if (node.classList.contains("focus")) {
     node.classList.remove("focus");
