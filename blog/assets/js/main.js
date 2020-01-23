@@ -69,6 +69,9 @@ var loading = {
 
     //MusicTab Events
     musicTab.addEventListener("click", function(e) {
+      contextMix.resume();
+      contextIns.resume();
+      
       if (e.target.nodeName == "H2") {
         songClick(e.target.parentNode);
       } else if (e.target.nodeName == "DIV") {
